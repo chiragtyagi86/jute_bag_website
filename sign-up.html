@@ -502,13 +502,13 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formobj),
+                body: JSON.stringify(formObj),
             })
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
  
-                window.location.href = '/sign-in.html';
+                // window.location.href = '/sign-in.html';
 
             })
             .catch((error) => {

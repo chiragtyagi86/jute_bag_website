@@ -1,11 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Admin ends</h2>
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin- </title>
+    <!-- <link rel="stylesheet" href="../css/main.css" /> -->
+    <!-- <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../assets/favicon_io/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon_io/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon_io/android-chrome-512x512.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon_io/android-chrome-192x192.png"
+    />
+    <link rel="manifest" href="../assets/favicon_io/site.webmanifest" /> -->
+  </head>
+
+  <body>
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="flex justify-center items-center gap-2">
+            <img src="../assets/Anumala logo 5mb.png" width="100" alt="">
+        </div>
+        <h2
+          class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+        >
+          Admin Login
+        </h2>
+      </div>
+
+      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" id="admin-login" method="POST">
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Email address</label
+            >
+            <div class="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between">
+              <label
+                for="password"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >Password</label
+              >
+              <div class="text-sm">
+                <a
+                  href="#"
+                  class="font-semibold text-teal-600 hover:text-teal-500"
+                  >Forgot password?</a
+                >
+              </div>
+            </div>
+            <div class="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- end login form -->
+
+    <div class="fixed inset-x-0 bottom-0">
+      <div class="bg-teal-600 px-4 py-3 text-white">
+        <p class="text-center text-sm font-medium">
+          Design and Developed by
+          <a
+            href="https://chiragtyagi.netlify.app"
+            class="inline-block underline"
+            >@Chirag_Creates
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("admin-login")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          const formobj = {};
+          formData.forEach((value, key) => {
+            formobj[key] = value;
+          });
+          try {
+            const response = await fetch("http://localhost:3000/admin/signin", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formobj),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              console.log("Login successful:", data);
+              localStorage.setItem("token", data.token);
+              window.location.href = "/admin/admin.dashboard.html";
+            } else {
+              alert(data.error || "Login failed");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred during login");
+          }
+        });
+    </script>
+    <script>
+        // Create a logic if token is present locate to window.location.href = "/admin/admin.dashboard.html"
+        const token = localStorage.getItem("token");
+        if (token) {
+          window.location.href = "/admin/admin.dashboard.html";
+        }
+    </script>
+  </body>
 </html>

@@ -1,0 +1,222 @@
+const express = require("express");
+const db = require("../config/db");
+const multer = require("multer");
+const path = require("path");
+const jwt = require("jsonwebtoken");
+const authenticateToken = require("../middleware/authenticateToken");
+const verifyAdmin = require("../middleware/verifyAdmin");
+const bcrypt = require("bcrypt");
+
+
+
+const router = express.Router();
+
+
+
+let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
+let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
+
+
+router.post("/sign-up", (req, res) => {
+    const { full_name, email, password } = req.body;
+  
+    if (!email || !password || !full_name) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+  
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+  
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        error:
+          "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+      });
+    }
+  
+    function getAdminId() {
+        return "Admin" + Math.floor(100000 + Math.random() * 900000);
+  
+    }
+    // Check if email already exists in the database
+    const checkEmailSql = "SELECT COUNT(*) AS count FROM admin WHERE email = ?";
+    db.query(checkEmailSql, [email], (err, results) => {
+      if (err) {
+        console.error("Failed to check email:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+  
+      if (results[0].count > 0) {
+        return res.status(400).json({ error: "Email already exists" });
+      }
+  
+      // Hash the password before inserting into the database
+      bcrypt.hash(password, 10, async (err, hashedPassword) => {
+        if (err) {
+          console.error("Failed to hash password:", err);
+          return res.status(500).json({ error: "Internal server error" });
+        }
+  
+        let User = {
+          admin_ID: getAdminId(),
+          name: full_name,
+          email,
+          password: hashedPassword,
+        };
+  
+        const sql = "INSERT INTO admin SET ?";
+        db.query(sql, User, (err, result) => {
+          if (err) {
+            console.error("Failed to insert user:", err);
+            return res.status(500).json({ error: "Failed to insert user" });
+          }
+          res.json({
+            message: "User inserted successfully",
+            id: result.insertId,
+          });
+        });
+      });
+    });
+  });
+
+
+
+function getProductId() {
+
+  return "Product" + Math.floor(100000 + Math.random() * 900000);
+}
+
+
+
+
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); 
+  }
+});
+
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+router.post("/add-product", authenticateToken, upload.single('product_img'), async function (req, res) {
+  try {
+
+    const { product_name, product_description, product_price } = req.body;
+
+
+    if (!product_name || !product_description || !product_price) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+
+    if (!req.file) {
+      return res.status(400).json({ error: "Product image is required" });
+    }
+
+
+
+
+    const imgPath = req.file.filename;
+    const imgUrl = `http://localhost:3000/uploads/${imgPath}`;
+
+
+    const id = await getProductId();
+
+
+    const product_data = {
+      product_id: id,
+      product_name,
+      product_img: imgUrl,
+      product_discription: product_description,  
+      product_price,
+    };
+
+    
+
+    const sql = "INSERT INTO product_data SET ?";
+    db.query(sql, product_data, (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: "Database error", details: err.message });
+      }
+
+
+      res.status(200).json({ message: "Product added successfully" });
+    });
+  } catch (err) {
+
+    return res.status(500).json({ error: "Server error", details: err.message });
+  }
+});
+
+
+
+router.post("/signin", (req, res) => {
+    const { email, password } = req.body;
+  
+    if (!email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+  
+    const sql = "SELECT * FROM admin WHERE email = ?";
+    db.query(sql, [email], (err, results) => {
+      if (err) {
+        console.error("Failed to select user:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+  
+      if (results.length === 0) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+  
+      const user = results[0]; // Correctly define user
+  
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          console.error("Failed to compare passwords:", err);
+          return res.status(500).json({ error: "Internal server error" });
+        }
+  
+        if (!isMatch) {
+          return res.status(401).json({ error: "Invalid credentials" });
+        }
+  
+        // Generate JWT token using the user object
+        const token = jwt.sign(
+          { id: user.id, email: user.email, role: user.role },
+          process.env.JWT_SECRET,
+          { expiresIn: "1h" }
+        );
+  
+        res.json({
+          message: "Login successful",
+          token,
+        });
+      });
+    });
+});
+router.post("/logout", (req, res) => {
+    res.json({ message: "Logout successful" });
+  });
+  router.get('/dashboard', verifyAdmin, (req, res) => {
+    res.json({ message: 'admin' });
+});
+
+router.use('/', verifyAdmin);
+  
+  
+
+
+  
+module.exports = router;
