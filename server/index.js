@@ -2,11 +2,14 @@ const express = require('express');
 const indexRoutes = require('./routes/indexRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
+const productsRoutes = require('./routes/productsRoutes');
 const server = express();
 const bodyParser = require("body-parser");
 const path = require('path');
 const cors = require('cors');
 server.use(express.json());
+server.set('viewengine', 'pug');
+
 
 server.use(bodyParser.json());
 const port = 3000;

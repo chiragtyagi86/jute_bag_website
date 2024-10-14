@@ -54,7 +54,7 @@ async function generateUniqueId(length, tablename, column_name) {
 
 
 router.get("/signup", (req, res) => {
-    res.sendFile(path.join(__dirname, '..', '..', 'html', 'sign-up.html'));
+    res.sendFile(path.join(__dirname, '..', '..', 'client','html','sign-up.html'));
 });
 
 router.post("/signup", signupValidation, async (req, res) => {
@@ -86,7 +86,7 @@ router.post("/signup", signupValidation, async (req, res) => {
 });
 
 router.get("/signin", (req, res) => {
-    res.sendFile(path.join(__dirname, '..', '..', 'html', 'sign-in.html'));
+    res.sendFile(path.join(__dirname, '..', '..', 'client','html', 'sign-in.html'));
 });
 
 router.post("/signin", loginValidation, (req, res) => {
@@ -131,7 +131,7 @@ router.post("/signin", loginValidation, (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-    res.sendFile(path.join(__dirname, '..', '..', 'html', 'logout.html'));
+    res.sendFile(path.join(__dirname, '..', '..','client','html', 'logout.html'));
 });
 
 
