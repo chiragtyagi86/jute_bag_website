@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<script>
+    async function checkAdminAccess() {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            // window.location.href = "/index.html";
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "http://localhost:3000/admin/dashboard",
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            if (response.status === 403) {
+                alert("Access denied. You do not have the required permissions.");
+                window.location.href = "/login.html";
+            } else if (!response.ok) {
+                alert("Error accessing admin dashboard");
+            } else {
+                const data = await response.json();
+                console.log("Admin dashboard data:", data);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+</script>
+
+<body>
+    <main class="flex">
+        <div class="flex h-screen fixed w-16 flex-col justify-between border-e bg-white">
+            <div>
+                <div class="p-4 inline-flex size-16 items-center justify-center">
+                    <img src="../assets/Anumala logo 5mb.png" width="180" alt="" />
+                </div>
+
+                <div class="border-t border-gray-100">
+                    <div class="px-2">
+                        <div class="py-4">
+                            <a href="#"
+                                class="t group relative flex justify-center rounded bg-teal-50 px-2 py-1.5 text-teal-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-75" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+
+                                <span
+                                    class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                                    General
+                                </span>
+                            </a>
+                        </div>
+
+                        <ul class="space-y-1 border-t border-gray-100 pt-4">
+                            <li>
+                                <a href="/admin/admin.doctor.html"
+                                    class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-75" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+
+                                    <span
+                                        class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                                        Doctors
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#"
+                                    class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-75" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                    </svg>
+
+                                    <span
+                                        class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                                        Billing
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#"
+                                    class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-75" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+
+                                    <span
+                                        class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                                        Invoices
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#"
+                                    class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-75" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+
+                                    <span
+                                        class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                                        Account
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sticky inset-x-0 bottom-0 border-t border-gray-100 bg-white p-2">
+                <form>
+                    <button id="logoutButton" type="submit"
+                        class="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-75" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+
+                        <span
+                            class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                            Logout
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="w-full ml-[60px]">
+            <div class="bg-teal-600 px-4 py-3 text-white sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+                <p class="text-center font-medium sm:text-left">
+                    Welcome to your dashboard! <span class="underline" id="user"></span>
+                </p>
+
+                <a class="mt-4 block rounded-lg bg-white px-5 py-3 text-center text-sm font-medium text-teal-600 transition hover:bg-white/90 focus:outline-none focus:ring active:text-teal-500 sm:mt-0"
+                    href="#">
+                    Learn More
+                </a>
+            </div>
+            <form id="add-product" class="m-5">
+                <!-- <div class="grid grid-cols-1 gap-4 lg:grid-cols-[310px_1fr] lg:gap-8"> -->
+                <div class="grid  grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
+                    <div class="rounded-lg lg:col-span-1  border">
+                        <header>
+                            <h2 class=" m-5 text-xl text-[#071437]">Thumbnail</h2>
+                        </header>
+                        <div class="relative h-64 m-5 rounded border">
+                            <img width="400" id="imageDisplay" class="h-full w-full p-2 cursor-pointer rounded border-dotted"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAREAAAC4CAMAAADzLiguAAAAPFBMVEX///+rq6unp6fMzMykpKTp6enx8fHU1NS0tLS6urr6+vqwsLDHx8fPz8/w8PD19fXa2trh4eHl5eXAwMAzrysnAAADpklEQVR4nO2c2ZKDIBAAE6KJmsPr//91c69yKKREHav7dctl6YVhGJTdDgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZqE5LMU1XbrvVupELUe9dO9t5PsFyZfuvY1FjWRL994GRnQeRs5NOj+rNpIVCzSMER2M6GBEByM6GNHBiI4cI+mhbdtLE12SFCO3XKnH36ryJnLDQoxU/xm2usZtWIaRWu1nUyLCSNnfh6moE0eEkYvqK4lavpBgpNA368ktYsMSjKSJbqSK2LAEI7VuRB0iNizBSGUYuURsWIIRc4zEXH8lGDkacSTm6YEEI7tMX2zKiA2LMFL185HAMJJWdcj2UIQRfZCEDJEyT5JkH7BcyzBSnrujJORY9r0BSPzXaxlGHv/pz5TJQoQUn4Mw5T1KhBi5x5LseUadnYJKRlcVPLLEGNkVt7qq0rASWtOZa7nno3KM/EB5/mGF2rSRvLdqe+Z1WzZy0Moq6ujz1IaNNJoQz1CyXSO9IPIeJD5ZyXaN6KXIJx6hZLNGKpuQ/Xl8A7BVI6nNx+MAbPTJjRopjAKCdyjZqJHWOmeeSsay+W0asQcRv1CySSM3t4/7IGmHH96ikW8JwKHkNPj0Fo3o2bvBYCiRayRt84u1a/WYkOHfK9bISam92lvW0qOZvRvzZqgwINXI+5zP0rd8dIgMHxwLNdI4+zYaRF643y6QaaT4nxlaxtXo538O3LJlGmk7fetlXKW9/ybuUCLSSC8l7WZchTt7N5S4QolEI1pK2sm4Tt5C7mPLEUoEGjH3tZ++OUoAjkHiKAwINGIWx86vHxTjmUhPib0wIM+IZV/7DpOhn/bZjyvEGbHOjGffQoLIG1thQJoRV3HsFhZEXqjWolyaEUdKqvLyl89hbYUBYUbcKWlYVP1i7p5lGfFOSb05G9JlGfHZ14ZhZiWijFwnF2IJJZKM1NP7eKCFEkFGLEfbk5D1sxJBRvz3tWFohQE5Rk6etaAflPQKA2KMpJFGyJNuYUCKkdJ1tD0JXfVSjFjfj5mMbigRYmToaHsSJf+FARlGftjXhvJ9j1GEEef7MdOhvu8xijASN4i8lXy+dJNgxPhOLw7vL80FGDnO4uN7FCbAyGx3xb0KA+s3cpntysnkGUpWb6Q8zcjjP7B6I7ODEZ1VGznfjrNzW7WRfbIA6zayFBjRWeWtxhU3X+vUi92Ofoh9CR0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA2+AN7/TZH3Ls1kQAAAABJRU5ErkJggg=="
+                                alt="Click to upload" />
+                            <input type="file" id="imageInput" name="product_img"
+                                class="absolute inset-0 h-full w-full opacity-0 cursor-pointer" accept="image/*">
+                        </div>
+                        <span class="text-sm text-gray-400 line-clamp-3 m-5 text-center ">
+                            Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted
+                        </span>
+
+                    </div>
+                    <div class="border rounded-lg lg:col-span-3">
+                        <div class="m-5">
+                            <header>
+                                <h2 class="text-xl">
+                                    General
+                                </h2>
+                            </header>
+                            <div class="relative">
+                                <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Product Name
+                                    <sup class="text-red-600">*</sup>
+                                </label>
+                                <input type="text" id="product_name" name="product_name"
+                                    class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                    placeholder="Product name" required />
+                                <span class="text-xs ml-5 text-gray-400">A product name is required and recommended to
+                                    be unique.</span>
+                            </div>
+                            <div>
+                                <label for="product_description" class="block text-m font-medium text-gray-700"> Product
+                                    Discription <sup class="text-red-600">*</sup>
+                                </label>
+
+                                <textarea id="product_description" name="product_description"
+                                    class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                    rows="8" placeholder="Enter any additional order notes..."></textarea>
+                                <span class="text-xs ml-5 text-gray-400">Set a description to the product for better
+                                    visibility.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid mt-5 grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
+                    <div class="rounded-lg  lg:col-span-1">
+                        <div>
+                            <div class="border rounded-lg p-5">
+                                <div class="flex items-center justify-between m-4">
+                                    <label for="product_status" class="block text-m font-medium text-gray-900"> Product
+                                        Status
+                                    </label>
+                                    <div class="rounded-full bg-teal-500 w-4 h-4" id="product_status_dot"></div>
+                                </div>
+
+                                <select name="product_status" id="product_status"
+                                    class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+                                    <option value="">Please select</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="scheduled">Scheduled</option>
+                                    <option value="inactive">Inactive</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="border rounded-lg p-5 mt-5">
+                                <div class="relative">
+                                    <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Product
+                                        Quantity
+                                        <sup class="text-red-600">*</sup>
+                                    </label>
+                                    <input type="number" name="product_qty" id="product_qty"
+                                        class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        placeholder="QTY" required />
+                                    <span class="text-xs ml-5 line-clamp-3  text-gray-400">Number must be greter than
+                                        0.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" border rounded-lg  lg:col-span-3">
+                        <div class="m-5">
+                            <header>
+                                <h2 class="text-xl">Pricing</h2>
+                            </header>
+                            <div class="relative">
+                                <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Product
+                                    Price
+                                    <sup class="text-red-600">*</sup>
+                                </label>
+                                <input type="number"
+                                    class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                    placeholder="Product price" id="product_price" name="product_price" required />
+                                <span class="text-xs ml-5 text-gray-400">Set the product price.</span>
+                            </div>
+                            <div>
+                                <label for="" class="block text-m mt-4 font-medium text-gray-700">Discount Type</label>
+                                <div class="grid lg:grid-cols-3 gap-4">
+                                    <div>
+                                        <div>
+                                            <label for="product_discount"
+                                                class="flex cursor-pointer justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
+                                                <div>
+                                                    <p class="text-gray-700">No Discount</p>
+                                                    <p class="mt-1 text-gray-900">on MRP</p>
+                                                        <div class="flex items-center justify-center">
+                                                        </div>
+                                                </div>
+
+                                                <input type="radio" name="product_discount" value='0'
+                                                    id="product_discount" class="size-5 border-gray-300 text-blue-500"
+                                                     />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label for="product_discount_percentage" 
+                                                class="flex cursor-pointer justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
+                                                <div>
+                                                    <p class="text-gray-700">Percentage</p>
+                                                    <p class="mt-1 text-gray-900">20% default</p>
+                                                       
+                                                </div>
+
+                                                <input type="radio" name="product_discount" value='20%'
+                                                    id="product_discount_percentage" class="size-5 border-gray-300 text-blue-500"
+                                                     />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label for="product_discount_fixed"
+                                                class="flex cursor-pointer justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
+                                                <div>
+                                                    <p class="text-gray-700">Fixed Price</p>
+
+                                                    <p class="mt-1 text-gray-900">On MRP</p>
+                                                </div>
+
+                                                <input type="radio" name="product_discount" value='fixed_price'
+                                                    id="product_discount_fixed" class="size-5 border-gray-300 text-blue-500"
+                                                     />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid lg:grid-cols-2 gap-4">
+                                <div class="relative">
+                                    <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Tax
+                                        Class
+                                        <sup class="text-red-600">*</sup>
+                                    </label>
+                                    <select name="product_tax_class" id="product_tax_class"
+                                        class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+                                        <option value="">Please select</option>
+                                        <option value="tax-free">Tax Free</option>
+                                        <option value="taxable-goods">Taxable Goods</option>
+                                    </select>
+
+                                    <span class="text-xs ml-5 text-gray-400">Set the product tax class.</span>
+                                </div>
+                                <div class="relative">
+                                    <label for="tax_amount" class="block text-m mt-4 font-medium text-gray-700">GST
+                                        Amount (%)
+                                        <sup class="text-red-600">*</sup>
+                                    </label>
+                                    <input name="product_tax_amount" id="product_tax_amount"
+                                        class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+
+                                    </input>
+
+                                    <span class="text-xs ml-5 text-gray-400">Set the product GST about.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-end m-5 gap-4">
+                    <button class="px-4 py-2 bg-gray-400 text-white rounded-md" type="reset">Cancel</button>
+                    <button class="px-4 py-2 bg-teal-600 text-white rounded-md" type="submit">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imageDisplay = document.getElementById('imageDisplay');
+
+        imageInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imageDisplay.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script>
+        async function checkAuth() {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                window.location.href = "admin/index.html";
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    "http://localhost:3000/admin/dashboard",
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (response.status === 401 || response.status === 403) {
+                    window.location.href = "/index.html";
+                } else if (!response.ok) {
+                    console.error("Error:", await response.text());
+                    window.location.href = "/index.html";
+                } else {
+                    const data = await response.json();
+                    document.getElementById("user").textContent = data.message; // Display the username in the welcome message
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                window.location.href = "/index.html";
+            }
+        }
+        checkAuth();
+        document
+            .getElementById("logoutButton")
+            .addEventListener("click", async () => {
+
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    alert("You are not logged in");
+                    return;
+                }
+
+                try {
+                    const response = await fetch("http://localhost:3000/admin/logout", {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+
+                    if (response.ok) {
+                        localStorage.removeItem("token");
+                        window.location.href = "/admin";
+                    } else {
+                        alert("Logout failed");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("An error occurred during logout");
+                }
+            });
+    </script>
+    <script>
+        document.getElementById("add-product").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const token = localStorage.getItem("token");
+            const formObj = {}
+            formData.forEach((value, key) => {
+                formObj[key] = value;
+            });
+            console.log(formObj);
+
+            try {
+                const response = await fetch('http://localhost:3000/admin/add-product', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                })
+                if (response.ok) {
+                    alert("Product added successfully");
+                    window.location.href = "/admin/admin.products.html";
+
+                }
+                else {
+                    alert("Error adding product");
+                    console.log("Error:", await response.text());
+                }
+            }
+            catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while adding product");
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

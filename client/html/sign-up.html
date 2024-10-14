@@ -497,6 +497,8 @@
           formData.forEach((value, key)=> {
             formObj[key] = value;
           })
+          console.log(formObj);
+          
           fetch("http://localhost:3000/sign-up", {
             method: 'POST',
                 headers: {
