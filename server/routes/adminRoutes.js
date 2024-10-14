@@ -107,20 +107,36 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-router.post("/add-product", authenticateToken, upload.single('product_img'), async function (req, res) {
+router.post("/add-product", authenticateToken, verifyAdmin, upload.single('product_img'), async function (req, res) {
   try {
 
-    const { product_name, product_description, product_price } = req.body;
+    const { product_name, product_description, product_price, product_qty, product_discount, product_tax_class, product_status, product_tax_amount } = req.body;
 
 
-    if (!product_name || !product_description || !product_price) {
+    //validate 
+    if (!product_name ||!product_description ||!product_price ||!product_qty ||!product_discount ||!product_tax_class ||!product_status ||!product_tax_amount) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
 
+    if (product_price < 0 || product_qty < 0 || product_discount < 0 || product_tax_amount < 0) {
+      return res.status(400).json({ error: "Invalid input for product price, quantity, discount, or tax amount" });
+    }
+
+
+    if (product_discount > product_price) {
+      return res.status(400).json({ error: "Discount cannot be greater than product price" });
+    }
+
+
+    if (product_qty < 0 || product_qty > 1000) {
+      return res.status(400).json({ error: "Quantity cannot be greter or less than 1000" })
+    }
+
     if (!req.file) {
       return res.status(400).json({ error: "Product image is required" });
     }
+
 
 
 
@@ -138,6 +154,11 @@ router.post("/add-product", authenticateToken, upload.single('product_img'), asy
       product_img: imgUrl,
       product_discription: product_description,  
       product_price,
+      product_qty,
+      product_discount,
+      product_tax_class,
+      product_status,
+      product_tax_amount,
     };
 
     
@@ -157,9 +178,29 @@ router.post("/add-product", authenticateToken, upload.single('product_img'), asy
   }
 });
 
+// edit product
+router.get("/product/:product_id",  (req, res) => {
+    const { product_id } = req.params;
+
+    
+
+    const sql = "SELECT * FROM product_data WHERE product_id =?";
+    db.query(sql, [product_id], (err, results) => {
+      if (err) {
+        console.error("Failed to select product:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      if (results.length === 0) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      res.json(results[0]);
+    });
+})
 
 
-router.post("/signin", (req, res) => {
+router.post("/signin",   (req, res) => {
     const { email, password } = req.body;
   
     if (!email || !password) {
@@ -175,9 +216,9 @@ router.post("/signin", (req, res) => {
         console.error("Failed to select user:", err);
         return res.status(500).json({ error: "Internal server error" });
       }
-  
+
       if (results.length === 0) {
-        return res.status(401).json({ error: "Invalid credentials" });
+        return res.status(401).json({ error: "Invalid credentials " });
       }
   
       const user = results[0]; // Correctly define user
@@ -189,7 +230,7 @@ router.post("/signin", (req, res) => {
         }
   
         if (!isMatch) {
-          return res.status(401).json({ error: "Invalid credentials" });
+          return res.status(401).json({ error: "Password is not matching" });
         }
   
         // Generate JWT token using the user object
@@ -206,6 +247,17 @@ router.post("/signin", (req, res) => {
       });
     });
 });
+router.get("/get-products", authenticateToken, (req, res) => {
+    const sql = "SELECT * FROM product_data";
+    db.query(sql, (err, results) => {
+      if (err) {
+        console.error("Failed to select products:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      res.json({ products: results });
+    });
+})
 router.post("/logout", (req, res) => {
     res.json({ message: "Logout successful" });
   });

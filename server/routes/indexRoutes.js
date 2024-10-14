@@ -291,7 +291,7 @@ router.get("/work", (req, res) => {
 });
 router.post("/sign-up", async (req, res) => {
     const {first_name, last_name, email, password} = req.body;
-    console.log(email);
+
     
     })
 

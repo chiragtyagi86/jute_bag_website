@@ -464,7 +464,7 @@
                 })
                 if (response.ok) {
                     alert("Product added successfully");
-                    window.location.href = "/admin/admin.products.html";
+                    // window.location.href = "/admin/dashboard.html";
 
                 }
                 else {
@@ -479,6 +479,45 @@
 
 
         });
+    </script>
+    <script>
+        const currentUrl = window.location.href;
+        const urlObj = new URL(currentUrl);
+        const queryString = urlObj.search;
+        const product_id = queryString.substring(1);
+    
+    
+        function  geteditData(product_id){
+            const token = localStorage.getItem('token');
+    
+            
+        fetch(`http://localhost:3000/admin/product/${product_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                    document.getElementById("imageDisplay").setAttribute("src", data.product_img)
+                    document.getElementById("product_name").value = data.product_name;
+                    document.getElementById("product_price").value = data.product_price;
+                    document.getElementById("product_description").textContent = data.product_discription;
+                    document.getElementById("product_qty").value = data.product_qty;
+
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+        geteditData(product_id);
     </script>
 </body>
 
