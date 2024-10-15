@@ -149,7 +149,7 @@
             if (response.ok) {
               console.log("Login successful:", data);
               localStorage.setItem("token", data.token);
-              window.location.href = "/admin.dashboard.html";
+              window.location.href = "/admin/admin.dashboard.html";
             } else {
               alert(data.error || "Login failed");
             }
@@ -163,7 +163,7 @@
         // Create a logic if token is present locate to window.location.href = "/admin/admin.dashboard.html"
         const token = localStorage.getItem("token");
         if (token) {
-        //   window.location.href = "/admin/admin.dashboard.html";
+          // window.location.href = "/admin/admin.dashboard.html";
         }
     </script>
   </body>

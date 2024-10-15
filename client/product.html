@@ -63,14 +63,6 @@
         </div>
       </header>
       <main>
-        <!--
-  Heads up! 👋
-
-  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
-
-  Plugins:
-    - @tailwindcss/forms
--->
 
 <section>
     <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -373,7 +365,7 @@
         </div>
   
         <div class=" overflow-scroll h-[60vh] lg:col-span-3">
-          <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul id="list_products" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <li>
               <a href="/disp_product.html" class="group block overflow-hidden">
                 <img
@@ -443,29 +435,7 @@
                   </div>
                 </a>
               </li>
-            <li>
-                <a href="#" class="group block overflow-hidden">
-                  <img
-                    src="https://jutebags.com/cdn/shop/files/CR011JT_02.jpg?v=1717417781&width=533"
-                  alt=""
-                    class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                  />
-    
-                  <div class="relative bg-white pt-3">
-                    <h3
-                      class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                    >
-                      Basic Tee
-                    </h3>
-    
-                    <p class="mt-2">
-                      <span class="sr-only"> Regular Price </span>
-    
-                      <span class="tracking-wider text-gray-900"> £24.00 GBP </span>
-                    </p>
-                  </div>
-                </a>
-              </li>
+            
           </ul>
         </div>
       </div>
@@ -730,5 +700,50 @@
           </div>
         </div>
       </footer>
+      <script>
+        // here i want to get the products from the http://localhost:3000/get-products
+        const ul = document.getElementById("list_products");
+        ul.innerHTML = '';
+        fetch('http://localhost:3000/get-products')
+         .then(response => response.json())
+         .then(data => {
+          data.forEach(product =>{
+            const li = document.createElement('li');
+            li.innerHTML = `
+             <li>
+                <a onclick="window.location.href = '/disp_product.html?${product.product_id}'" class="group block overflow-hidden">
+                  <img
+                    src=${product.product_img}
+                  alt=""
+                    class="h-[350px]  w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                  />
+    
+                  <div class="relative bg-white pt-3">
+                    <h3
+                      class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
+                    >
+                    
+                      ${product.product_name}
+                      
+                    </h3>
+    
+                    <p class="mt-2">
+                      <span class="sr-only"> Regular Price </span>
+    
+                      <span class="tracking-wider text-gray-900"> <sup>₹</sup>${product.product_price} </span>
+                    </p>
+                  </div>
+                </a>
+              </li>
+            `;
+            ul.appendChild(li);
+
+            
+          })
+          })
+         .catch(error => {
+            console.error('Error:', error);
+          });
+      </script>
 </body>
 </html>
