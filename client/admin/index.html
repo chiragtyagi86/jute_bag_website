@@ -149,7 +149,7 @@
             if (response.ok) {
               console.log("Login successful:", data);
               localStorage.setItem("token", data.token);
-              window.location.href = "/admin/admin.dashboard.html";
+              window.location.href = "/admin.dashboard.html";
             } else {
               alert(data.error || "Login failed");
             }
