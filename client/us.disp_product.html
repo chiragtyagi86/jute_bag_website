@@ -172,23 +172,27 @@
                 class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
                 href=""
               >
-              <div class="flex items-center justify-center">
-                <svg
-                class="h-10"
-                aria-hidden="true"
-                focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 40 40"
-                fill="teal"
-              >
-                <path
-                  d="m15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33l-.78-11.61zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1 -9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-              <sup class="ml-[-11px] mt-[-14px] bg-teal-600 text-white rounded-full p-2" id="cart-items">0</sup>
-              </div>
+                <div class="flex items-center justify-center">
+                  <svg
+                    class="h-10"
+                    aria-hidden="true"
+                    focusable="false"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 40 40"
+                    fill="teal"
+                  >
+                    <path
+                      d="m15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33l-.78-11.61zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1 -9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <sup
+                    class="ml-[-11px] mt-[-14px] bg-teal-600 text-white rounded-full p-2"
+                    id="cart-items"
+                    >0</sup
+                  >
+                </div>
               </a>
             </div>
 
@@ -1115,6 +1119,7 @@
           </div>
         </div>
       </div>
+      <span id="user"></span>
     </footer>
     <script>
       new Swiper(".swiper", {
@@ -1131,6 +1136,58 @@
           nextEl: ".swiper-next-button",
         },
       });
+
+      async function checkAuth() {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          window.location.href = "/sign-in.html";
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:3000/user/dashboard", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            window.location.href = "/sign-in.html";
+          } else if (!response.ok) {
+            console.error("Error:", await response.text());
+            window.location.href = "/sign-in.html";
+          } else {
+            const data = await response.json();
+
+
+            const userId = data.userDetails.userid;
+            function addtoCart(){
+                alert(product_id + " " + userId)
+            }
+            
+
+            document.getElementById("user").innerHTML = userId;
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          window.location.href = "/sign-in.html";
+        }
+      }
+      checkAuth();
+
+
+      //logout();
+      function logout() {
+        if (!localStorage.getItem("token")) {
+          alert("You are not allowed to log out");
+          return;
+        }
+        localStorage.removeItem("token");
+        alert("You have been logged out successfully");
+        window.location.href = "/sign-in.html";
+      }
 
       const currentUrl = window.location.href;
       const urlObj = new URL(currentUrl);
@@ -1373,9 +1430,6 @@
       function addtoCart(){
         
       }
- 
-
-      // ${data.product_media} this getting data in this form http://localhost:3000/uploads/1729001876529.jpeg,http://localhost:3000/uploads/1729001876531.jpeg,http://localhost:3000/uploads/1729001876532.jpeg,http://localhost:3000/uploads/1729001876534.jpeg,http://localhost:3000/uploads/1729001876536.jpeg
     </script>
   </body>
 </html>
