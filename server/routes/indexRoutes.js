@@ -17,7 +17,7 @@ router.get("/get-products", (req, res)=> {
     } else{
       res.json(rows);
     }
-    console.log("products fetched successfully");
+    // console.log("products fetched successfully");
   })
   
 });
@@ -57,6 +57,25 @@ router.get("/search-products/:query", (req, res)=> {
   })
   
 });
+
+// router.get('/search-products', (req, res) => {
+//   const searchQuery = req.query.q; // Get search query from the URL
+
+//   if (!searchQuery) {
+//     return res.status(400).json({ message: 'Search query is required' });
+//   }
+
+//   const sql = 'SELECT * FROM products WHERE product_name LIKE ?'; // Adjust table name as needed
+//   db.query(sql, [`%${searchQuery}%`], (error, results) => {
+//     if (error) {
+//       console.error('Query error:', error);
+//       return res.status(500).json({ message: 'Internal server error' });
+//     }
+//     res.json(results);
+//   });
+// });
+
+
 // latest product by date
 router.get("/latest-product", (req, res)=> {
   const sql = "SELECT * FROM product_data ORDER BY date_added DESC LIMIT 2";
