@@ -546,8 +546,8 @@
   
       document.getElementById("sign-in").addEventListener("submit", async function(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
         const formObj = {};
+        const formData = new FormData(event.target);
         formData.forEach((value, key) => {
           formObj[key] = value;
         });
@@ -577,11 +577,10 @@
         
       })
       const token = localStorage.getItem('token');
-    if(token) {
-      window.location.href = "/us.dashboard.html";
-    }
 
-
+      if(token && new Date(token.exp * 1000) < new Date()) {
+        // localStorage.removeItem('token');
+      }
     </script>
 </body>
 </html>
