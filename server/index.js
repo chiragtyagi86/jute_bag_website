@@ -2,7 +2,7 @@ const express = require('express');
 const indexRoutes = require('./routes/indexRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
-const productsRoutes = require('./routes/productsRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 const server = express();
 const bodyParser = require("body-parser");
 const path = require('path');
@@ -31,6 +31,7 @@ server.get("/", (req, res) => {
 server.use("/", indexRoutes);
 server.use("/admin", adminRoutes);
 server.use("/user", userRoutes);
+server.use("/cart", cartRoutes);
 server.use('/uploads', express.static('uploads'));
 
 

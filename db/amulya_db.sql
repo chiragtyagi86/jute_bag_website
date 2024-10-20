@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2024 at 05:02 PM
+-- Generation Time: Oct 20, 2024 at 10:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -42,6 +42,29 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`admin_ID`, `name`, `email`, `password`, `role`) VALUES
 ('Admin807712', 'Chirag Tyagi', 'tyagi.chirag1234@gmail.com', '$2b$10$0zaeFfMyS4/FLTN/YEWbD.2u4EqlNOiK16qpccn6TlyTZJEj4VECm', 'admin'),
 ('Admin808812', 'Admin', 'admin@amulya.in', '$2b$10$0zaeFfMyS4/FLTN/YEWbD.2u4EqlNOiK16qpccn6TlyTZJEj4VECm', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `user_id` varchar(64) NOT NULL,
+  `product_id` varchar(40) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `date_added` datetime NOT NULL DEFAULT current_timestamp(),
+  `last_modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`user_id`, `product_id`, `quantity`, `date_added`, `last_modified`) VALUES
+('User669558', 'Product127537', 3, '2024-10-20 12:47:47', '2024-10-20 12:52:57'),
+('User669558', 'Product203415', 1, '2024-10-20 12:52:58', '2024-10-20 12:52:58'),
+('User669558', 'Product259499', 1, '2024-10-20 12:52:58', '2024-10-20 12:52:58');
 
 -- --------------------------------------------------------
 
@@ -105,8 +128,17 @@ CREATE TABLE `users` (
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `marketing_accept` tinyint(1) DEFAULT 0
+  `marketing_accept` tinyint(1) DEFAULT 0,
+  `phone_Number` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userid`, `email`, `password`, `first_name`, `last_name`, `address`, `marketing_accept`, `phone_Number`) VALUES
+('User303849', 'abesit.darshil@gmail.com', '$2b$10$pk6aKHzhBEhbG3lbJqvUl.910rzZK6dyouIYT5yKnz/A0tpR9Decy', '12', '34', NULL, 0, 7678163042),
+('User669558', 'hill@gmail.com', '$2b$10$deKY1RwKJ6GTwhetdy.LnOYnHmoSZlMM6/Qkpccm/CSzySQ7Y..6G', 'Darshil', 'Kumar', NULL, 0, 7678163042);
 
 --
 -- Indexes for dumped tables
@@ -119,6 +151,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`admin_ID`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `admin_ID` (`admin_ID`);
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`user_id`,`product_id`);
 
 --
 -- Indexes for table `product_data`

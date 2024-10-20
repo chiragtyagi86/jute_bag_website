@@ -459,75 +459,7 @@
   
         <div class=" overflow-scroll h-[60vh] lg:col-span-3">
           <ul id="list_products" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <li>
-              <a href="/disp_product.html" class="group block overflow-hidden">
-                <img
-                src="https://jutebags.com/cdn/shop/files/CR010CN_02.jpg?v=1717415867&width=533"
-                alt=""
-                  class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                />
-  
-                <div class="relative bg-white pt-3">
-                  <h3
-                    class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                  >
-                    Basic Tee
-                  </h3>
-  
-                  <p class="mt-2">
-                    <span class="sr-only"> Regular Price </span>
-  
-                    <span class="tracking-wider text-gray-900"> £24.00 GBP </span>
-                  </p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="group block overflow-hidden">
-                <img
-                src="https://jutebags.com/cdn/shop/files/89.jpg?v=1717742253&width=533"
-                alt=""
-                  class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                />
-  
-                <div class="relative bg-white pt-3">
-                  <h3
-                    class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                  >
-                    Basic Tee
-                  </h3>
-  
-                  <p class="mt-2">
-                    <span class="sr-only"> Regular Price </span>
-  
-                    <span class="tracking-wider text-gray-900"> £24.00 GBP </span>
-                  </p>
-                </div>
-              </a>
-            </li>
-            <li>
-                <a href="#" class="group block overflow-hidden">
-                  <img
-                    src="https://jutebags.com/cdn/shop/files/CR018JT_02.jpg?v=1717416471&width=533"
-                  alt=""
-                    class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                  />
-    
-                  <div class="relative bg-white pt-3">
-                    <h3
-                      class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                    >
-                      Basic Tee
-                    </h3>
-    
-                    <p class="mt-2">
-                      <span class="sr-only"> Regular Price </span>
-    
-                      <span class="tracking-wider text-gray-900"> £24.00 GBP </span>
-                    </p>
-                  </div>
-                </a>
-              </li>
+
             
           </ul>
         </div>
@@ -841,6 +773,11 @@ new Swiper('.swiper', {
                     </p>
                   </div>
                 </a>
+
+              <button 
+              onclick="addtocart('${product.product_id}',this)"
+              class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-xs w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
+              Add to cart</button>
               </li>
             `;
             ul.appendChild(li);
@@ -851,6 +788,69 @@ new Swiper('.swiper', {
          .catch(error => {
             console.error('Error:', error);
           });
+
+
+          function logout() {
+            if (!localStorage.getItem("token")) {
+              alert("You are not allowed to log out");
+              return;
+            }
+            localStorage.removeItem("token");
+            alert("You have been logged out successfully");
+            window.location.href = "/sign-in.html";
+          }
+
+          async function addtocart(product_id,button){
+            const token = localStorage.getItem("token");
+            if (!token) {
+                window.location.href = "/sign-in.html";
+                return;
+            }
+            try {
+              const response = await fetch("http://localhost:3000/user/dashboard", {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              if (response.status === 401 || response.status === 403) {
+                window.location.href = "/sign-in.html";
+              } else if (!response.ok) {
+                  console.error("Error:", await response.text());
+                  window.location.href = "/sign-in.html";
+              } else {
+                  const data = await response.json();
+                  const userid=data.userDetails.userid;
+                  const quantity=1;
+                  console.log("in add to cart funciton");
+                  console.log(userid);
+                  console.log(product_id);
+                  const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ userid, product_id, quantity }),
+                });
+    
+                if (addToCartResponse.ok) {
+                    console.log("Product added to cart successfully!");
+                    button.textContent = 'Added to Cart';
+                    button.disabled = true;
+
+                    
+                } else {
+                    console.error("Failed to add product to cart:", await addToCartResponse.text());
+                }
+              }
+          } catch (error) {
+              console.error("Error:", error);
+              window.location.href = "/sign-in.html";
+          }
+
+          }
+
 
       </script>
 </body>

@@ -1163,9 +1163,7 @@
 
 
             const userId = data.userDetails.userid;
-            function addtoCart(){
-                alert(product_id + " " + userId)
-            }
+
             
 
             document.getElementById("user").innerHTML = userId;
@@ -1386,7 +1384,7 @@
                       </button>
                     </div>
                     <button 
-                    onclick="addtoCart()"
+                    onclick="addtocart('${data.product_id}')"
                       class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
                       <svg class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-600" width="22"
                         height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1427,9 +1425,55 @@
           swiper: swiper_thumbs,
         },
       });
-      function addtoCart(){
-        
+
+      async function addtocart(product_id){
+        const token = localStorage.getItem("token");
+        if (!token) {
+            window.location.href = "/sign-in.html";
+            return;
+        }
+        try {
+          const response = await fetch("http://localhost:3000/user/dashboard", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (response.status === 401 || response.status === 403) {
+            window.location.href = "/sign-in.html";
+          } else if (!response.ok) {
+              console.error("Error:", await response.text());
+              window.location.href = "/sign-in.html";
+          } else {
+              const data = await response.json();
+              const userid=data.userDetails.userid;
+              const quantity=1;
+              console.log("in add to cart funciton");
+              console.log(userid);
+              console.log(product_id);
+              const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ userid, product_id, quantity }),
+            });
+
+            if (addToCartResponse.ok) {
+                console.log("Product added to cart successfully!");
+            } else {
+                console.error("Failed to add product to cart:", await addToCartResponse.text());
+            }
+          }
+      } catch (error) {
+          console.error("Error:", error);
+          window.location.href = "/sign-in.html";
       }
+
+      }
+
+
     </script>
   </body>
 </html>
