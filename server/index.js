@@ -20,7 +20,7 @@ server.use(express.static("views"));
 
 
 server.use(express.json());
-server.use(cors({ origin: "http://127.0.0.1:5501" }));
+server.use(cors({ origin: "http://127.0.0.1:5500" }));
 
 
 server.get("/", (req, res) => {

@@ -7,6 +7,24 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<style>
+    .image-upload {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        margin: 20px;
+        border-radius: 10px;
+    }
+
+    .image-preview {
+        margin-top: 10px;
+    }
+
+    .image-preview img {
+        max-width: 100px;
+        margin: 5px;
+    }
+</style>
 <script>
     async function checkAdminAccess() {
         const token = localStorage.getItem("token");
@@ -176,7 +194,8 @@
                             <h2 class=" m-5 text-xl text-[#071437]">Thumbnail</h2>
                         </header>
                         <div class="relative h-64 m-5 rounded border">
-                            <img width="400" id="imageDisplay" class="h-full w-full p-2 cursor-pointer rounded border-dotted"
+                            <img width="400" id="imageDisplay"
+                                class="h-full w-full p-2 cursor-pointer rounded border-dotted"
                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAREAAAC4CAMAAADzLiguAAAAPFBMVEX///+rq6unp6fMzMykpKTp6enx8fHU1NS0tLS6urr6+vqwsLDHx8fPz8/w8PD19fXa2trh4eHl5eXAwMAzrysnAAADpklEQVR4nO2c2ZKDIBAAE6KJmsPr//91c69yKKREHav7dctl6YVhGJTdDgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZqE5LMU1XbrvVupELUe9dO9t5PsFyZfuvY1FjWRL994GRnQeRs5NOj+rNpIVCzSMER2M6GBEByM6GNHBiI4cI+mhbdtLE12SFCO3XKnH36ryJnLDQoxU/xm2usZtWIaRWu1nUyLCSNnfh6moE0eEkYvqK4lavpBgpNA368ktYsMSjKSJbqSK2LAEI7VuRB0iNizBSGUYuURsWIIRc4zEXH8lGDkacSTm6YEEI7tMX2zKiA2LMFL185HAMJJWdcj2UIQRfZCEDJEyT5JkH7BcyzBSnrujJORY9r0BSPzXaxlGHv/pz5TJQoQUn4Mw5T1KhBi5x5LseUadnYJKRlcVPLLEGNkVt7qq0rASWtOZa7nno3KM/EB5/mGF2rSRvLdqe+Z1WzZy0Moq6ujz1IaNNJoQz1CyXSO9IPIeJD5ZyXaN6KXIJx6hZLNGKpuQ/Xl8A7BVI6nNx+MAbPTJjRopjAKCdyjZqJHWOmeeSsay+W0asQcRv1CySSM3t4/7IGmHH96ikW8JwKHkNPj0Fo3o2bvBYCiRayRt84u1a/WYkOHfK9bISam92lvW0qOZvRvzZqgwINXI+5zP0rd8dIgMHxwLNdI4+zYaRF643y6QaaT4nxlaxtXo538O3LJlGmk7fetlXKW9/ybuUCLSSC8l7WZchTt7N5S4QolEI1pK2sm4Tt5C7mPLEUoEGjH3tZ++OUoAjkHiKAwINGIWx86vHxTjmUhPib0wIM+IZV/7DpOhn/bZjyvEGbHOjGffQoLIG1thQJoRV3HsFhZEXqjWolyaEUdKqvLyl89hbYUBYUbcKWlYVP1i7p5lGfFOSb05G9JlGfHZ14ZhZiWijFwnF2IJJZKM1NP7eKCFEkFGLEfbk5D1sxJBRvz3tWFohQE5Rk6etaAflPQKA2KMpJFGyJNuYUCKkdJ1tD0JXfVSjFjfj5mMbigRYmToaHsSJf+FARlGftjXhvJ9j1GEEef7MdOhvu8xijASN4i8lXy+dJNgxPhOLw7vL80FGDnO4uN7FCbAyGx3xb0KA+s3cpntysnkGUpWb6Q8zcjjP7B6I7ODEZ1VGznfjrNzW7WRfbIA6zayFBjRWeWtxhU3X+vUi92Ofoh9CR0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA2+AN7/TZH3Ls1kQAAAABJRU5ErkJggg=="
                                 alt="Click to upload" />
                             <input type="file" id="imageInput" name="product_img"
@@ -217,6 +236,27 @@
                             </div>
                         </div>
                     </div>
+                    <div class="border rounded-lg lg:col-span-4">
+                        <div class="m-5">
+                            <header>
+                                <h2 class="text-xl">
+                                    Upload media for product
+                                </h2>
+                            </header>
+                            <div class="product_media">
+                                <span class="text-gray-500 text-xs">Select Up to 5 Product Images at once</span>
+                                <div class="relative">
+                                
+                                    <input type="file" class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm" name="product_media" id="product_media" accept="image/*" multiple />
+                                </div>
+                                <div class="image-preview h-32 flex" id="product_media_display"></div>
+                                <span class="text-xs text-gray-400 line-clamp-3 m-5 text-center ">
+                                    Set the product media images. Only *.png, *.jpg and *.jpeg image files are accepted
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="grid mt-5 grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
                     <div class="rounded-lg  lg:col-span-1">
@@ -236,7 +276,7 @@
                                     <option value="draft">Draft</option>
                                     <option value="scheduled">Scheduled</option>
                                     <option value="inactive">Inactive</option>
-                                  
+
                                 </select>
                             </div>
                             <div class="border rounded-lg p-5 mt-5">
@@ -253,7 +293,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
                     <div class=" border rounded-lg  lg:col-span-3">
                         <div class="m-5">
                             <header>
@@ -279,29 +321,29 @@
                                                 <div>
                                                     <p class="text-gray-700">No Discount</p>
                                                     <p class="mt-1 text-gray-900">on MRP</p>
-                                                        <div class="flex items-center justify-center">
-                                                        </div>
+                                                    <div class="flex items-center justify-center">
+                                                    </div>
                                                 </div>
 
                                                 <input type="radio" name="product_discount" value='0'
-                                                    id="product_discount" class="size-5 border-gray-300 text-blue-500"
-                                                     />
+                                                    id="product_discount"
+                                                    class="size-5 border-gray-300 text-blue-500" />
                                             </label>
                                         </div>
                                     </div>
                                     <div>
                                         <div>
-                                            <label for="product_discount_percentage" 
+                                            <label for="product_discount_percentage"
                                                 class="flex cursor-pointer justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
                                                 <div>
                                                     <p class="text-gray-700">Percentage</p>
                                                     <p class="mt-1 text-gray-900">20% default</p>
-                                                       
+
                                                 </div>
 
                                                 <input type="radio" name="product_discount" value='20%'
-                                                    id="product_discount_percentage" class="size-5 border-gray-300 text-blue-500"
-                                                     />
+                                                    id="product_discount_percentage"
+                                                    class="size-5 border-gray-300 text-blue-500" />
                                             </label>
                                         </div>
                                     </div>
@@ -316,8 +358,8 @@
                                                 </div>
 
                                                 <input type="radio" name="product_discount" value='fixed_price'
-                                                    id="product_discount_fixed" class="size-5 border-gray-300 text-blue-500"
-                                                     />
+                                                    id="product_discount_fixed"
+                                                    class="size-5 border-gray-300 text-blue-500" />
                                             </label>
                                         </div>
                                     </div>
@@ -362,6 +404,38 @@
             </form>
         </div>
     </main>
+    <script>
+        const productMediaInput = document.getElementById('product_media');
+        const imageDisplay2 = document.getElementById('product_media_display');
+
+        productMediaInput.addEventListener('change', function (event) {
+            const files = event.target.files; // Get all selected files
+
+            // Check if more than 5 files are selected
+            if (files.length > 5) {
+                alert('You can only select up to 5 images.');
+                productMediaInput.value = ''; // Clear the input
+                imageDisplay2.innerHTML = ''; // Clear previous images
+                return;
+            }
+
+            imageDisplay2.innerHTML = ''; // Clear previous images
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100px'; // Set the max width for each image
+                    img.style.margin = '5px'; // Add some margin
+                    imageDisplay2.appendChild(img); // Add the image to the display
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+
+
     <script>
         const imageInput = document.getElementById('imageInput');
         const imageDisplay = document.getElementById('imageDisplay');
@@ -443,7 +517,7 @@
                 }
             });
     </script>
-    <script>
+ <script>
         document.getElementById("add-product").addEventListener("submit", async function (event) {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -453,6 +527,7 @@
                 formObj[key] = value;
             });
             console.log(formObj);
+            
 
             try {
                 const response = await fetch('http://localhost:3000/admin/add-product', {
@@ -479,7 +554,10 @@
 
 
         });
-    </script>
+
+    </script> 
+  
+    
 </body>
 
 </html>
