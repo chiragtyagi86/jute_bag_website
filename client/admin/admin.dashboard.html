@@ -1910,6 +1910,11 @@
                 },
             },
         });
+        const token = localStorage.getItem('token');
+
+if(token && new Date(token.exp * 1000) < new Date()) {
+  localStorage.removeItem('token');
+}
     </script>
 </body>
 

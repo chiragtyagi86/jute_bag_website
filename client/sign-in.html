@@ -546,8 +546,8 @@
   
       document.getElementById("sign-in").addEventListener("submit", async function(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
         const formObj = {};
+        const formData = new FormData(event.target);
         formData.forEach((value, key) => {
           formObj[key] = value;
         });
