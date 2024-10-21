@@ -20,7 +20,7 @@
 
             try {
                 const response = await fetch(
-                    "http://localhost:3000/admin/dashboard",
+                    "https://amulya.server.ijebr.com/admin/dashboard",
                     {
                         method: "GET",
                         headers: {
@@ -1717,7 +1717,7 @@
 
             try {
                 const response = await fetch(
-                    "http://localhost:3000/admin/dashboard",
+                    "https://amulya.server.ijebr.com/admin/dashboard",
                     {
                         method: "GET",
                         headers: {
@@ -1753,7 +1753,7 @@
                 }
 
                 try {
-                    const response = await fetch("http://localhost:3000/admin/logout", {
+                    const response = await fetch("https://amulya.server.ijebr.com/admin/logout", {
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -1779,7 +1779,7 @@
         //         .getElementsByTagName("tbody")[0];
 
         //     try {
-        //         const response = await fetch("http://localhost:3000/admin/data", {
+        //         const response = await fetch("https://amulya.server.ijebr.com/admin/data", {
         //             method: "GET",
         //             headers: {
         //                 Authorization: `Bearer ${token}`,
@@ -1912,9 +1912,9 @@
         });
         const token = localStorage.getItem('token');
 
-if(token && new Date(token.exp * 1000) < new Date()) {
-  localStorage.removeItem('token');
-}
+        if (token && new Date(token.exp * 1000) < new Date()) {
+            localStorage.removeItem('token');
+        }
     </script>
 </body>
 
