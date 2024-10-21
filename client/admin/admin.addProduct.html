@@ -36,7 +36,7 @@
 
         try {
             const response = await fetch(
-                "http://localhost:3000/admin/dashboard",
+                "https://amulya.server.ijebr.com/admin/dashboard",
                 {
                     method: "GET",
                     headers: {
@@ -246,8 +246,10 @@
                             <div class="product_media">
                                 <span class="text-gray-500 text-xs">Select Up to 5 Product Images at once</span>
                                 <div class="relative">
-                                
-                                    <input type="file" class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm" name="product_media" id="product_media" accept="image/*" multiple />
+
+                                    <input type="file"
+                                        class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        name="product_media" id="product_media" accept="image/*" multiple />
                                 </div>
                                 <div class="image-preview h-32 flex" id="product_media_display"></div>
                                 <span class="text-xs text-gray-400 line-clamp-3 m-5 text-center ">
@@ -462,7 +464,7 @@
 
             try {
                 const response = await fetch(
-                    "http://localhost:3000/admin/dashboard",
+                    "https://amulya.server.ijebr.com/admin/dashboard",
                     {
                         method: "GET",
                         headers: {
@@ -498,7 +500,7 @@
                 }
 
                 try {
-                    const response = await fetch("http://localhost:3000/admin/logout", {
+                    const response = await fetch("https://amulya.server.ijebr.com/admin/logout", {
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -517,7 +519,7 @@
                 }
             });
     </script>
- <script>
+    <script>
         document.getElementById("add-product").addEventListener("submit", async function (event) {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -527,10 +529,10 @@
                 formObj[key] = value;
             });
             console.log(formObj);
-            
+
 
             try {
-                const response = await fetch('http://localhost:3000/admin/add-product', {
+                const response = await fetch('https://amulya.server.ijebr.com/admin/add-product', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -555,9 +557,9 @@
 
         });
 
-    </script> 
-  
-    
+    </script>
+
+
 </body>
 
 </html>

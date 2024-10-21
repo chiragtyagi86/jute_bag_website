@@ -514,20 +514,20 @@
   </footer>
   <script>
     new Swiper('.swiper', {
-    effect: 'fade',
-    loop: true,
-    autoplay: {
-      delay: 5000,
-    },
-    fadeEffect: {
-      crossFade: true,
-    },
-    navigation: {
-      prevEl: '.swiper-prev-button',
-      nextEl: '.swiper-next-button',
-    },
-  })
-  
+      effect: 'fade',
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      fadeEffect: {
+        crossFade: true,
+      },
+      navigation: {
+        prevEl: '.swiper-prev-button',
+        nextEl: '.swiper-next-button',
+      },
+    })
+
     document.getElementById('sign-in').addEventListener('submit', function (event) {
       event.preventDefault();
       const formData = new FormData(event.target);
@@ -537,7 +537,7 @@
       })
       console.log(formObj);
 
-      fetch("http://localhost:3000/user/sign-up", {
+      fetch("https://amulya.server.ijebr.com/user/sign-up", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
