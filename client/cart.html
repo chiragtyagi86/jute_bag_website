@@ -466,7 +466,7 @@
         return;
       }
       try {
-        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
+        const response = await fetch("http://localhost:3000/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -480,7 +480,7 @@
         const userid = data.userDetails.userid;
         const ul = document.getElementById("list_cart");
         ul.innerHTML = '';
-        const cartResponse = await fetch('https://amulya.server.ijebr.com/cart/view', {
+        const cartResponse = await fetch('http://localhost:3000/cart/view', {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -562,7 +562,7 @@
       }
 
       try {
-        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
+        const response = await fetch("http://localhost:3000/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -579,7 +579,7 @@
         const userid = data.userDetails.userid;
 
         // Remove item from cart
-        const removeResponse = await fetch('https://amulya.server.ijebr.com/cart/remove', {
+        const removeResponse = await fetch('http://localhost:3000/cart/remove', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -614,7 +614,7 @@
       }
 
       try {
-        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
+        const response = await fetch("http://localhost:3000/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -631,7 +631,7 @@
         const userid = data.userDetails.userid;
 
         // Remove item from cart
-        const updateResponse = await fetch('https://amulya.server.ijebr.com/cart/update', {
+        const updateResponse = await fetch('http://localhost:3000/cart/update', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

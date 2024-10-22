@@ -817,7 +817,7 @@
     function geteditData(product_id) {
       const token = localStorage.getItem("token");
 
-      fetch(`https://amulya.server.ijebr.com/admin/product/${product_id}`, {
+      fetch(`http://localhost:3000/admin/product/${product_id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -1050,7 +1050,7 @@
     }
 
 
-    // ${data.product_media} this getting data in this form https://amulya.server.ijebr.com/uploads/1729001876529.jpeg,https://amulya.server.ijebr.com/uploads/1729001876531.jpeg,https://amulya.server.ijebr.com/uploads/1729001876532.jpeg,https://amulya.server.ijebr.com/uploads/1729001876534.jpeg,https://amulya.server.ijebr.com/uploads/1729001876536.jpeg
+    // ${data.product_media} this getting data in this form http://localhost:3000/uploads/1729001876529.jpeg,http://localhost:3000/uploads/1729001876531.jpeg,http://localhost:3000/uploads/1729001876532.jpeg,http://localhost:3000/uploads/1729001876534.jpeg,http://localhost:3000/uploads/1729001876536.jpeg
   </script>
 </body>
 

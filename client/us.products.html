@@ -616,7 +616,7 @@
 
     const ul = document.getElementById("list_products");
     ul.innerHTML = '';
-    fetch('https://amulya.server.ijebr.com/get-products')
+    fetch('http://localhost:3000/get-products')
       .then(response => response.json())
       .then(data => {
         data.forEach(product => {
@@ -680,7 +680,7 @@
         return;
       }
       try {
-        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
+        const response = await fetch("http://localhost:3000/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -698,7 +698,7 @@
           console.log("in add to cart funciton");
           console.log(userid);
           console.log(product_id);
-          const addToCartResponse = await fetch("https://amulya.server.ijebr.com/cart/add", {
+          const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

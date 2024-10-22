@@ -20,7 +20,7 @@
 
             try {
                 const response = await fetch(
-                    "https://amulya.server.ijebr.com/admin/dashboard",
+                    "http://localhost:3000/admin/dashboard",
                     {
                         method: "GET",
                         headers: {
@@ -1717,7 +1717,7 @@
 
             try {
                 const response = await fetch(
-                    "https://amulya.server.ijebr.com/admin/dashboard",
+                    "http://localhost:3000/admin/dashboard",
                     {
                         method: "GET",
                         headers: {
@@ -1753,7 +1753,7 @@
                 }
 
                 try {
-                    const response = await fetch("https://amulya.server.ijebr.com/admin/logout", {
+                    const response = await fetch("http://localhost:3000/admin/logout", {
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -1779,7 +1779,7 @@
         //         .getElementsByTagName("tbody")[0];
 
         //     try {
-        //         const response = await fetch("https://amulya.server.ijebr.com/admin/data", {
+        //         const response = await fetch("http://localhost:3000/admin/data", {
         //             method: "GET",
         //             headers: {
         //                 Authorization: `Bearer ${token}`,
