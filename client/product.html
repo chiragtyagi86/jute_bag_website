@@ -671,7 +671,7 @@
 
     const ul = document.getElementById("list_products");
     ul.innerHTML = '';
-    fetch('https://amulya.server.ijebr.com/get-products')
+    fetch('http://localhost:3000/get-products')
       .then(response => response.json())
       .then(data => {
         data.forEach(product => {

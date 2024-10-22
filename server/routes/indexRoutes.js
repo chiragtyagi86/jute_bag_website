@@ -25,7 +25,7 @@ router.get("/get-products", (req, res)=> {
 //trending products
 router.get("/trending-products", (req, res)=> {
   //here i want to get the trending products from the product_data 
-  const sql = "SELECT * FROM product_data ORDER BY product_sales DESC LIMIT 10";
+  const sql = "SELECT * FROM product_data ORDER BY product_sales DESC LIMIT 3";
   db.query(sql, (err, rows)=>{
     if(err) throw err;
     // error handling
@@ -85,9 +85,8 @@ router.get("/latest-product", (req, res)=> {
     if(rows.length === 0){
       res.json({message: "No latest product found"});
     } else{
-      res.json(rows[0]);
+      res.json(rows);
     }
-    console.log("latest product fetched successfully");
   })
   
 });
