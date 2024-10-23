@@ -465,9 +465,10 @@
           return;
         } const data = await response.json();
         const userid = data.userDetails.userid;
+        document.getElementById("user").innerHTML = data.message;
         const ul = document.getElementById("list_cart");
         ul.innerHTML = "";
-        //if we get the data then it go as code if not add a innerhtml h2 nothing to display
+
 
         const cartResponse = await fetch('http://localhost:3000/cart/view', {
           method: "POST",
