@@ -207,13 +207,22 @@
                   placeholder="Enter your name" />
               </div>
             </div>
+            <div class="col-span-2">
+              <label for="name" class="">Product Qyantity</label>
+
+              <div class="relative">
+                <input type="number" name="product_qty" id="product_qty"
+                  class="w-full border capitalize rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  value="1" required />
+              </div>
+            </div>
           </div>
           <div class=" rounded-lg ">
             <div>
               <label for="address" class="">Address</label>
               <textarea name="address" id="address"
                 class="w-full border  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter your address" rows="5"></textarea>
+                placeholder="Enter your address" rows="10"></textarea>
             </div>
           </div>
         </div>
@@ -223,11 +232,11 @@
           </header>
           <div class="">
             <div class="m-5 flex gap-4">
-              <input type="radio" id="credit-card" name="payment-method" value="credit-card" class="form-radio" />
+              <input type="radio" id="credit-card" name="payment_method" required value="cash-on-delivery" class="form-radio" />
               <label for="credit-card" class="text-gray-900">Cash On Delivery</label>
             </div>
             <div class="m-5 flex gap-4">
-              <input type="radio" id="paypal" name="payment-method" value="paypal" class="form-radio" />
+              <input type="radio" id="paypal" name="payment_method" value="online" class="form-radio" />
               <label for="paypal" class="text-gray-900">PayPal</label>
 
             </div>
@@ -397,7 +406,40 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       });
-      console.log(formObj);
+      //add product_id to formObj on top
+
+      formObj.product_id = product_id;
+
+      const product_toBuy = formObj;
+      console.log(product_toBuy);
+      
+      fetch("http://localhost:3000/user/buy-products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(product_toBuy),
+      })
+       .then((response) => {
+         if (!response.ok) {
+           throw new Error(
+             "Network response was not ok " + response.statusText
+           );
+           return;
+         }
+         return response.json();
+
+       })
+       .then((data) => {
+         alert(data.message);
+        //  window.location.href = "/dashboard.html";
+       })
+       .catch((error) => {
+         console.error("Error:", error);
+         alert("An error occurred while trying to buy the product");
+       });
+
       
     }) 
   </script>

@@ -150,4 +150,53 @@ router.get("/dashboard", authenticateToken, (req, res) => {
   });
 });
 
+//order
+function getOrderId() {
+  return "Order" + Math.floor(100000 + Math.random() * 900000);
+}
+router.post("/buy-products", authenticateToken, (req, res) => {
+  const {product_id, email, payment_method, product_qty} = req.body;
+
+  if (!product_id ||!email ||!payment_method ||!product_qty) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  const order = {
+    order_id: getOrderId(),
+    email,
+    product_id,
+    payment_method,
+    product_qty,
+  }
+  const sql = "INSERT INTO orders SET?"
+  db.query(sql, order, (err, result) => {
+    if (err) {
+      console.error("Failed to insert order:", err);
+      return res.status(500).json({ error: "Failed to insert order" });
+    }
+    res.json({
+      message: "Order inserted successfully",
+      id: result.insertId,
+    })
+  })
+} )
+
+//show orders
+router.get("/orders",  (req, res) => {
+  const email = 'tyagi.chirag1234@gmail.com';
+  const sql = "SELECT * FROM orders WHERE email =?"
+  
+
+  db.query(sql, [email], (err, result) => {
+    if (err) return res.status(500).json({ message: "Server error" });
+    if (result.length === 0)
+      return res.status(404).json({ message: "No orders found" });
+
+    res.json({
+      orders: result,
+      message: `Orders for ${email}`,
+    });
+  });
+});
+
+
 module.exports = router;
