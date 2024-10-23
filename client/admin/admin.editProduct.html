@@ -506,7 +506,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data);
+                    ;
                     document.getElementById("imageDisplay").setAttribute("src", data.product_img)
                     document.getElementById("product_name").value = data.product_name;
                     document.getElementById("product_price").value = data.product_price;
