@@ -244,9 +244,28 @@ router.get("/get-products", authenticateToken, (req, res) => {
 router.post("/logout", (req, res) => {
   res.json({ message: "Logout successful" });
 });
-router.get("/dashboard", verifyAdmin, (req, res) => {
-  res.json({ message: "admin" });
+router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
+  const sqlOrders = 'SELECT * FROM `orders`  ORDER BY `orders`.`order_added` DESC';
+  const sqlProducts = 'SELECT * FROM product_data';
+
+  db.query(sqlProducts, (err, productResults) => {
+    if (err) {
+      console.error("Failed to select products:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    db.query(sqlOrders, (err, orderResults) => {
+      if (err) {
+        console.error("Failed to select orders:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      // Send response only after both queries are done
+      res.json({  message: "admin",orders: orderResults, products: productResults });
+    });
+  });
 });
+
 
 router.use("/", verifyAdmin);
 

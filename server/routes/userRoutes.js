@@ -104,7 +104,7 @@ router.post("/sign-in", (req, res) => {
     if (results.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-
+    
     const user = results[0]; // Correctly define user
 
     bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -155,9 +155,9 @@ function getOrderId() {
   return "Order" + Math.floor(100000 + Math.random() * 900000);
 }
 router.post("/buy-products", authenticateToken, (req, res) => {
-  const {product_id, email, payment_method, product_qty} = req.body;
+  const {product_id, email, payment_method, price, product_qty} = req.body;
 
-  if (!product_id ||!email ||!payment_method ||!product_qty) {
+  if (!product_id ||!email ||!payment_method ||!product_qty || !price) {
     return res.status(400).json({ error: "All fields are required" });
   }
   const order = {
@@ -166,7 +166,9 @@ router.post("/buy-products", authenticateToken, (req, res) => {
     product_id,
     payment_method,
     product_qty,
+    price,
   }
+
   const sql = "INSERT INTO orders SET?"
   db.query(sql, order, (err, result) => {
     if (err) {
@@ -181,9 +183,10 @@ router.post("/buy-products", authenticateToken, (req, res) => {
 } )
 
 //show orders
-router.get("/orders",  (req, res) => {
-  const email = 'tyagi.chirag1234@gmail.com';
-  const sql = "SELECT * FROM orders WHERE email =?"
+router.get("/orders/:email",  (req, res) => {
+  const {email} = req.params;    
+  const sql = 'SELECT * FROM `orders`  WHERE email =? ORDER BY `orders`.`order_added` DESC;'
+
   
 
   db.query(sql, [email], (err, result) => {
