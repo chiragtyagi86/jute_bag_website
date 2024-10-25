@@ -278,7 +278,7 @@
     </header>
     <div class="bg-teal-600 px-4 py-3 text-white">
       <p class="lg:text-right text-center text-sm font-medium">
-        Welcome to the dashboard: <span class="underline" id="user"></span>
+        Welcome to the dashboard: <span class="underline" id="user"> </span>
       </p>
     </div>
     <main>
@@ -295,7 +295,7 @@
         <div class="mt-4 gap-2 flex items-center justify-center">
           <div
             id="disp_orders"
-            class="rounded  rounded-lg lg:inline  flex-wrap flex lg:m-0 m-5   w-full overflow-x-scroll  lg:w-2/5"
+            class="rounded rounded-lg lg:inline flex-wrap flex lg:m-0 m-5 w-full overflow-x-scroll lg:w-2/5"
           ></div>
         </div>
       </section>
@@ -333,6 +333,7 @@
           });
 
           if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem("token");
             window.location.href = "/sign-in.html";
           } else if (!response.ok) {
             console.error("Error:", await response.text());
@@ -342,6 +343,136 @@
             console.log(data.userDetails);
 
             document.getElementById("user").innerHTML = data.message;
+
+            // 
+
+            async function getOrders(email) {
+        const response = await fetch(
+          `http://localhost:3000/user/orders/${email}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        const container = document.getElementById("disp_orders");
+        container.innerHTML = "";
+
+        data.orders.forEach(async (order) => {
+          const orderDiv = document.createElement("div");
+          //add class to order div
+          orderDiv.classList.add("border", "mb-4");
+          const date = new Date(order.order_added);
+
+          const day = String(date.getUTCDate()).padStart(2, "0");
+          const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+          const year = date.getUTCFullYear();
+
+          const formattedDate = `${day}-${month}-${year}`;
+
+          orderDiv.innerHTML = `
+      <div class="bg-gray-100   p-2 border border-gray-200 flex items-center justify-between">
+        <div class="flex gap-4 items-center justify-between">
+          <div>
+            <header>
+              <h2>Order Placed</h2>
+            </header>
+            <p class="text-sm m-2">${formattedDate}</p>
+          </div>
+          <div>
+            <header>
+              <h2>Payment Type</h2>
+            </header>
+            <p class="text-sm m-2">${
+              order.payment_method === "cash-on-delivery" ? "COD" : "online"
+            }</p>
+          </div>
+          <div>
+            <header>
+              <h2>Ship To</h2>
+            </header>
+            <p class="m-2 text-sm">${order.email}</p>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center justify-center gap-2">
+            <header>
+              <h2>Order Id:</h2>
+            </header>
+            <p class="m-2 text-teal-600 text-sm">${order.order_id}</p>
+          </div>
+          <div class="flex gap-4 ">
+            <span class="text-sm text-teal-600">View order details</span> <h2>|</h2> <span>Invoice</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between border">
+          <header>
+            <h2 class="text-xl mx-2 mt-4">Order Status</h2>
+            <p class="mx-4 text-teal-600">${order.order_status}</p>
+          </header>
+          <div class="flex gap-2">
+            <header>
+              <h2 class="text-xl mx-2 mt-4">Product ID</h2>
+              <p class="mx-4 text-teal-600">${order.product_id}</p>
+            </header>
+          </div>
+        </div>
+        <div id="disp_product_${order.order_id}"></div>
+      </div>
+    `;
+
+          container.appendChild(orderDiv);
+
+          // Fetch product details for each order
+          const product_id = order.product_id; // Use the product ID from the order
+          const response2 = await fetch(
+            `http://localhost:3000/admin/product/${product_id}`
+          );
+          if (!response2.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const data2 = await response2.json();
+          const container2 = document.getElementById(
+            `disp_product_${order.order_id}`
+          );
+
+          container2.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex gap-6 items-center justify-center">
+          <div>
+            <img src="${data2.product_img}" width="480" alt="" />
+          </div>
+          <div>
+            <header>
+              <h2>${data2.product_name}</h2>
+            </header>
+            <button onclick="window.location.href='us.disp_product.html?${data2.product_id}'" class="hover:bg-gray-100 px-2 py-1 m-2 text-sm border border-gray-200 rounded-lg">View Product</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-center flex-col m-5">
+          <button class="hover:bg-gray-100 px-14 py-1 m-2 text-sm border border-gray-200 rounded-lg">Track Shipment</button>
+          <button class="hover:bg-gray-100 px-14 py-1 m-2 text-sm border border-gray-200 rounded-lg">Ask for Refund</button>
+          <button class="hover:bg-gray-100 px-12 py-1 m-2 text-sm border border-gray-200 rounded-lg">Leave a Feedback</button>
+        </div>
+      </div>`;
+        });
+      }
+
+      getOrders(data.message.trim());
+
+            //
+
+
           }
         } catch (error) {
           console.error("Error:", error);
@@ -429,116 +560,7 @@
       }
 
 
-      async function getOrders() {
-  const response = await fetch("http://localhost:3000/user/orders");
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  
-  const data = await response.json();
-  const container = document.getElementById("disp_orders");
-  container.innerHTML = "";
-
-  data.orders.forEach(async (order) => {
-    const orderDiv = document.createElement("div");
-    //add class to order div
-    orderDiv.classList.add("border", "mb-4")
-    const date = new Date(order.order_added);
-
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0"); 
-    const year = date.getUTCFullYear();
-
-    const formattedDate = `${day}-${month}-${year}`;
     
-    orderDiv.innerHTML = `
-      <div class="bg-gray-100   p-2 border border-gray-200 flex items-center justify-between">
-        <div class="flex gap-4 items-center justify-between">
-          <div>
-            <header>
-              <h2>Order Placed</h2>
-            </header>
-            <p class="text-sm m-2">${formattedDate}</p>
-          </div>
-          <div>
-            <header>
-              <h2>Payment Type</h2>
-            </header>
-            <p class="text-sm m-2">${order.payment_method === "cash-on-delivery" ? "COD" : "online"}</p>
-          </div>
-          <div>
-            <header>
-              <h2>Ship To</h2>
-            </header>
-            <p class="m-2 text-sm">${order.email}</p>
-          </div>
-        </div>
-        <div class="flex flex-col">
-          <div class="flex items-center justify-center gap-2">
-            <header>
-              <h2>Order Id:</h2>
-            </header>
-            <p class="m-2 text-teal-600 text-sm">${order.order_id}</p>
-          </div>
-          <div class="flex gap-4 ">
-            <span class="text-sm text-teal-600">View order details</span> <h2>|</h2> <span>Invoice</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="flex items-center justify-between border">
-          <header>
-            <h2 class="text-xl mx-2 mt-4">Order Status</h2>
-            <p class="mx-4 text-teal-600">${order.order_status}</p>
-          </header>
-          <div class="flex gap-2">
-            <header>
-              <h2 class="text-xl mx-2 mt-4">Product ID</h2>
-              <p class="mx-4 text-teal-600">${order.product_id}</p>
-            </header>
-          </div>
-        </div>
-        <div id="disp_product_${order.order_id}"></div>
-      </div>
-    `;
-
-    container.appendChild(orderDiv);
-
-    // Fetch product details for each order
-    const product_id = order.product_id; // Use the product ID from the order
-    const response2 = await fetch(`http://localhost:3000/admin/product/${product_id}`);
-    if (!response2.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    const data2 = await response2.json();
-    const container2 = document.getElementById(`disp_product_${order.order_id}`);
-    
-    container2.innerHTML = `
-      <div class="flex items-center justify-between">
-        <div class="flex gap-6 items-center justify-center">
-          <div>
-            <img src="${data2.product_img}" width="480" alt="" />
-          </div>
-          <div>
-            <header>
-              <h2>${data2.product_name}</h2>
-            </header>
-            <button onclick="window.location.href='us.disp_product.html?${data2.product_id}'" class="hover:bg-gray-100 px-2 py-1 m-2 text-sm border border-gray-200 rounded-lg">View Product</button>
-          </div>
-        </div>
-        <div class="flex items-center justify-center flex-col m-5">
-          <button class="hover:bg-gray-100 px-14 py-1 m-2 text-sm border border-gray-200 rounded-lg">Track Shipment</button>
-          <button class="hover:bg-gray-100 px-14 py-1 m-2 text-sm border border-gray-200 rounded-lg">Ask for Refund</button>
-          <button class="hover:bg-gray-100 px-12 py-1 m-2 text-sm border border-gray-200 rounded-lg">Leave a Feedback</button>
-        </div>
-      </div>`;
-  });
-}
-
-getOrders();
-
     </script>
   </body>
 </html>
