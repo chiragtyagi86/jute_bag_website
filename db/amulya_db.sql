@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 20, 2024 at 10:43 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Host: localhost
+-- Generation Time: Oct 25, 2024 at 06:34 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,6 +69,36 @@ INSERT INTO `cart` (`user_id`, `product_id`, `quantity`, `date_added`, `last_mod
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` varchar(20) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `product_id` varchar(40) NOT NULL,
+  `payment_method` varchar(40) NOT NULL,
+  `price` bigint(12) NOT NULL,
+  `order_status` varchar(100) DEFAULT 'pending',
+  `product_qty` int(2) NOT NULL,
+  `order_added` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `email`, `product_id`, `payment_method`, `price`, `order_status`, `product_qty`, `order_added`) VALUES
+('Order175210', 'tyagi.chirag1234@gmail.com', 'Product127537', 'cash-on-delivery', 391, 'pending', 1, '2024-10-25'),
+('Order217754', 'abesit.chirag@gmail.com', 'Product127537', 'cash-on-delivery', 391, 'pending', 1, '2024-10-24'),
+('Order257455', 'tyagi.chirag1234@gmail.com', 'Product259499', 'cash-on-delivery', 2985, 'pending', 4, '2024-10-24'),
+('Order310479', 'tyagi.chirag1234@gmail.com', 'Product259499', 'cash-on-delivery', 8945, 'pending', 12, '2024-10-23'),
+('Order380785', 'tyagi.chirag1234@gmail.com', 'Product127537', 'cash-on-delivery', 391, 'pending', 1, '2024-10-25'),
+('Order556915', 'tyagi.chirag1234@gmail.com', 'Product127537', 'cash-on-delivery', 391, 'pending', 1, '2024-10-24'),
+('Order990715', 'abesit.chirag@gmail.com', 'Product127537', 'cash-on-delivery', 391, 'pending', 1, '2024-10-24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product_data`
 --
 
@@ -87,7 +117,7 @@ CREATE TABLE `product_data` (
   `product_raiting` varchar(110) DEFAULT NULL,
   `product_img` varchar(225) DEFAULT NULL,
   `product_media` varchar(500) DEFAULT NULL,
-  `date_added` date NOT NULL DEFAULT current_timestamp()
+  `date_added` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -137,7 +167,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userid`, `email`, `password`, `first_name`, `last_name`, `address`, `marketing_accept`, `phone_Number`) VALUES
+('User144098', 'tyagi.chirag1234@gmail.com', '$2b$10$U.7nBpUrDPlgbk.TYwMJFOqdi06DopVYh3cvFLIced.9zans2gAiK', 'CHIRAG', 'TYAGI', NULL, 0, 8650295888),
 ('User303849', 'abesit.darshil@gmail.com', '$2b$10$pk6aKHzhBEhbG3lbJqvUl.910rzZK6dyouIYT5yKnz/A0tpR9Decy', '12', '34', NULL, 0, 7678163042),
+('User474236', 'abesit.chirag@gmail.com', '$2b$10$.lPI7A2nkIjZaliI/L86Q.gXufIQET96871IPgnoyZiKpUBf0/mmq', 'CHIRAG', 'TYAGI', NULL, 0, 8650295888),
 ('User669558', 'hill@gmail.com', '$2b$10$deKY1RwKJ6GTwhetdy.LnOYnHmoSZlMM6/Qkpccm/CSzySQ7Y..6G', 'Darshil', 'Kumar', NULL, 0, 7678163042);
 
 --
@@ -157,6 +189,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`user_id`,`product_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`);
 
 --
 -- Indexes for table `product_data`
