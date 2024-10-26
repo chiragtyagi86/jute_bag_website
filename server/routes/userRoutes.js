@@ -2,11 +2,21 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const db = require("../config/db");
+
+require("dotenv").config();
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const authenticateToken = require("../middleware/authenticateToken");
 router.get("/", function (req, res) {
   res.send("This is the route for user here all the users routes are defined");
 });
+
+const razorpay = new Razorpay({
+  key_id: process.env.key_id, 
+  key_secret: process.env.key_secret, 
+});
+
 
 let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
 let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
@@ -200,6 +210,64 @@ router.get("/orders/:email",  (req, res) => {
     });
   });
 });
+
+router.post("/payment", authenticateToken, (req, res) => {
+  const { amount } = req.body;
+
+  const options = {
+    amount: amount, // amount in paise
+    currency: "INR",
+    receipt: "receipt#1",
+    payment_capture: 1, // auto capture
+  };
+
+  razorpay.orders.create(options, (err, order) => {
+    if (err) {
+      console.error("Failed to create Razorpay order:", err);
+      return res.status(500).json({ error: "Failed to create payment order" });
+    }
+    res.json(order);
+    console.log(order);
+     // Send order details back to client
+  });
+});
+
+router.post("/create-order", authenticateToken, (req, res) => {
+  const {product_id, email, payment_method, price, product_qty} = req.body;
+  
+  if (!product_id ||!email ||!payment_method ||!product_qty || !price) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  const options = {
+    amount: price * 100, // amount in paise
+    currency: "INR",
+    receipt: "receipt#1", // optional
+  };
+
+  razorpay.orders.create(options, (err, order) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to create order" });
+    }
+    res.json(order);
+  });
+});
+router.post("/payment/verify", (req, res) => {
+  const { razorpay_payment_id, order_id, signature } = req.body;
+
+  // You can verify the signature and payment ID here
+  const generatedSignature = crypto
+    .createHmac("sha256", process.env.key_secret) // replace with your Razorpay secret
+    .update(`${order_id}|${razorpay_payment_id}`)
+    .digest("hex");
+
+  if (generatedSignature === signature) {
+    // Payment is verified
+    res.json({ message: "Payment verified successfully" });
+  } else {
+    res.status(400).json({ error: "Payment verification failed" });
+  }
+});
+
 
 
 module.exports = router;
