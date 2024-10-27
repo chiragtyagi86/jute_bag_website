@@ -14,10 +14,8 @@ const authenticateToken = require("../middleware/authenticateToken");
 router.use(express.json());
 router.use(cors());
 
-router.post("/view",(req, res) => {
+router.post("/view",authenticateToken,(req, res) => {
     const { userid } = req.body;
-    console.log(userid,'is viewing the cart');
-
     if (!userid) {
         return res.status(400).json({ error: "User ID is required" });
     }
@@ -31,7 +29,7 @@ router.post("/view",(req, res) => {
         }
 
         if (result.length === 0) {
-            return res.status(404).json({ message: 'No items in the cart' });
+            return res.status(204).end();
         }
 
         // Send the cart items back to the client
@@ -43,9 +41,8 @@ router.post("/view",(req, res) => {
 });
 
 
-router.post("/add", (req, res) => {
+router.post("/add", authenticateToken,(req, res) => {
     const {userid, product_id, quantity } = req.body; 
-    console.log(userid,'is adding', quantity,'of',product_id,'in cart');
     if (!userid || !product_id || !quantity) {
         return res.status(400).json({ error: "All fields are required" });
     }
@@ -83,10 +80,8 @@ router.post("/add", (req, res) => {
     });
 });
 
-router.post("/remove", (req, res) => {
+router.post("/remove", authenticateToken,(req, res) => {
     const { userid, product_id, quantity} = req.body;
-    console.log(userid,'is removing all', quantity,'of',product_id,'from cart');
-
     if (!userid || !product_id || !quantity) {
         return res.status(400).json({ error: "All fields are required" });
     }
@@ -128,9 +123,8 @@ router.post("/remove", (req, res) => {
     });
 });
 
-router.post("/update", (req, res) => {
+router.post("/update",authenticateToken, (req, res) => {
     const { userid, product_id, quantity } = req.body;
-    console.log(userid,'is updating', quantity,'quantity of',product_id,'in cart');
     // Check if all required fields are provided
     if (!userid || !product_id || !quantity) {
         return res.status(400).json({ error: "All fields are required" });

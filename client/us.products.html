@@ -156,7 +156,7 @@
             </a>
             <a
               class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-              href=""
+              href="/us.cart.html"
             >
               <svg
                 class="h-10"
@@ -275,11 +275,13 @@
     </div>
     <div></div>
   </header>
+
   <div class="bg-teal-600 px-4 py-3 text-white">
     <p class="lg:text-right text-center text-sm font-medium">
       Welcome to the dashboard: <span class="underline" id="user"></span>
     </p>
   </div>
+
   <main>
 
     <section>
@@ -502,6 +504,7 @@
       </div>
     </section>
   </main>
+
   <footer class="bg-white">
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="lg:flex lg:items-start lg:gap-8">
@@ -706,7 +709,7 @@
 
           <ul class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
             <li>
-              <a href="#" class="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
+              <a href="/terms_conditions.html" class="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
             </li>
 
             <li>
@@ -721,6 +724,7 @@
       </div>
     </div>
   </footer>
+  
   <script>
     new Swiper('.swiper', {
       effect: 'fade',
@@ -736,6 +740,77 @@
         nextEl: '.swiper-next-button',
       },
     })
+
+    function toogleNav() {
+      //if click toggle the navigation menu again click hide the navigation menu
+      if (document.getElementById("nav-menu").style.display === "none") {
+        document.getElementById("nav-menu").style.display = "block";
+      } else {
+        document.getElementById("nav-menu").style.display = "none";
+      }
+    }
+    function toggleSearch() {
+      //if click toggle the search bar again click hide the search bar and a div with id results
+      if (document.getElementById("search-bar").style.display === "none") {
+        document.getElementById("search-bar").style.display = "block";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML = "";
+      } else {
+        document.getElementById("search-bar").style.display = "none";
+        document.getElementById("result").style.display = "none";
+      }
+    }
+
+    function handleKeyPress(event) {
+      const inputElement = document.getElementById("searchQuery");
+      if (inputElement) {
+        let searchQuery = inputElement.value;
+        fetch(
+          `http://localhost:3000/search-products/${encodeURIComponent(
+            searchQuery
+          )}`
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (data.message) {
+              resultDiv.innerHTML = `<p>${data.message}</p>`;
+            } else {
+              data.forEach((product) => {
+                const words = product.product_name.split(" ");
+                const firstSevenWords = words.slice(0, 5).join(" ");
+                resultDiv.innerHTML += `
+                            <a onclick="window.location.href='us.disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
+                              <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
+                  id="search">
+                  <path
+                    d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
+                  </path>
+                </svg>
+                <div class='flex items-center justify-center'>
+                  <img src=${product.product_img} width=30>
+
+                  <h3 class="line-clamps-3">${firstSevenWords}</h3>
+                  </div>
+                              </a>
+                                `;
+              });
+            }
+          });
+      } else {
+        console.error("Input element not found.");
+      }
+    }
+
+    
+
 
     const ul = document.getElementById("list_products");
     ul.innerHTML = '';

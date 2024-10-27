@@ -20,7 +20,7 @@
   <link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Sign In</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -225,25 +225,7 @@
                   ></path>
                 </svg>
               </a>
-              <a
-                class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                href=""
-              >
-                <svg
-                  class="h-10"
-                  aria-hidden="true"
-                  focusable="false"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 40 40"
-                  fill="teal"
-                >
-                  <path
-                    d="m15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33l-.78-11.61zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1 -9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  ></path>
-                </svg>
-              </a>
+
             </div>
 
             <button
@@ -267,6 +249,7 @@
               </svg>
             </button>
           </div>
+          
         </div>
       </div>
       <div class="hidden lg:hidden md:hidden h-32" id="nav-menu">
@@ -444,7 +427,7 @@
             <div class="flex items-center justify-between">
               <p class="text-sm text-gray-500">
                 No account?
-                <a class="underline" href="#">Sign up</a>
+                <a class="underline" href="/sign-up.html">Sign up</a>
               </p>
 
               <button
@@ -453,7 +436,15 @@
               >
                 Sign in
               </button>
+
+              
             </div>
+            <div class="flex items-center justify-between">
+              <a class="text-sm text-gray-500 underline" href="/forgot_password.html">
+                Forgot Password?
+              </a>
+            </div>
+
           </form>
         </div>
 
@@ -782,7 +773,7 @@
               class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end"
             >
               <li>
-                <a href="#" class="text-gray-500 transition hover:opacity-75">
+                <a href="/terms_conditions.html" class="text-gray-500 transition hover:opacity-75">
                   Terms & Conditions
                 </a>
               </li>
