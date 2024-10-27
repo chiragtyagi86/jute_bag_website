@@ -344,40 +344,45 @@
 
             document.getElementById("user").innerHTML = data.message;
 
-            // 
+            //
 
             async function getOrders(email) {
-        const response = await fetch(
-          `http://localhost:3000/user/orders/${email}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+              const response = await fetch(
+                `http://localhost:3000/user/orders/${email}`,
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
 
-        const data = await response.json();
-        const container = document.getElementById("disp_orders");
-        container.innerHTML = "";
+              const data = await response.json();
+              const container = document.getElementById("disp_orders");
+              container.innerHTML = "";
 
-        data.orders.forEach(async (order) => {
-          const orderDiv = document.createElement("div");
-          //add class to order div
-          orderDiv.classList.add("border", "mb-4");
-          const date = new Date(order.order_added);
+              data.orders.forEach(async (order) => {
+                const orderDiv = document.createElement("div");
+                //add class to order div
+                orderDiv.classList.add("border", "mb-4");
+                const date = new Date(order.order_added);
 
-          const day = String(date.getUTCDate()).padStart(2, "0");
-          const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-          const year = date.getUTCFullYear();
+                // Convert to local time zone
+                const localDate = new Date(
+                  date.getTime() - date.getTimezoneOffset() * 60000
+                );
 
-          const formattedDate = `${day}-${month}-${year}`;
+                const day = String(localDate.getDate()).padStart(2, "0");
+                const month = String(localDate.getMonth() + 1).padStart(2, "0");
+                const year = localDate.getFullYear();
 
-          orderDiv.innerHTML = `
+                const formattedDate = `${day}-${month}-${year}`;
+
+                orderDiv.innerHTML = `
       <div class="bg-gray-100   p-2 border border-gray-200 flex items-center justify-between">
         <div class="flex gap-4 items-center justify-between">
           <div>
@@ -430,23 +435,23 @@
       </div>
     `;
 
-          container.appendChild(orderDiv);
+                container.appendChild(orderDiv);
 
-          // Fetch product details for each order
-          const product_id = order.product_id; // Use the product ID from the order
-          const response2 = await fetch(
-            `http://localhost:3000/admin/product/${product_id}`
-          );
-          if (!response2.ok) {
-            throw new Error("Network response was not ok");
-          }
+                // Fetch product details for each order
+                const product_id = order.product_id; // Use the product ID from the order
+                const response2 = await fetch(
+                  `http://localhost:3000/admin/product/${product_id}`
+                );
+                if (!response2.ok) {
+                  throw new Error("Network response was not ok");
+                }
 
-          const data2 = await response2.json();
-          const container2 = document.getElementById(
-            `disp_product_${order.order_id}`
-          );
+                const data2 = await response2.json();
+                const container2 = document.getElementById(
+                  `disp_product_${order.order_id}`
+                );
 
-          container2.innerHTML = `
+                container2.innerHTML = `
       <div class="flex items-center justify-between">
         <div class="flex gap-6 items-center justify-center">
           <div>
@@ -465,14 +470,12 @@
           <button class="hover:bg-gray-100 px-12 py-1 m-2 text-sm border border-gray-200 rounded-lg">Leave a Feedback</button>
         </div>
       </div>`;
-        });
-      }
+              });
+            }
 
-      getOrders(data.message.trim());
+            getOrders(data.message.trim());
 
             //
-
-
           }
         } catch (error) {
           console.error("Error:", error);
@@ -558,9 +561,6 @@
           document.getElementById("result").style.display = "none";
         }
       }
-
-
-    
     </script>
   </body>
 </html>

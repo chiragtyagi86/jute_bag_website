@@ -434,8 +434,6 @@
           <div class="" id="user"></div>
         </div>
       </form>
-      <button id="rzp-button1" class="btn btn-outline-dark btn-lg"><i class="fas fa-money-bill"></i> Own Checkout</button>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     </main>
     <script>
       const currentUrl = window.location.href;
@@ -526,42 +524,7 @@
             console.error("Error:", error);
           });
       }
-        const price = document.getElementById("product_price_s").textContent.trim();
-      price2 = price.replace(/₹/g, "");
-      price2 = parseInt(price2* 100);
-      var options = {
-        "key": "rzp_test_yR2iZc9RVV5GVq",
-        "amount":  price2,
-        "currency": "INR",
-        "orderId": '134',
-        "description": "Acme Corp",
-        "image": "example.com/image/rzp.jpg",
-        "prefill":
-        {
-          "email": "gaurav.kumar@example.com",
-          "contact": +919900000000,
-        },
-       "handler": function (response) {
-          alert(response.razorpay_payment_id);
-        },
-        "modal": {
-          "ondismiss": function () {
-            if (confirm("Are you sure, you want to close the form?")) {
-              txt = "You pressed OK!";
-              console.log("Checkout form closed by the user");
-            } else {
-              txt = "You pressed Cancel!";
-              console.log("Complete the Payment")
-            }
-          }
-        }
-      };
-      var rzp1 = new Razorpay(options);
-      document.getElementById('rzp-button1').onclick = function (e) {
-        rzp1.open();
-        e.preventDefault();
-      }
-      //
+
       geteditData(product_id);
       var swiper = new Swiper(".default-carousel", {
         loop: true,
@@ -626,8 +589,6 @@
         }
       }
       checkAuth();
-      
-
 
       function logout() {
         if (!localStorage.getItem("token")) {
@@ -638,6 +599,163 @@
         alert("You have been logged out successfully");
         window.location.href = "/sign-in.html";
       }
+      // document
+      //   .getElementById("buy-product")
+      //   .addEventListener("submit", async function (event) {
+      //     event.preventDefault();
+      //     const formData = new FormData(event.target);
+      //     const formObj = {};
+      //     formData.forEach((value, key) => {
+      //       formObj[key] = value;
+      //     });
+      //     //add product_id to formObj on top
+
+      //     formObj.product_id = product_id;
+      //     const priceString = document.getElementById("final_price").innerText;
+      //     formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);
+
+      //     const product_toBuy = formObj;
+      //     console.log(product_toBuy);
+
+      //     fetch("http://localhost:3000/user/buy-products", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //       },
+      //       body: JSON.stringify(product_toBuy),
+      //     })
+      //       .then((response) => {
+      //         if (!response.ok) {
+      //           throw new Error(
+      //             "Network response was not ok " + response.statusText
+      //           );
+      //           return;
+      //         }
+      //         return response.json();
+      //       })
+      //       .then((data) => {
+      //         alert(data.message);
+      //         window.location.href = "/us.profile.orders.html";
+      //       })
+      //       .catch((error) => {
+      //         console.error("Error:", error);
+      //         alert("An error occurred while trying to buy the product");
+      //       });
+      //   });
+      // const onPayment = async (price, itemName) => {
+      //   try {
+      //     const option ={
+      //       itemId: 1,
+      //       price: price,
+      //     }
+      //     const responce = await fetch("http://localhost:3000/payment", option,{
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //       },
+
+      //     })
+      //     if (!responce.ok) {
+      //       throw new Error(
+      //         "Network response was not ok " + responce.statusText
+      //       );
+      //     }
+      //     const data = await responce.json();
+      //     console.log(data);
+      //   } catch (error) {
+
+      //   }
+      // };
+    </script>
+    <!-- <script>
+   
+document
+  .getElementById("buy-product")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const formObj = {};
+    formData.forEach((value, key) => {
+      formObj[key] = value;
+    });
+    // Add product_id to formObj
+    formObj.product_id = product_id;
+    const priceString = document.getElementById("final_price").innerText;
+    formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);
+
+    // 1. Create Razorpay order and get order ID
+    try {
+      const response = await fetch("http://localhost:3000/user/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ amount: formObj.price * 100 }), // Amount in paisa
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create payment order");
+      }
+
+      const paymentData = await response.json();
+      const options = {
+        key: "rzp_test_yR2iZc9RVV5GVq", // Replace with your Razorpay key
+        amount: paymentData.amount, // The amount you received from the server
+        currency: "INR",
+        order_id: paymentData.id, // Use the order ID from Razorpay
+        description: "Acme Corp",
+        handler: async function (response) {
+          // 2. On payment success, send details to backend
+          const orderConfirmation = {
+            ...formObj,
+            payment_id: response.razorpay_payment_id, // Payment ID from Razorpay
+            order_id: paymentData.id,
+          };
+
+          const orderResponse = await fetch("http://localhost:3000/user/buy-products", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(orderConfirmation),
+          });
+
+          if (!orderResponse.ok) {
+            alert("Order creation failed");
+            return;
+          }
+
+          const orderResult = await orderResponse.json();
+          alert(orderResult.message);
+          window.location.href = "/us.profile.orders.html"; // Redirect to orders page
+        },
+        modal: {
+          ondismiss: function () {
+            if (confirm("Are you sure you want to close the form?")) {
+              console.log("Checkout form closed by the user");
+            } else {
+              console.log("Complete the Payment");
+            }
+          },
+        },
+      };
+
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while processing the payment");
+    }
+  });
+
+      
+    </script> -->
+
+    <script>
       document
         .getElementById("buy-product")
         .addEventListener("submit", async function (event) {
@@ -647,72 +765,110 @@
           formData.forEach((value, key) => {
             formObj[key] = value;
           });
-          //add product_id to formObj on top
+
+          console.log(formObj);
 
           formObj.product_id = product_id;
           const priceString = document.getElementById("final_price").innerText;
           formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);
 
-          const product_toBuy = formObj;
-          console.log(product_toBuy);
+          // Create Razorpay Order
+          const response = await fetch(
+            "http://localhost:3000/user/create-order",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify(formObj),
+            }
+          );
 
-          fetch("http://localhost:3000/user/buy-products", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+          if (!response.ok) {
+            console.error("Failed to create order");
+            alert("Failed to create order. Please try again.");
+            return;
+          }
+
+          const orderData = await response.json();
+
+          // Set up Razorpay options
+          const options = {
+            key: "rzp_test_yR2iZc9RVV5GVq", // replace with your Razorpay key
+            amount: formObj.price * 100, // amount in paise
+            currency: "INR",
+            order_id: orderData.id, // use the order_id returned from the backend
+            description: "Purchase Description",
+            image: "example.com/image/rzp.jpg",
+            prefill: {
+              email: formObj.email,
             },
-            body: JSON.stringify(product_toBuy),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(
-                  "Network response was not ok " + response.statusText
-                );
-                return;
+            handler: async function (response) {
+              // Handle payment success
+              const paymentResponse = {
+                razorpay_payment_id: response.razorpay_payment_id,
+                order_id: response.razorpay_order_id,
+                signature: response.razorpay_signature,
+              };
+
+              // You can send this to your backend for verification
+              const paymentVerificationResponse = await fetch(
+                "http://localhost:3000/user/payment/verify",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(paymentResponse),
+                }
+              );
+
+              if (paymentVerificationResponse.ok) {
+                alert("Payment successful!");
+                fetch("http://localhost:3000/user/buy-products", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                  body: JSON.stringify(formObj),
+                })
+                  .then((response) => {
+                    if (!response.ok) {
+                      throw new Error(
+                        "Network response was not ok " + response.statusText
+                      );
+                      return;
+                    }
+                    return response.json();
+                  })
+                  .then((data) => {
+                    alert(data.message);
+                    window.location.href = "/us.profile.orders.html";
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An error occurred while trying to buy the product");
+                  });
+              } else {
+                alert("Payment verification failed.");
               }
-              return response.json();
-            })
-            .then((data) => {
-              alert(data.message);
-              window.location.href = "/us.profile.orders.html";
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              alert("An error occurred while trying to buy the product");
-            });
-        });
-      const onPayment = async (price, itemName) => {
-        try {
-          const option ={
-            itemId: 1,
-            price: price,
-          }
-          const responce = await fetch("http://localhost:3000/payment", option,{
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
+            modal: {
+              ondismiss: function () {
+                if (confirm("Are you sure, you want to close the form?")) {
+                  console.log("Checkout form closed by the user");
+                } else {
+                  console.log("Complete the Payment");
+                }
+              },
+            },
+          };
 
-          })
-          if (!responce.ok) {
-            throw new Error(
-              "Network response was not ok " + responce.statusText
-            );
-          }
-          const data = await responce.json();
-          console.log(data);
-        } catch (error) {
-          
-        }
-      };
+          const rzp1 = new Razorpay(options);
+          rzp1.open();
+        });
     </script>
-    <script>
-   
-
-      
-    </script>
-  
   </body>
 </html>

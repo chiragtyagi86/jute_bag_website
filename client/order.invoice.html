@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Load jsPDF from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!-- Load html2canvas from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="p-10 bg-gray-100">
+    <div id="invoice" class="bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4">Invoice</h1>
+        <p class="mb-2">Invoice Number: <span id="invoice-number">123456</span></p>
+        <p class="mb-4">Date: <span id="invoice-date">2024-10-26</span></p>
+        
+        <h3 class="text-2xl font-semibold mb-2">Bill To:</h3>
+        <p>Name: <span id="customer-name">John Doe</span></p>
+        <p>Email: <span id="customer-email">john@example.com</span></p>
+        <p>Address: <span id="customer-address">123 Main St, City, Country</span></p>
+        
+        <h3 class="text-2xl font-semibold mt-6 mb-2">Product Details:</h3>
+        <table class="min-w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 p-2">Product Name</th>
+                    <th class="border border-gray-300 p-2">Quantity</th>
+                    <th class="border border-gray-300 p-2">Price</th>
+                    <th class="border border-gray-300 p-2">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border border-gray-300 p-2">Product A</td>
+                    <td class="border border-gray-300 p-2">2</td>
+                    <td class="border border-gray-300 p-2">₹100</td>
+                    <td class="border border-gray-300 p-2">₹200</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="border border-gray-300 p-2 text-right font-semibold">Total</td>
+                    <td class="border border-gray-300 p-2">₹200</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button id="generate-invoice" class="mt-6 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">Download Invoice</button>
+
+    <script>
+        // Ensure jsPDF and html2canvas are available
+        const { jsPDF } = window.jspdf;
+
+        document.getElementById("generate-invoice").onclick = function () {
+            const invoice = document.getElementById("invoice");
+            html2canvas(invoice)
+               .then(canvas => {
+                    const pdf = new jsPDF("p", "mm", "a4");
+                    //create a full page 
+                    
+                    pdf.save("invoice.pdf");
+                    alert("Invoice has been downloaded successfully!");
+                    // Clear invoice number and date for next invoice
+                    document.getElementById("invoice-number").textContent = "";
+                    document.getElementById("invoice-date").textContent = "";
+                })
+               .catch(error => {
+                    console.error("Error generating invoice:", error);
+                    alert("Error generating invoice. Please try again.");
+                });
+
+        }
+    </script>
+</body>
+</html>

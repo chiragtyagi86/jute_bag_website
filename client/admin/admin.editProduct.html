@@ -177,11 +177,11 @@
                         </header>
                         <div class="relative h-64 m-5 rounded border">
                             <img width="400" id="imageDisplay"
-                                class="h-full w-full p-2 cursor-pointer rounded border-dotted"
+                                class="h-full w-full p-2 cursor-pointer object-contain rounded border-dotted"
                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAREAAAC4CAMAAADzLiguAAAAPFBMVEX///+rq6unp6fMzMykpKTp6enx8fHU1NS0tLS6urr6+vqwsLDHx8fPz8/w8PD19fXa2trh4eHl5eXAwMAzrysnAAADpklEQVR4nO2c2ZKDIBAAE6KJmsPr//91c69yKKREHav7dctl6YVhGJTdDgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZqE5LMU1XbrvVupELUe9dO9t5PsFyZfuvY1FjWRL994GRnQeRs5NOj+rNpIVCzSMER2M6GBEByM6GNHBiI4cI+mhbdtLE12SFCO3XKnH36ryJnLDQoxU/xm2usZtWIaRWu1nUyLCSNnfh6moE0eEkYvqK4lavpBgpNA368ktYsMSjKSJbqSK2LAEI7VuRB0iNizBSGUYuURsWIIRc4zEXH8lGDkacSTm6YEEI7tMX2zKiA2LMFL185HAMJJWdcj2UIQRfZCEDJEyT5JkH7BcyzBSnrujJORY9r0BSPzXaxlGHv/pz5TJQoQUn4Mw5T1KhBi5x5LseUadnYJKRlcVPLLEGNkVt7qq0rASWtOZa7nno3KM/EB5/mGF2rSRvLdqe+Z1WzZy0Moq6ujz1IaNNJoQz1CyXSO9IPIeJD5ZyXaN6KXIJx6hZLNGKpuQ/Xl8A7BVI6nNx+MAbPTJjRopjAKCdyjZqJHWOmeeSsay+W0asQcRv1CySSM3t4/7IGmHH96ikW8JwKHkNPj0Fo3o2bvBYCiRayRt84u1a/WYkOHfK9bISam92lvW0qOZvRvzZqgwINXI+5zP0rd8dIgMHxwLNdI4+zYaRF643y6QaaT4nxlaxtXo538O3LJlGmk7fetlXKW9/ybuUCLSSC8l7WZchTt7N5S4QolEI1pK2sm4Tt5C7mPLEUoEGjH3tZ++OUoAjkHiKAwINGIWx86vHxTjmUhPib0wIM+IZV/7DpOhn/bZjyvEGbHOjGffQoLIG1thQJoRV3HsFhZEXqjWolyaEUdKqvLyl89hbYUBYUbcKWlYVP1i7p5lGfFOSb05G9JlGfHZ14ZhZiWijFwnF2IJJZKM1NP7eKCFEkFGLEfbk5D1sxJBRvz3tWFohQE5Rk6etaAflPQKA2KMpJFGyJNuYUCKkdJ1tD0JXfVSjFjfj5mMbigRYmToaHsSJf+FARlGftjXhvJ9j1GEEef7MdOhvu8xijASN4i8lXy+dJNgxPhOLw7vL80FGDnO4uN7FCbAyGx3xb0KA+s3cpntysnkGUpWb6Q8zcjjP7B6I7ODEZ1VGznfjrNzW7WRfbIA6zayFBjRWeWtxhU3X+vUi92Ofoh9CR0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA2+AN7/TZH3Ls1kQAAAABJRU5ErkJggg=="
                                 alt="Click to upload" />
-                            <input type="file" id="imageInput" name="product_img"
-                                class="absolute inset-0 h-full w-full opacity-0 cursor-pointer" accept="image/*">
+                            <!-- <input type="file" id="imageInput" name="product_img"
+                                class="absolute inset-0 h-full w-full opacity-0 cursor-pointer" accept="image/*"> -->
                         </div>
                         <span class="text-sm text-gray-400 line-clamp-3 m-5 text-center ">
                             Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted
@@ -363,21 +363,7 @@
             </form>
         </div>
     </main>
-    <script>
-        const imageInput = document.getElementById('imageInput');
-        const imageDisplay = document.getElementById('imageDisplay');
-
-        imageInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    imageDisplay.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+  
     <script>
         async function checkAuth() {
             const token = localStorage.getItem("token");
@@ -445,40 +431,44 @@
             });
     </script>
     <script>
+        
         document.getElementById("add-product").addEventListener("submit", async function (event) {
             event.preventDefault();
+            const currentUrl = window.location.href;
+            const urlObj = new URL(currentUrl);
+            const queryString = urlObj.search;
+            const product_id = queryString.substring(1);
             const formData = new FormData(event.target);
             const token = localStorage.getItem("token");
             const formObj = {}
             formData.forEach((value, key) => {
                 formObj[key] = value;
             });
+            formObj.product_id = product_id;
             console.log(formObj);
-
-            try {
-                const response = await fetch('http://localhost:3000/admin/add-product', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                })
-                if (response.ok) {
-                    alert("Product added successfully");
-                    // window.location.href = "/admin/dashboard.html";
-
+        //send the data to edit-product route
+        fetch("http://localhost:3000/admin/edit-product", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formObj)
+        })
+           .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok'+ response.statusText);
                 }
-                else {
-                    alert("Error adding product");
-                    console.log("Error:", await response.text());
-                }
-            }
-            catch (error) {
+                return response.json();
+            })
+           .then(data => {
+                alert("Product edited successfully");
+                // window.location.href = "/admin/dashboard";
+            })
+           .catch(error => {
                 console.error("Error:", error);
-                alert("An error occurred while adding product");
-            }
-
-
+                alert("Error occurred while editing product");
+            });
         });
     </script>
     <script>

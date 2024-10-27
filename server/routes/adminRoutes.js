@@ -101,8 +101,6 @@ router.post(
     { name: "product_media", maxCount: 5 },
   ]),
   (req, res) => {
-
-    
     const {
       product_name,
       product_description,
@@ -134,12 +132,70 @@ router.post(
     }
 
     const productImgUrl = `http://localhost:3000/uploads/${req.files.product_img[0].filename}`;
-    const productMediaUrls = req.files.product_media ? req.files.product_media.map(file => `http://localhost:3000/uploads/${file.filename}`) : [];
-    const productMediaString = productMediaUrls.join(',');
+    const productMediaUrls = req.files.product_media
+      ? req.files.product_media.map(
+          (file) => `http://localhost:3000/uploads/${file.filename}`
+        )
+      : [];
+    const productMediaString = productMediaUrls.join(",");
 
-  const productId = getProductId();
+    const productId = getProductId();
+    const product_data = {
+      product_id: productId,
+      product_name,
+      product_discription: product_description,
+      product_price,
+      product_qty,
+      product_discount,
+      product_tax_class,
+      product_status,
+      product_tax_amount,
+      product_img: productImgUrl,
+      product_media: productMediaString,
+    };
+    const sql = "INSERT INTO product_data SET?";
+    db.query(sql, product_data, (err, result) => {
+      if (err) {
+        console.error("Failed to insert product:", err);
+        return res.status(500).json({ error: "Failed to insert product" });
+      }
+
+      res
+        .status(200)
+        .json({ message: "Product added successfully", id: productId });
+    });
+  }
+);
+
+// edit product
+router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
+  const {
+    product_id,
+    product_name,
+    product_description,
+    product_price,
+    product_qty,
+    product_discount,
+    product_tax_class,
+    product_status,
+    product_tax_amount,
+  } = req.body;
+
+  console.log(product_name);
+  if (
+    !product_id ||  
+   !product_name ||
+   !product_description ||
+   !product_price ||
+   !product_qty ||
+   !product_discount ||
+   !product_tax_class ||
+   !product_status ||
+   !product_tax_amount
+  ) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
   const product_data = {
-    product_id: productId,
     product_name,
     product_discription: product_description,
     product_price,
@@ -148,23 +204,21 @@ router.post(
     product_tax_class,
     product_status,
     product_tax_amount,
-    product_img: productImgUrl,
-    product_media: productMediaString,
   }
-  const sql = "INSERT INTO product_data SET?";
-  db.query(sql, product_data, (err, result) => {
+  
+
+  const sql = "UPDATE product_data SET ? WHERE product_id = ?";
+  db.query(sql, [product_data, product_id], (err, result) => {
     if (err) {
-      console.error("Failed to insert product:", err);
-      return res.status(500).json({ error: "Failed to insert product" });
+      console.error("Failed to update product:", err);
+      return res.status(500).json({ error: "Failed to update product" });
     }
 
-    res.status(200).json({ message: "Product added successfully", id: productId });
+    res.status(200).json({ message: "Product updated successfully" });
   });
+});
 
-  }
-);
 
-// edit product
 router.get("/product/:product_id", (req, res) => {
   const { product_id } = req.params;
 
@@ -245,8 +299,9 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logout successful" });
 });
 router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
-  const sqlOrders = 'SELECT * FROM `orders`  ORDER BY `orders`.`order_added` DESC';
-  const sqlProducts = 'SELECT * FROM product_data';
+  const sqlOrders =
+    "SELECT * FROM `orders`  ORDER BY `orders`.`order_added` DESC";
+  const sqlProducts = "SELECT * FROM product_data";
 
   db.query(sqlProducts, (err, productResults) => {
     if (err) {
@@ -261,11 +316,14 @@ router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
       }
 
       // Send response only after both queries are done
-      res.json({  message: "admin",orders: orderResults, products: productResults });
+      res.json({
+        message: "admin",
+        orders: orderResults,
+        products: productResults,
+      });
     });
   });
 });
-
 
 router.use("/", verifyAdmin);
 
