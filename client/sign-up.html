@@ -1,78 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>    <link
-  rel="apple-touch-icon"
-  sizes="180x180"
-  href="./assets/favicon_io/apple-touch-icon.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="32x32"
-  href="./assets/favicon_io//favicon-32x32.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="16x16"
-  href="./assets/favicon_io//favicon-16x16.png"
-/>
-<link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon_io/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon_io//favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon_io//favicon-16x16.png" />
+  <link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+  <title>Sign up</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="./js/script.js"></script>
 </head>
-<script>   function toogleNav() {
-  //if click toggle the navigation menu again click hide the navigation menu
-  if (document.getElementById("nav-menu").style.display === "none") {
-    document.getElementById("nav-menu").style.display = "block";
-  } else {
-    document.getElementById("nav-menu").style.display = "none";
+<script>   
+  function toogleNav() {
+    //if click toggle the navigation menu again click hide the navigation menu
+    if (document.getElementById("nav-menu").style.display === "none") {
+      document.getElementById("nav-menu").style.display = "block";
+    } else {
+      document.getElementById("nav-menu").style.display = "none";
+    }
   }
-}
-function toggleSearch() {
-  //if click toggle the search bar again click hide the search bar and a div with id results
-  if (document.getElementById("search-bar").style.display === "none") {
-    document.getElementById("search-bar").style.display = "block";
-    document.getElementById("result").style.display = "block";
-    document.getElementById("result").innerHTML = "";
-  } else {
-    document.getElementById("search-bar").style.display = "none";
-    document.getElementById("result").style.display = "none";
+  function toggleSearch() {
+    //if click toggle the search bar again click hide the search bar and a div with id results
+    if (document.getElementById("search-bar").style.display === "none") {
+      document.getElementById("search-bar").style.display = "block";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = "";
+    } else {
+      document.getElementById("search-bar").style.display = "none";
+      document.getElementById("result").style.display = "none";
+    }
   }
-}
-function handleKeyPress(event) {
-  const inputElement = document.getElementById("searchQuery");
-  if (inputElement) {
-    let searchQuery = inputElement.value;
-    fetch(
-      `http://localhost:3000/search-products/${encodeURIComponent(
-        searchQuery
-      )}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        ;
-        const resultDiv = document.getElementById("result");
-        resultDiv.innerHTML = "";
+  function handleKeyPress(event) {
+    const inputElement = document.getElementById("searchQuery");
+    if (inputElement) {
+      let searchQuery = inputElement.value;
+      fetch(
+        `http://localhost:3000/search-products/${encodeURIComponent(
+          searchQuery
+        )}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          ;
+          const resultDiv = document.getElementById("result");
+          resultDiv.innerHTML = "";
 
-        if (data.message) {
-          resultDiv.innerHTML = `<p>${data.message}</p>`;
-        } else {
-          data.forEach((product) => {
-            const words = product.product_name.split(" ");
-            const firstSevenWords = words.slice(0, 5).join(" ");
-            resultDiv.innerHTML += `
+          if (data.message) {
+            resultDiv.innerHTML = `<p>${data.message}</p>`;
+          } else {
+            data.forEach((product) => {
+              const words = product.product_name.split(" ");
+              const firstSevenWords = words.slice(0, 5).join(" ");
+              resultDiv.innerHTML += `
                     <a onclick="window.location.href='disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
                       <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
           id="search">
@@ -87,33 +75,25 @@ function handleKeyPress(event) {
           </div>
                       </a>
                         `;
-          });
-        }
-      });
-  } else {
-    console.error("Input element not found.");
-  }
-}  
+            });
+          }
+        });
+    } else {
+      console.error("Input element not found.");
+    }
+  }  
 </script>
+
 <body>
   <header class="bg-white">
     <div class="bg-gray-100 px-4 py-3">
       <div class="mx-auto flex max-w-3xl items-center justify-center">
-        <button
-          class="swiper-prev-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
-          aria-label="Previous slide"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-5 rtl:rotate-180"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
+        <button class="swiper-prev-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
+          aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
               d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
+              clip-rule="evenodd" />
           </svg>
         </button>
 
@@ -139,63 +119,40 @@ function handleKeyPress(event) {
           </div>
         </div>
 
-        <button
-          class="swiper-next-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
-          aria-label="Next slide"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-5 rtl:rotate-180"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
+        <button class="swiper-next-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
+          aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
               d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"
-            />
+              clip-rule="evenodd" />
           </svg>
         </button>
       </div>
     </div>
 
-    <div
-      class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8"
-    >
+    <div class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
       <a class="block text-teal-600" href="/">
         <span class="sr-only">Home</span>
-        <img
-          class="w-62"
+        <img class="w-62"
           src="https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/2497c4d7-26a5-4d2e-9d1c-3ea2a634dad1._CR0%2C0%2C3000%2C600_SX3000_.jpg"
-          width="300"
-          alt=""
-        />
+          width="300" alt="" />
       </a>
 
       <div class="flex flex-1 items-center justify-end md:justify-between">
         <nav aria-label="Global" class="hidden md:block">
           <ul class="lg:flex md:flex hidden items-center gap-6 text-sm">
             <li>
-              <a
-                class="text-gray-500 transition hover:text-gray-500/75"
-                href="/product.html"
-              >
+              <a class="text-gray-500 transition hover:text-gray-500/75" href="/product.html">
                 Catalog
               </a>
             </li>
             <li>
-              <a
-                class="text-teal-500 transition hover:text-gray-500/75"
-                href="/sign-up.html"
-              >
+              <a class="text-teal-500 transition hover:text-gray-500/75" href="/sign-up.html">
                 Register
               </a>
             </li>
             <li>
-              <a
-                class="text-gray-500 transition hover:text-gray-500/75"
-                href="/sign-in.html"
-              >
+              <a class="text-gray-500 transition hover:text-gray-500/75" href="/sign-in.html">
                 Login
               </a>
             </li>
@@ -204,62 +161,24 @@ function handleKeyPress(event) {
 
         <div class="flex items-center justify-center gap-4">
           <div class="flex justify-center items-center">
-            <a
-              class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-              onclick="toggleSearch()"
-            >
-              <svg
-                class="h-8"
-                fill="teal"
-                xmlns="http://www.w3.org/2000/svg"
-                xml:space="preserve"
-                viewBox="0 0 101 101"
-                id="search"
-              >
+            <a class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+              onclick="toggleSearch()">
+              <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
+                id="search">
                 <path
-                  d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z"
-                ></path>
+                  d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
+                </path>
               </svg>
             </a>
-            <a
-              class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-              href=""
-            >
-              <svg
-                class="h-10"
-                aria-hidden="true"
-                focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 40 40"
-                fill="teal"
-              >
-                <path
-                  d="m15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33l-.78-11.61zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1 -9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </a>
+
           </div>
 
-          <button
-            onclick="toogleNav()"
-            class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
-          >
+          <button onclick="toogleNav()"
+            class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
             <span class="sr-only">Toggle menu</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
@@ -268,26 +187,17 @@ function handleKeyPress(event) {
     <div class="hidden lg:hidden md:hidden h-32" id="nav-menu">
       <ul class="items-center gap-6 text-sm">
         <li>
-          <a
-            class="text-gray-500 transition hover:text-gray-500/75"
-            href="/product.html"
-          >
+          <a class="text-gray-500 transition hover:text-gray-500/75" href="/product.html">
             Catalog
           </a>
         </li>
         <li>
-          <a
-            class="text-teal-500 transition hover:text-gray-500/75"
-            href="/sign-up.html"
-          >
+          <a class="text-teal-500 transition hover:text-gray-500/75" href="/sign-up.html">
             Register
           </a>
         </li>
         <li>
-          <a
-            class="text-gray-500 transition hover:text-gray-500/75"
-            href="/sign-in.html"
-          >
+          <a class="text-gray-500 transition hover:text-gray-500/75" href="/sign-in.html">
             Login
           </a>
         </li>
@@ -297,45 +207,23 @@ function handleKeyPress(event) {
       <div id="search-bar" class="hidden relative m-5">
         <label for="Search" class="sr-only"> Search </label>
 
-        <input
-          type="text"
-          onkeydown="handleKeyPress(event)"
-          name="searchQuery"
-          id="searchQuery"
-          placeholder="Search for..."
-          class="w-full border rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-        />
+        <input type="text" onkeydown="handleKeyPress(event)" name="searchQuery" id="searchQuery"
+          placeholder="Search for..." class="w-full border rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" />
 
         <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
-          <button
-            onclick="handleSerach()"
-            type="button"
-            class="text-gray-600 hover:text-gray-700"
-          >
+          <button onclick="handleSerach()" type="button" class="text-gray-600 hover:text-gray-700">
             <span class="sr-only">Search</span>
 
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
           </button>
         </span>
       </div>
       <div class="results-container flex items-center justify-center">
-        <div
-          class="border hidden border-gray-200 mx-2 rounded mb-5 shadow lg:w-2/4"
-          id="result"
-        >
+        <div class="border hidden border-gray-200 mx-2 rounded mb-5 shadow lg:w-2/4" id="result">
           Search results will be displayed below
         </div>
       </div>
@@ -454,10 +342,19 @@ function handleKeyPress(event) {
               <div class="col-span-6">
                 <p class="text-sm text-gray-500">
                   By creating an account, you agree to our
-                  <a href="#" class="text-gray-700 underline"> terms and conditions </a>
+                  <a href="/terms_conditions.html" class="text-gray-700 underline"> terms and conditions </a>
                   and
                   <a href="#" class="text-gray-700 underline">privacy policy</a>.
                 </p>
+              </div>
+
+              <div id="otp-section" style="display: none;" class="col-span-6 sm:flex sm:items-center sm:gap-4 ">
+                <label for="otp" class="block text-sm font-medium text-gray-700 mb-2">Enter OTP</label>
+                <input type="text" id="otp" name="otp" class="w-full rounded-lg border-gray-200 p-4 shadow-sm"
+                  placeholder="Enter OTP" />
+                <button id="verifyOtpButton"
+                  class="mt-3 inline-block rounded-md border border-teal-600 bg-teal-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring">Verify
+                  OTP</button>
               </div>
 
               <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
@@ -472,6 +369,8 @@ function handleKeyPress(event) {
                 </p>
               </div>
             </form>
+
+
           </div>
         </main>
       </div>
@@ -681,7 +580,7 @@ function handleKeyPress(event) {
 
           <ul class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
             <li>
-              <a href="#" class="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
+              <a href="/terms_conditions.html" class="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
             </li>
 
             <li>
@@ -715,30 +614,67 @@ function handleKeyPress(event) {
     document.getElementById('sign-in').addEventListener('submit', function (event) {
       event.preventDefault();
       const formData = new FormData(event.target);
-      const formObj = {}
-      formData.forEach((value, key) => {
-        formObj[key] = value;
-      })
-      console.log(formObj);
+      const first_name = formData.get('first_name');
+      const last_name = formData.get('last_name');
+      const email = formData.get('email');
+      const phone_Number = formData.get('phone_Number');
+      const password = formData.get('password');
+
+      if (!first_name || !email || !phone_Number || !password) {
+        alert('Enter all the required fields');
+        return;
+      }
 
       fetch("http://localhost:3000/user/sign-up", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formObj),
+        body: JSON.stringify({ email }),
       })
         .then(response => response.json())
         .then(data => {
           console.log('Success:', data);
-
-          // window.location.href = '/sign-in.html';
-
+          // Show OTP input section
+          document.getElementById('otp-section').style.display = 'block';
         })
         .catch((error) => {
           console.error('Error:', error);
         });
-    })
+    });
+
+    document.getElementById('verifyOtpButton').addEventListener('click', function () {
+      const otp = document.getElementById('otp').value;
+      const email = document.getElementById('Email').value; // Assuming the email is still accessible
+      const first_name = document.getElementById('FirstName').value;
+      const last_name = document.getElementById('LastName').value;
+      const phone_Number = document.getElementById('phone_Number').value;
+      const password = document.getElementById('password').value;
+
+      fetch("http://localhost:3000/user/verify-otp", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, otp, first_name, last_name, phone_Number, password }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Verification failed");
+            alert('Verification Failed');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Verification Success:', data);
+          alert('Verification Success, You can now proceed to sign in.');
+          window.location.href = '/sign-in.html';
+        })
+        .catch((error) => {
+          console.error('Verification Error:', error);
+        });
+    });
+
   </script>
 </body>
 

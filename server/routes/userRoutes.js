@@ -4,6 +4,21 @@ const bcrypt = require("bcrypt");
 const db = require("../config/db");
 const jwt = require("jsonwebtoken");
 const authenticateToken = require("../middleware/authenticateToken");
+const otpTemplate = require("../../client/email_templates/otpEmailTemplate");
+const otp_forgot_password_template = require("../../client/email_templates/otp_forgot_password");
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.mail_id, 
+    pass: process.env.mail_password
+  }
+});
+
+let otpStore = {};
+
 router.get("/", function (req, res) {
   res.send("This is the route for user here all the users routes are defined");
 });
@@ -16,21 +31,14 @@ function getUniqueUserID() {
 }
 
 router.post("/sign-up", async (req, res) => {
-  const { first_name, last_name, email, phone_Number, password } = req.body;
+  const { email } = req.body;
 
-  if (!first_name || !last_name || !email || !password || !phone_Number) {
-    return res.status(400).json({ error: "All fields are required" });
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
   }
 
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: "Invalid email format" });
-  }
-
-  if (!passwordRegex.test(password)) {
-    return res.status(400).json({
-      error:
-        "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
-    });
   }
 
   // Check if email already exists in the database
@@ -45,36 +53,76 @@ router.post("/sign-up", async (req, res) => {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    // Hash the password before inserting into the database
-    bcrypt.hash(password, 10, async (err, hashedPassword) => {
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+    otpStore[email] = { otp, expires: Date.now() + 300000 }; // Store OTP with a 5-minute expiration
+
+
+    
+    // Send OTP to user's email
+    transporter.sendMail({
+      from: 'abesit.darshil@gmail.com',
+      to: email,
+      subject: 'Your OTP Code',
+      html: otpTemplate(otp),
+    }, (err, info) => {
       if (err) {
-        console.error("Failed to hash password:", err);
-        return res.status(500).json({ error: "Internal server error" });
+        console.error("Failed to send OTP:", err);
+        return res.status(500).json({ error: "Failed to send OTP" });
       }
 
-      let userid = await getUniqueUserID();
-      let User = {
-        userid,
-        first_name,
-        last_name,
-        email,
-        phone_Number,
-        password: hashedPassword,
-      };
-
-      const sql = "INSERT INTO users SET ?";
-      db.query(sql, User, (err, result) => {
-        if (err) {
-          console.error("Failed to insert user:", err);
-          return res.status(500).json({ error: "Failed to insert user" });
-        }
-        res.json({
-          message: "User inserted successfully",
-          id: result.insertId,
-        });
-      });
+      res.json({ message: 'OTP sent to your email. Please verify to complete registration.' });
     });
   });
+});
+
+router.post("/verify-otp", async (req, res) => {
+  const { email, otp, first_name, last_name, phone_Number, password } = req.body;
+
+  const storedOtp = otpStore[email];
+
+  if (!storedOtp) {
+    return res.status(400).json({ error: "No OTP requested or expired" });
+  }
+
+  if (Date.now() > storedOtp.expires) {
+    delete otpStore[email]; // Remove expired OTP
+    return res.status(400).json({ error: "OTP has expired" });
+  }
+
+  if (storedOtp.otp !== parseInt(otp, 10)) {
+    return res.status(400).json({ error: "Invalid OTP" });
+  }
+
+  // Hash the password and insert the user
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    let userid = await getUniqueUserID();
+    let User = {
+      userid,
+      first_name,
+      last_name,
+      email,
+      phone_Number,
+      password: hashedPassword,
+    };
+
+    const sql = "INSERT INTO users SET ?";
+    db.query(sql, User, (err, result) => {
+      if (err) {
+        console.error("Failed to insert user:", err);
+        return res.status(500).json({ error: "Failed to insert user" });
+      }
+      delete otpStore[email]; // Clean up after successful registration
+      res.json({
+        message: "User registered successfully",
+        id: result.insertId,
+      });
+    });
+  } catch (err) {
+    console.error("Failed to hash password:", err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 //sign-in
@@ -147,6 +195,145 @@ router.get("/dashboard", authenticateToken, (req, res) => {
       userDetails: result[0],
       message: ` ${email}`,
     });
+  });
+});
+
+
+router.post("/profile", authenticateToken,(req, res) => {
+  const { first_name, last_name, address , phone_Number,userid} = req.body;
+  if (!first_name || !last_name || !address || !phone_Number) {
+      return res.status(400).json({ error: "All fields are required" });
+  }
+  console.log(first_name, last_name, address,phone_Number, userid);
+  const updateQuery = 'UPDATE users SET first_name = ?, last_name = ?, address = ?, phone_Number = ? WHERE userid = ?';
+  db.query(updateQuery, [first_name, last_name, address,phone_Number, userid], (err, result) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).json({ message: 'Error updating profile' });
+      }
+      res.status(200).json({ message: 'Profile updated successfully' });
+  });
+  });
+
+
+router.post("/verify-password", authenticateToken, (req, res) => {
+  const { currentPassword , userid} = req.body;
+  console.log(currentPassword, userid);
+  if (!currentPassword) {
+    return res.status(400).json({ error: "Current password is required" });
+  }
+  const sql = "SELECT password FROM users WHERE userid = ?";
+  db.query(sql, [userid], (err, results) => {
+    if (err) {
+      console.error("Failed to retrieve user:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const user = results[0];
+    bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+      if (err) {
+        console.error("Failed to compare passwords:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      if (!isMatch) {
+        return res.status(401).json({ error: "Current password is incorrect" });
+      }
+
+      res.json({ message: "Current password verified" });
+    });
+  });
+});
+
+router.post("/change-password", authenticateToken, (req, res) => {
+  const { newPassword,userid } = req.body;
+  if (!newPassword) {
+    return res.status(400).json({ error: "New password is required" });
+  }
+
+  if (!passwordRegex.test(newPassword)) {
+    return res.status(400).json({
+      error:
+        "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+    });
+  };
+  
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+  const sql = "UPDATE users SET password = ? WHERE userid = ?";
+  db.query(sql, [hashedPassword, userid], (err, results) => {
+    if (err) {
+      console.error("Failed to update password:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    res.json({ message: "Password changed successfully" });
+  });
+});
+
+router.post("/forgot-password", (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Invalid email format" });
+  }
+  const otp = Math.floor(100000 + Math.random() * 900000); 
+  otpStore[email] = { otp, expires: Date.now() + 300000 };
+  transporter.sendMail({
+    from: 'abesit.darshil@gmail.com',
+    to: email,
+    subject: 'Your OTP for Password Reset',
+    html: otp_forgot_password_template(otp),
+  }, (err, info) => {
+    if (err) {
+      console.error("Failed to send OTP:", err);
+      return res.status(500).json({ error: "Failed to send OTP" });
+    }
+    res.json({ message: 'OTP sent to your email. Please check to verify.', success: true });
+  });
+});
+
+router.post("/verify-forgot-password-otp", (req, res) => {
+  const { email, otp } = req.body;
+  const storedOtp = otpStore[email];
+  if (!storedOtp) {
+    return res.status(400).json({ error: "No OTP requested or expired" });
+  }
+  if (Date.now() > storedOtp.expires) {
+    delete otpStore[email]; 
+    return res.status(400).json({ error: "OTP has expired" });
+  }
+  if (storedOtp.otp !== parseInt(otp, 10)) {
+    return res.status(400).json({ error: "Invalid OTP" });
+  }
+  delete otpStore[email];
+  res.json({ message: "OTP verified successfully", success: true });
+});
+
+router.post("/change-forgotten-password", (req, res) => {
+  const { email, newPassword } = req.body;
+  if (!email || !newPassword) {
+      return res.status(400).json({ error: "Email and new password are required." });
+  }
+  if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({
+          error: "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
+      });
+  }
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+  const sql = "UPDATE users SET password = ? WHERE email = ?";
+  db.query(sql, [hashedPassword, email], (err, results) => {
+      if (err) {
+          console.error("Failed to update password:", err);
+          return res.status(500).json({ error: "Internal server error" });
+      }
+      if (results.affectedRows === 0) {
+          return res.status(404).json({ error: "User not found." });
+      }
+      res.json({ message: "Password changed successfully." });
   });
 });
 
