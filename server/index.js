@@ -12,7 +12,7 @@ server.set('viewengine', 'pug');
 
 
 server.use(bodyParser.json());
-const port = 3000;
+const port = process.env.PORT || 3000;
 server.use(express.static(path.join(__dirname, "public")));
 server.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
