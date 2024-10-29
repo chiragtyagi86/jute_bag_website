@@ -109,6 +109,7 @@ router.post(
       product_discount,
       product_tax_class,
       product_status,
+      products,
       product_tax_amount,
     } = req.body;
 
@@ -121,7 +122,8 @@ router.post(
       !product_discount ||
       !product_tax_class ||
       !product_status ||
-      !product_tax_amount
+      !product_tax_amount ||
+      !products
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -151,6 +153,7 @@ router.post(
       product_status,
       product_tax_amount,
       product_img: productImgUrl,
+      products,
       product_media: productMediaString,
     };
     const sql = "INSERT INTO product_data SET?";
@@ -322,6 +325,39 @@ router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
         products: productResults,
       });
     });
+  });
+});
+
+router.post("/update-order", verifyAdmin, authenticateToken, (req, res) => {
+
+  const {order_id, tracking_id, order_status } = req.body;
+
+//tracing id is required when it is provided if not provided then proceed further
+  if (!order_id ||!order_status) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  const sql = "UPDATE orders SET order_status =? WHERE order_id =?";
+  db.query(sql, [order_status, order_id], (err, result) => {
+    if (err) {
+      console.error("Failed to update order:", err);
+      return res.status(500).json({ error: "Failed to update order" });
+    }
+
+    res.status(200).json({ message: "Order updated successfully" });
+  });
+})
+//delete prododuct
+router.delete("/delete-product", verifyAdmin, authenticateToken, (req, res) => {
+  const { product_id } = req.body;
+
+  const sql = "DELETE FROM product_data WHERE product_id =?";
+  db.query(sql, [product_id], (err, result) => {
+    if (err) {
+      console.error("Failed to delete product:", err);
+      return res.status(500).json({ error: "Failed to delete product" });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully" });
   });
 });
 
