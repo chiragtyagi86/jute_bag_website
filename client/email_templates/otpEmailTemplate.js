@@ -170,15 +170,6 @@ const otpEmailTemplate = (otp) => `
 															</td>
 														</tr>
 													</table>
-													<table class="paragraph_block block-5" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
-														<tr>
-															<td class="pad">
-																<div style="color:#40507a;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;">
-																	<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word;">Having trouble? <a href="#" target="_blank" title="@socialaccount" style="text-decoration: none; color: #40507a;" rel="noopener"><strong>@socialaccount</strong></a></span></p>
-																</div>
-															</td>
-														</tr>
-													</table>
 													<table class="paragraph_block block-6" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad">
@@ -229,43 +220,11 @@ const otpEmailTemplate = (otp) => `
 										<tbody>
 											<tr>
 												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 20px; padding-left: 10px; padding-right: 10px; padding-top: 10px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-													<table class="image_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-														<tr>
-															<td class="pad">
-																<div class="alignment" align="center" style="line-height:10px">
-																	<div style="max-width: 145px;"><a href="#" target="_blank" style="outline:none" tabindex="-1"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/3991/logo.png" style="display: block; height: auto; border: 0; width: 100%;" width="145" alt="Your Logo" title="Your Logo" height="auto"></a></div>
-																</div>
-															</td>
-														</tr>
-													</table>
-													<table class="social_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-														<tr>
-															<td class="pad">
-																<div class="alignment" align="center">
-																	<table class="social-table" width="72px" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block;">
-																		<tr>
-																			<td style="padding:0 2px 0 2px;"><a href="https://www.instagram.com" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-only-logo-dark-gray/instagram@2x.png" width="32" height="auto" alt="Instagram" title="instagram" style="display: block; height: auto; border: 0;"></a></td>
-																			<td style="padding:0 2px 0 2px;"><a href="https://www.twitter.com" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-only-logo-dark-gray/twitter@2x.png" width="32" height="auto" alt="Twitter" title="twitter" style="display: block; height: auto; border: 0;"></a></td>
-																		</tr>
-																	</table>
-																</div>
-															</td>
-														</tr>
-													</table>
-													<table class="paragraph_block block-3" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
-														<tr>
-															<td class="pad">
-																<div style="color:#97a2da;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:14px;line-height:120%;text-align:center;mso-line-height-alt:16.8px;">
-																	<p style="margin: 0; word-break: break-word;">+(123) 456–7890</p>
-																</div>
-															</td>
-														</tr>
-													</table>
 													<table class="paragraph_block block-4" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad">
 																<div style="color:#97a2da;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:14px;line-height:120%;text-align:center;mso-line-height-alt:16.8px;">
-																	<p style="margin: 0; word-break: break-word;">This link will expire in the next 24 hours.<br>Please feel free to contact us at email@yourbrand.com. </p>
+																	<p style="margin: 0; word-break: break-word;">This link will expire in the next 24 hours.</p>
 																</div>
 															</td>
 														</tr>
@@ -274,8 +233,7 @@ const otpEmailTemplate = (otp) => `
 														<tr>
 															<td class="pad">
 																<div style="color:#97a2da;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:12px;line-height:120%;text-align:center;mso-line-height-alt:14.399999999999999px;">
-																	<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word;">Copyright© 2021 Your Brand.</span></p>
-																	<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word;"><a href="#" target="_blank" title="Unsubscribe&nbsp;" style="text-decoration: underline; color: #97a2da;" rel="noopener">Unsubscribe</a> |&nbsp;<a href="#" target="_blank" title="Manage your preferences" style="text-decoration: underline; color: #97a2da;" rel="noopener">Manage your preferences</a>&nbsp;|&nbsp;<a href="#" target="_blank" title="Privacy Policy" style="text-decoration: underline; color: #97a2da;" rel="noopener">Privacy Policy</a></span></p>
+																	<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word;">Copyright© Anumala.</span></p>
 																</div>
 															</td>
 														</tr>
