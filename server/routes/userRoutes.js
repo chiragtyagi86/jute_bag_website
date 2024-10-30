@@ -16,7 +16,7 @@ require('dotenv').config();
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.mail_id, 
+    user: process.env.mail_id,
     pass: process.env.mail_password
   }
 });
@@ -28,17 +28,61 @@ router.get("/", function (req, res) {
 });
 
 const razorpay = new Razorpay({
-  key_id: process.env.key_id, 
-  key_secret: process.env.key_secret, 
+  key_id: process.env.key_id,
+  key_secret: process.env.key_secret,
 });
 
 
 let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
 let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
 
-function getUniqueUserID() {
-  return "User" + Math.floor(100000 + Math.random() * 900000);
+async function getUniqueUserID() {
+  let uniqueID;
+  let isUnique = false;
+  while (!isUnique) {
+    uniqueID = "User" + Math.floor(100000 + Math.random() * 900000);
+    const sql = "SELECT COUNT(*) AS count FROM users WHERE userid = ?";
+    const result = await new Promise((resolve, reject) => {
+      db.query(sql, [uniqueID], (err, results) => {
+        if (err) return reject(err);
+        resolve(results[0].count);
+      });
+    });
+    if (result === 0) {
+      isUnique = true;
+    }
+  }
+  return uniqueID;
 }
+
+router.post("/subscribe", (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const currentDate = formatDate(new Date());
+  const sql = "INSERT INTO notify_users (email, date_added) VALUES (?, ?)";
+  db.query(sql, [email, currentDate], (err, result) => {
+    if (err) {
+      console.error("Failed to insert email:", err);
+      return res.status(500).json({ error: "Failed to insert email" });
+    }
+    res.json({
+      message: "Email inserted successfully",
+      id: result.insertId,
+    });
+  });
+});
+
 
 router.post("/sign-up", async (req, res) => {
   const { email } = req.body;
@@ -68,7 +112,7 @@ router.post("/sign-up", async (req, res) => {
     otpStore[email] = { otp, expires: Date.now() + 300000 }; // Store OTP with a 5-minute expiration
 
 
-    
+
     // Send OTP to user's email
     transporter.sendMail({
       from: 'abesit.darshil@gmail.com',
@@ -162,7 +206,7 @@ router.post("/sign-in", (req, res) => {
     if (results.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-    
+
     const user = results[0]; // Correctly define user
 
     bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -209,25 +253,25 @@ router.get("/dashboard", authenticateToken, (req, res) => {
 });
 
 
-router.post("/profile", authenticateToken,(req, res) => {
-  const { first_name, last_name, address , phone_Number,userid} = req.body;
+router.post("/profile", authenticateToken, (req, res) => {
+  const { first_name, last_name, address, phone_Number, userid } = req.body;
   if (!first_name || !last_name || !address || !phone_Number) {
-      return res.status(400).json({ error: "All fields are required" });
+    return res.status(400).json({ error: "All fields are required" });
   }
-  console.log(first_name, last_name, address,phone_Number, userid);
+  console.log(first_name, last_name, address, phone_Number, userid);
   const updateQuery = 'UPDATE users SET first_name = ?, last_name = ?, address = ?, phone_Number = ? WHERE userid = ?';
-  db.query(updateQuery, [first_name, last_name, address,phone_Number, userid], (err, result) => {
-      if (err) {
-          console.error(err);
-          return res.status(500).json({ message: 'Error updating profile' });
-      }
-      res.status(200).json({ message: 'Profile updated successfully' });
+  db.query(updateQuery, [first_name, last_name, address, phone_Number, userid], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Error updating profile' });
+    }
+    res.status(200).json({ message: 'Profile updated successfully' });
   });
-  });
+});
 
 
 router.post("/verify-password", authenticateToken, (req, res) => {
-  const { currentPassword , userid} = req.body;
+  const { currentPassword, userid } = req.body;
   console.log(currentPassword, userid);
   if (!currentPassword) {
     return res.status(400).json({ error: "Current password is required" });
@@ -258,7 +302,7 @@ router.post("/verify-password", authenticateToken, (req, res) => {
 });
 
 router.post("/change-password", authenticateToken, (req, res) => {
-  const { newPassword,userid } = req.body;
+  const { newPassword, userid } = req.body;
   if (!newPassword) {
     return res.status(400).json({ error: "New password is required" });
   }
@@ -269,7 +313,7 @@ router.post("/change-password", authenticateToken, (req, res) => {
         "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
     });
   };
-  
+
   const hashedPassword = bcrypt.hashSync(newPassword, 10);
   const sql = "UPDATE users SET password = ? WHERE userid = ?";
   db.query(sql, [hashedPassword, userid], (err, results) => {
@@ -290,7 +334,7 @@ router.post("/forgot-password", (req, res) => {
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: "Invalid email format" });
   }
-  const otp = Math.floor(100000 + Math.random() * 900000); 
+  const otp = Math.floor(100000 + Math.random() * 900000);
   otpStore[email] = { otp, expires: Date.now() + 300000 };
   transporter.sendMail({
     from: 'abesit.darshil@gmail.com',
@@ -313,7 +357,7 @@ router.post("/verify-forgot-password-otp", (req, res) => {
     return res.status(400).json({ error: "No OTP requested or expired" });
   }
   if (Date.now() > storedOtp.expires) {
-    delete otpStore[email]; 
+    delete otpStore[email];
     return res.status(400).json({ error: "OTP has expired" });
   }
   if (storedOtp.otp !== parseInt(otp, 10)) {
@@ -326,39 +370,54 @@ router.post("/verify-forgot-password-otp", (req, res) => {
 router.post("/change-forgotten-password", (req, res) => {
   const { email, newPassword } = req.body;
   if (!email || !newPassword) {
-      return res.status(400).json({ error: "Email and new password are required." });
+    return res.status(400).json({ error: "Email and new password are required." });
   }
   if (!passwordRegex.test(newPassword)) {
-      return res.status(400).json({
-          error: "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
-      });
+    return res.status(400).json({
+      error: "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
+    });
   }
   const hashedPassword = bcrypt.hashSync(newPassword, 10);
   const sql = "UPDATE users SET password = ? WHERE email = ?";
   db.query(sql, [hashedPassword, email], (err, results) => {
-      if (err) {
-          console.error("Failed to update password:", err);
-          return res.status(500).json({ error: "Internal server error" });
-      }
-      if (results.affectedRows === 0) {
-          return res.status(404).json({ error: "User not found." });
-      }
-      res.json({ message: "Password changed successfully." });
+    if (err) {
+      console.error("Failed to update password:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    res.json({ message: "Password changed successfully." });
   });
 });
 
 //order
-function getOrderId() {
-  return "Order" + Math.floor(100000 + Math.random() * 900000);
+async function getOrderId() {
+  let uniqueOrderID;
+  let isUnique = false;
+  while (!isUnique) {
+    uniqueOrderID = "Order" + Math.floor(100000 + Math.random() * 900000);
+    const sql = "SELECT COUNT(*) AS count FROM orders WHERE order_id = ?";
+    const result = await new Promise((resolve, reject) => {
+      db.query(sql, [uniqueOrderID], (err, results) => {
+        if (err) return reject(err);
+        resolve(results[0].count);
+      });
+    });
+    if (result === 0) {
+      isUnique = true;
+    }
+  }
+  return uniqueOrderID;
 }
-router.post("/buy-products", authenticateToken, (req, res) => {
-  const {product_id, email, payment_method, price, product_qty} = req.body;
+router.post("/buy-products", authenticateToken, async (req, res) => {
+  const { product_id, email, payment_method, price, product_qty } = req.body;
 
-  if (!product_id ||!email ||!payment_method ||!product_qty || !price) {
+  if (!product_id || !email || !payment_method || !product_qty || !price) {
     return res.status(400).json({ error: "All fields are required" });
   }
   const order = {
-    order_id: getOrderId(),
+    order_id: await getOrderId(),
     email,
     product_id,
     payment_method,
@@ -377,14 +436,14 @@ router.post("/buy-products", authenticateToken, (req, res) => {
       id: result.insertId,
     })
   })
-} )
+})
 
 //show orders
-router.get("/orders/:email",  (req, res) => {
-  const {email} = req.params;    
+router.get("/orders/:email", (req, res) => {
+  const { email } = req.params;
   const sql = 'SELECT * FROM `orders`  WHERE email =? ORDER BY `orders`.`order_added` DESC;'
 
-  
+
 
   db.query(sql, [email], (err, result) => {
     if (err) return res.status(500).json({ message: "Server error" });
@@ -415,14 +474,14 @@ router.post("/payment", authenticateToken, (req, res) => {
     }
     res.json(order);
     console.log(order);
-     // Send order details back to client
+    // Send order details back to client
   });
 });
 
 router.post("/create-order", authenticateToken, (req, res) => {
-  const {product_id, email, payment_method, price, product_qty} = req.body;
-  
-  if (!product_id ||!email ||!payment_method ||!product_qty || !price) {
+  const { product_id, email, payment_method, price, product_qty } = req.body;
+
+  if (!product_id || !email || !payment_method || !product_qty || !price) {
     return res.status(400).json({ error: "All fields are required" });
   }
   const options = {

@@ -8,7 +8,7 @@
     <link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Privacy Policy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -237,63 +237,16 @@
         <div></div>
     </header>
 
-    <main>
-        <section class="mx-4 my-4">
-            <div class="border rounded-lg lg:col-span-3">
-                <div class="m-5">
-                    <header>
-                        <h2 class="text-xl font-bold text-teal-600 text-center">Forgot Password</h2>
-                    </header>
-                    <br>
-                    <form id="forgot-password" class="space-y-4">
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" name="email" id="email" required
-                                class="mt-1 block w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:ring focus:ring-indigo-200" 
-                                placeholder="Enter email" />
-                        </div>
+    <main class="m-5 lg:m-2">
+        <section class="relative flex flex-wrap lg:h-auto lg:items-center">
+            <div class="w-full">
+                <div class="mx-auto max-w-lg text-center">
+                    <h1 class="text-2xl font-bold sm:text-3xl">Privacy Policy</h1>
     
-                        <button type="submit"
-                            class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-200">
-                            Send OTP
-                        </button>
-    
-                        <div class="mt-4">
-                            <label for="otp" class="block text-sm font-medium text-gray-700">OTP</label>
-                            <input type="text" name="otp" id="otp" disabled required
-                                class="mt-1 block w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:ring focus:ring-indigo-200" 
-                                placeholder="Enter OTP" />
-                        </div>
-    
-                        <button type="button" id="verify-otp" disabled
-                            class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-200">
-                            Verify OTP
-                        </button>
-    
-                        <div class="mb-4">
-                            <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
-                            <input type="password" name="new-password" id="new-password" disabled required
-                                class="mt-1 block w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:ring focus:ring-indigo-200" 
-                                placeholder="Enter new password" />
-                        </div>
-    
-                        <div class="mb-4">
-                            <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
-                            <input type="password" name="confirm-password" id="confirm-password" disabled required
-                                class="mt-1 block w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:ring focus:ring-indigo-200" 
-                                placeholder="Confirm new password" />
-                        </div>
-    
-                        <button type="button" id="change-password" disabled
-                            class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-200">
-                            Change Password
-                        </button>
-                    </form>
                 </div>
             </div>
         </section>
     </main>
-    
     
     <footer class="bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -479,7 +432,8 @@
             </div>
           </div>
         </div>
-    </footer>
+      </footer>
+
     <script>
         new Swiper(".swiper", {
             effect: "fade",
@@ -496,145 +450,8 @@
             },
         });
 
-        function toogleNav() {
-            //if click toggle the navigation menu again click hide the navigation menu
-            if (document.getElementById("nav-menu").style.display === "none") {
-              document.getElementById("nav-menu").style.display = "block";
-            } else {
-              document.getElementById("nav-menu").style.display = "none";
-            }
-          }
-          function toggleSearch() {
-            //if click toggle the search bar again click hide the search bar and a div with id results
-            if (document.getElementById("search-bar").style.display === "none") {
-              document.getElementById("search-bar").style.display = "block";
-              document.getElementById("result").style.display = "block";
-              document.getElementById("result").innerHTML = "";
-            } else {
-              document.getElementById("search-bar").style.display = "none";
-              document.getElementById("result").style.display = "none";
-            }
-          }
-      
-          function handleKeyPress(event) {
-            const inputElement = document.getElementById("searchQuery");
-            if (inputElement) {
-              let searchQuery = inputElement.value;
-              fetch(
-                `http://localhost:3000/search-products/${encodeURIComponent(
-                  searchQuery
-                )}`
-              )
-                .then((response) => {
-                  if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                  }
-                  return response.json();
-                })
-                .then((data) => {
-                  const resultDiv = document.getElementById("result");
-                  resultDiv.innerHTML = "";
-      
-                  if (data.message) {
-                    resultDiv.innerHTML = `<p>${data.message}</p>`;
-                  } else {
-                    data.forEach((product) => {
-                      const words = product.product_name.split(" ");
-                      const firstSevenWords = words.slice(0, 5).join(" ");
-                      resultDiv.innerHTML += `
-                                  <a onclick="window.location.href='us.disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
-                                    <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
-                        id="search">
-                        <path
-                          d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
-                        </path>
-                      </svg>
-                      <div class='flex items-center justify-center'>
-                        <img src=${product.product_img} width=30>
-      
-                        <h3 class="line-clamps-3">${firstSevenWords}</h3>
-                        </div>
-                                    </a>
-                                      `;
-                    });
-                  }
-                });
-            } else {
-              console.error("Input element not found.");
-            }
-          }
-      
-          
-        document.getElementById('forgot-password').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const response = await fetch('http://localhost:3000/user/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-        
-            const data = await response.json();
-            alert(data.message); 
-        
-            // Enable the OTP input and Verify OTP button
-            if (data.success) {
-                document.getElementById('otp').disabled = false;
-                document.getElementById('verify-otp').disabled = false;
-            }
-        });
-        
-        document.getElementById('verify-otp').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const otp = document.getElementById('otp').value;
-            const response = await fetch('http://localhost:3000/user/verify-forgot-password-otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, otp }),
-            });
-        
-            const data = await response.json();
-            alert(data.message); 
-        
-            if (data.success) {
-                // Enable password fields and change password button
-                document.getElementById('new-password').disabled = false;
-                document.getElementById('confirm-password').disabled = false;
-                document.getElementById('change-password').disabled = false;
-            }
-        });
-        
-        document.getElementById('change-password').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-        
-            if (newPassword !== confirmPassword) {
-                alert("Passwords do not match!");
-                return;
-            }
-        
-            const response = await fetch('http://localhost:3000/user/change-forgotten-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, newPassword }),
-            });
-        
-            const data = await response.json();
-            alert(data.message); 
-            if (data.success) {
-                window.location.href = '/sign-in.html';
-            }
-        });
-        
-
     </script>
+    
     <script>
         document.getElementById("subscribe-form").addEventListener('submit', function (event) {
           event.preventDefault();
