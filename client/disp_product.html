@@ -1,562 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="./assets/favicon_io/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./assets/favicon_io//favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./assets/favicon_io//favicon-16x16.png"
-    />
-    <link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper/swiper-bundle.min.css"
-    />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="./js/script.js"></script>
-  </head>
-  <style>
-    .nav-for-slider .swiper-slide {
-      height: auto;
-      width: auto;
-      cursor: pointer;
-    }
 
-    .swiper-wrapper {
-      height: auto;
-    }
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon_io/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon_io//favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon_io//favicon-16x16.png" />
+  <link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="./js/script.js"></script>
+</head>
+<style>
+  .nav-for-slider .swiper-slide {
+    height: auto;
+    width: auto;
+    cursor: pointer;
+  }
 
-    .nav-for-slider .swiper-slide img {
-      border: 2px solid transparent;
-      border-radius: 10px;
-    }
+  .swiper-wrapper {
+    height: auto;
+  }
 
-    .nav-for-slider .swiper-slide-thumb-active img {
-      border-color: rgb(79 70 229);
-    }
-  </style>
+  .nav-for-slider .swiper-slide img {
+    border: 2px solid transparent;
+    border-radius: 10px;
+  }
 
-  <body>
-    <header class="bg-white">
-      <div class="bg-gray-100 px-4 py-3">
-        <div class="mx-auto flex max-w-3xl items-center justify-center">
-          <button
-            class="swiper-prev-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
-            aria-label="Previous slide"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-5 rtl:rotate-180"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
+  .nav-for-slider .swiper-slide-thumb-active img {
+    border-color: rgb(79 70 229);
+  }
+</style>
 
-          <div class="swiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <p class="text-center text-sm font-medium text-gray-900">
-                  Love Alpine JS?
-                  <a href="#" class="block underline sm:inline-block">
-                    Check out this new course!
-                  </a>
-                </p>
-              </div>
+<body>
+  <header class="bg-white">
+    <div class="bg-gray-100 px-4 py-3">
+      <div class="mx-auto flex max-w-3xl items-center justify-center">
+        <button class="swiper-prev-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
+          aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
 
-              <div class="swiper-slide">
-                <p class="text-center text-sm font-medium text-gray-900">
-                  Love Tailwind CSS?
-                  <a href="#" class="block underline sm:inline-block">
-                    Check out this new course!
-                  </a>
-                </p>
-              </div>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <p class="text-center text-sm font-medium text-gray-900">
+                Love Alpine JS?
+                <a href="#" class="block underline sm:inline-block">
+                  Check out this new course!
+                </a>
+              </p>
+            </div>
+
+            <div class="swiper-slide">
+              <p class="text-center text-sm font-medium text-gray-900">
+                Love Tailwind CSS?
+                <a href="#" class="block underline sm:inline-block">
+                  Check out this new course!
+                </a>
+              </p>
             </div>
           </div>
-
-          <button
-            class="swiper-next-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
-            aria-label="Next slide"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-5 rtl:rotate-180"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
         </div>
+
+        <button class="swiper-next-button hidden hover:text-gray-500 sm:block sm:rounded sm:text-gray-700 sm:transition"
+          aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
       </div>
+    </div>
 
-      <div
-        class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8"
-      >
-        <a class="block text-teal-600" href="/">
-          <span class="sr-only">Home</span>
-          <img
-            class="w-62"
-            src="https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/2497c4d7-26a5-4d2e-9d1c-3ea2a634dad1._CR0%2C0%2C3000%2C600_SX3000_.jpg"
-            width="300"
-            alt=""
-          />
-        </a>
+    <div class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
+      <a class="block text-teal-600" href="/">
+        <span class="sr-only">Home</span>
+        <img class="w-62"
+          src="https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/2497c4d7-26a5-4d2e-9d1c-3ea2a634dad1._CR0%2C0%2C3000%2C600_SX3000_.jpg"
+          width="300" alt="" />
+      </a>
 
-        <div class="flex flex-1 items-center justify-end md:justify-between">
-          <nav aria-label="Global" class="hidden md:block">
-            <ul class="lg:flex md:flex hidden items-center gap-6 text-sm">
-              <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="/product.html"
-                >
-                  Catalog
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="/sign-up.html"
-                >
-                  Register
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="/sign-in.html"
-                >
-                  Login
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          <div class="flex items-center justify-center gap-4">
-            <div class="flex justify-center items-center">
-              <a
-                class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                onclick="toggleSearch()"
-              >
-                <svg
-                  class="h-8"
-                  fill="teal"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xml:space="preserve"
-                  viewBox="0 0 101 101"
-                  id="search"
-                >
-                  <path
-                    d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z"
-                  ></path>
-                </svg>
+      <div class="flex flex-1 items-center justify-end md:justify-between">
+        <nav aria-label="Global" class="hidden md:block">
+          <ul class="lg:flex md:flex hidden items-center gap-6 text-sm">
+            <li>
+              <a class="text-gray-500 transition hover:text-gray-500/75" href="/product.html">
+                Catalog
               </a>
-            </div>
+            </li>
+            <li>
+              <a class="text-gray-500 transition hover:text-gray-500/75" href="/sign-up.html">
+                Register
+              </a>
+            </li>
+            <li>
+              <a class="text-gray-500 transition hover:text-gray-500/75" href="/sign-in.html">
+                Login
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-            <button
-              onclick="toogleNav()"
-              class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
-            >
-              <span class="sr-only">Toggle menu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
+        <div class="flex items-center justify-center gap-4">
+          <div class="flex justify-center items-center">
+            <a class="rounded-md px-2 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+              onclick="toggleSearch()">
+              <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
+                id="search">
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                  d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
+                </path>
               </svg>
-            </button>
+            </a>
           </div>
+
+          <button onclick="toogleNav()"
+            class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
+            <span class="sr-only">Toggle menu</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
       </div>
-      <div class="hidden lg:hidden md:hidden h-32" id="nav-menu">
-        <ul class="items-center gap-6 text-sm">
-          <li>
-            <a
-              class="text-gray-500 transition hover:text-gray-500/75"
-              href="/product.html"
-            >
-              Catalog
-            </a>
-          </li>
-          <li>
-            <a
-              class="text-gray-500 transition hover:text-gray-500/75"
-              href="/sign-up.html"
-            >
-              Register
-            </a>
-          </li>
-          <li>
-            <a
-              class="text-gray-500 transition hover:text-gray-500/75"
-              href="/sign-in.html"
-            >
-              Login
-            </a>
-          </li>
+    </div>
+    <div class="hidden lg:hidden md:hidden h-32" id="nav-menu">
+      <ul class="items-center gap-6 text-sm">
+        <li>
+          <a class="text-gray-500 transition hover:text-gray-500/75" href="/product.html">
+            Catalog
+          </a>
+        </li>
+        <li>
+          <a class="text-gray-500 transition hover:text-gray-500/75" href="/sign-up.html">
+            Register
+          </a>
+        </li>
+        <li>
+          <a class="text-gray-500 transition hover:text-gray-500/75" href="/sign-in.html">
+            Login
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div id="search-bar" class="hidden relative m-5">
+        <label for="Search" class="sr-only"> Search </label>
+
+        <input type="text" onkeydown="handleKeyPress(event)" name="searchQuery" id="searchQuery"
+          placeholder="Search for..." class="w-full border rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" />
+
+        <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
+          <button onclick="handleSerach()" type="button" class="text-gray-600 hover:text-gray-700">
+            <span class="sr-only">Search</span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </button>
+        </span>
+      </div>
+      <div class="results-container flex items-center justify-center">
+        <div class="border hidden border-gray-200 mx-2 rounded mb-5 shadow lg:w-2/4" id="result">
+          Search results will be displayed below
+        </div>
+      </div>
+    </div>
+    <div></div>
+  </header>
+
+  <main>
+    <section id="disp_product">
+      <div></div>
+    </section>
+
+    <section class="py-24">
+      <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <header>
+          <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
+            You may also like
+          </h2>
+
+          <p class="mt-4 max-w-md text-gray-500">
+            You may also like these carefully curated selections that
+            complement your interests. Each item is chosen to enhance your
+            experience and provide added value to your collection. Explore
+            these recommendations and discover new favorites that align with
+            your style!
+          </p>
+        </header>
+
+        <ul id="random-products" class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <h2>Nothing to display here <span class="text-teal-600">Server error</span> </h2>
         </ul>
       </div>
-      <div>
-        <div id="search-bar" class="hidden relative m-5">
-          <label for="Search" class="sr-only"> Search </label>
-
-          <input
-            type="text"
-            onkeydown="handleKeyPress(event)"
-            name="searchQuery"
-            id="searchQuery"
-            placeholder="Search for..."
-            class="w-full border rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-          />
-
-          <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
-            <button
-              onclick="handleSerach()"
-              type="button"
-              class="text-gray-600 hover:text-gray-700"
-            >
-              <span class="sr-only">Search</span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
-            </button>
-          </span>
+    </section>
+  </main>
+  <footer class="bg-white">
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="lg:flex lg:items-start lg:gap-8">
+        <div class="text-teal-600">
+          <img
+            src="https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/2497c4d7-26a5-4d2e-9d1c-3ea2a634dad1._CR0%2C0%2C3000%2C600_SX3000_.jpg"
+            width="350" alt="" />
         </div>
-        <div class="results-container flex items-center justify-center">
-          <div
-            class="border hidden border-gray-200 mx-2 rounded mb-5 shadow lg:w-2/4"
-            id="result"
-          >
-            Search results will be displayed below
+
+        <div class="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">
+          <div class="col-span-2">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900">
+                Stay Updated on New Jute Products!
+              </h2>
+
+              <p class="mt-4 text-gray-500">
+                Be the first to know about our latest eco-friendly offerings.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div></div>
-    </header>
 
-    <main>
-      <section id="disp_product">
-        <div></div>
-      </section>
+          <div class="col-span-2 lg:col-span-3 lg:flex lg:items-end h-3/6">
+            <form id="subscribe-form" class="w-full h-auto">
+              <label for="UserEmail" class="sr-only"> Email </label>
+              <div class="flex border border-gray-200 rounded-md p-2 items-center gap-4">
+                <input type="email" id="UserEmail" name="email" placeholder="john@rhcp.com"
+                  class="w-full h-full border-none text-sm px-2 focus:outline-none focus:ring-0" />
 
-       <section class="py-24">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-          <header>
-            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
-              You may also like
-            </h2>
+                <button type="submit"
+                  class="bg-teal-500 px-6 py-2 text-sm font-bold uppercase tracking-wide text-white transition-colors duration-300 hover:bg-teal-600">
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
 
-            <p class="mt-4 max-w-md text-gray-500">
-              You may also like these carefully curated selections that
-              complement your interests. Each item is chosen to enhance your
-              experience and provide added value to your collection. Explore
-              these recommendations and discover new favorites that align with
-              your style!
-            </p>
-          </header>
 
-          <ul
-            id="random-products"
-            class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            <h2>Nothing to display here <span class="text-teal-600">Server error</span> </h2>
+
+          <div class="col-span-2 sm:col-span-1">
+            <p class="font-medium text-gray-900">Company</p>
+
+            <ul class="mt-6 space-y-4 text-sm">
+              <li>
+                <a href="/company/about.html" class="text-gray-700 transition hover:opacity-75">
+                  About
+                </a>
+              </li>
+
+              <li>
+                <a href="/company/team.html" class="text-gray-700 transition hover:opacity-75">
+                  Meet the Team
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1">
+            <p class="font-medium text-gray-900">Helpful Links</p>
+
+            <ul class="mt-6 space-y-4 text-sm">
+              <li>
+                <a href="/company/contact.html" class="text-gray-700 transition hover:opacity-75">
+                  Contact
+                </a>
+              </li>
+
+              <li>
+                <a href="/company/FAQS.html" class="text-gray-700 transition hover:opacity-75">
+                  FAQs
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1">
+            <p class="font-medium text-gray-900">Legal</p>
+
+            <ul class="mt-6 space-y-4 text-sm">
+
+              <li>
+                <a href="/company/return_policy.html" class="text-gray-700 transition hover:opacity-75">
+                  Returns Policy
+                </a>
+              </li>
+
+              <li>
+                <a href="/company/refund_policy.html" class="text-gray-700 transition hover:opacity-75">
+                  Refund Policy
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1">
+            <p class="font-medium text-gray-900">More</p>
+
+            <ul class="mt-6 space-y-4 text-sm">
+
+              <li>
+                <a href="/company/shipping_info.html" class="text-gray-700 transition hover:opacity-75">
+                  Shipping Info
+                </a>
+              </li>
+              <li>
+                <a href="/company/support_center.html" class="text-gray-700 transition hover:opacity-75">
+                  Support Center
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+          <ul class="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
+            <li>
+              <a href="#" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
+                <span class="sr-only">Facebook</span>
+
+                <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                    clip-rule="evenodd" />
+                </svg>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
+                <span class="sr-only">Instagram</span>
+
+                <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                    clip-rule="evenodd" />
+                </svg>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
+                <span class="sr-only">Twitter</span>
+
+                <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                </svg>
+              </a>
+            </li>
+
           </ul>
         </div>
-      </section> 
-    </main>
-    <footer class="bg-white">
-      <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <div class="lg:flex lg:items-start lg:gap-8">
-          <div class="text-teal-600">
-            <img
-              src="https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/2497c4d7-26a5-4d2e-9d1c-3ea2a634dad1._CR0%2C0%2C3000%2C600_SX3000_.jpg"
-              width="350" alt="" />
-          </div>
-  
-          <div class="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">
-            <div class="col-span-2">
-              <div>
-                <h2 class="text-2xl font-bold text-gray-900">
-                  Stay Updated on New Jute Products!
-                </h2>
-  
-                <p class="mt-4 text-gray-500">
-                  Be the first to know about our latest eco-friendly offerings.
-                </p>
-              </div>
-            </div>
-  
-            <div class="col-span-2 lg:col-span-3 lg:flex lg:items-end h-3/6">
-              <form id="subscribe-form" class="w-full h-auto">
-                <label for="UserEmail" class="sr-only"> Email </label>
-                <div class="flex border border-gray-200 rounded-md p-2 items-center gap-4">
-                  <input type="email" id="UserEmail" name="email" placeholder="john@rhcp.com"
-                    class="w-full h-full border-none text-sm px-2 focus:outline-none focus:ring-0" />
-            
-                  <button
-                    type="submit"
-                    class="bg-teal-500 px-6 py-2 text-sm font-bold uppercase tracking-wide text-white transition-colors duration-300 hover:bg-teal-600">
-                    Subscribe
-                  </button>
-                </div>
-              </form>
-            </div>
-            
-            
-  
-            <div class="col-span-2 sm:col-span-1">
-              <p class="font-medium text-gray-900">Company</p>
-  
-              <ul class="mt-6 space-y-4 text-sm">
-                <li>
-                  <a href="/company/about.html" class="text-gray-700 transition hover:opacity-75">
-                    About
-                  </a>
-                </li>
-  
-                <li>
-                  <a href="/company/team.html" class="text-gray-700 transition hover:opacity-75">
-                    Meet the Team
-                  </a>
-                </li>
-              </ul>
-            </div>
-  
-            <div class="col-span-2 sm:col-span-1">
-              <p class="font-medium text-gray-900">Helpful Links</p>
-  
-              <ul class="mt-6 space-y-4 text-sm">
-                <li>
-                  <a href="/company/contact.html" class="text-gray-700 transition hover:opacity-75">
-                    Contact
-                  </a>
-                </li>
-  
-                <li>
-                  <a href="/company/FAQS.html" class="text-gray-700 transition hover:opacity-75">
-                    FAQs
-                  </a>
-                </li>
-  
-              </ul>
-            </div>
-  
-            <div class="col-span-2 sm:col-span-1">
-              <p class="font-medium text-gray-900">Legal</p>
-  
-              <ul class="mt-6 space-y-4 text-sm">
-  
-                <li>
-                  <a href="/company/return_policy.html" class="text-gray-700 transition hover:opacity-75">
-                    Returns Policy
-                  </a>
-                </li>
-  
-                <li>
-                  <a href="/company/refund_policy.html" class="text-gray-700 transition hover:opacity-75">
-                    Refund Policy
-                  </a>
-                </li>
-  
-              </ul>
-            </div>
-  
-            <div class="col-span-2 sm:col-span-1">
-              <p class="font-medium text-gray-900">More</p>
-  
-              <ul class="mt-6 space-y-4 text-sm">
-  
-                <li>
-                  <a href="/company/shipping_info.html" class="text-gray-700 transition hover:opacity-75">
-                    Shipping Info
-                  </a>
-                </li>
-                <li>
-                  <a href="/company/support_center.html" class="text-gray-700 transition hover:opacity-75">
-                    Support Center
-                  </a>
-                </li>
-  
-              </ul>
-            </div>
-  
-            <ul class="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
-              <li>
-                <a href="#" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
-                  <span class="sr-only">Facebook</span>
-  
-                  <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                      d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                      clip-rule="evenodd" />
-                  </svg>
-                </a>
-              </li>
-  
-              <li>
-                <a href="#" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
-                  <span class="sr-only">Instagram</span>
-  
-                  <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                      d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
-                      clip-rule="evenodd" />
-                  </svg>
-                </a>
-              </li>
-  
-              <li>
-                <a href="#" rel="noreferrer" target="_blank" class="text-gray-700 transition hover:opacity-75">
-                  <span class="sr-only">Twitter</span>
-  
-                  <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                  </svg>
-                </a>
-              </li>           
-  
-            </ul>
-          </div>
-        </div>
-  
-        <div class="mt-8 border-t border-gray-100 pt-8">
-          <div class="sm:flex sm:justify-between">
-            <p class="text-xs text-gray-500">
-              &copy; 2024. Anumala. All rights reserved.
-            </p>
-  
-            <ul class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
-              <li>
-                <a href="/company/terms_conditions.html" class="text-gray-500 transition hover:opacity-75">
-                  Terms & Conditions
-                </a>
-              </li>
-  
-              <li>
-                <a href="/company/privacy_policy.html" class="text-gray-500 transition hover:opacity-75">
-                  Privacy Policy
-                </a>
-              </li>
-  
-              <li>
-                <a href="/company/cookies.html" class="text-gray-500 transition hover:opacity-75">
-                  Cookies
-                </a>
-              </li>
-            </ul>
-          </div>
+      </div>
+
+      <div class="mt-8 border-t border-gray-100 pt-8">
+        <div class="sm:flex sm:justify-between">
+          <p class="text-xs text-gray-500">
+            &copy; 2024. Anumala. All rights reserved.
+          </p>
+
+          <ul class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
+            <li>
+              <a href="/company/terms_conditions.html" class="text-gray-500 transition hover:opacity-75">
+                Terms & Conditions
+              </a>
+            </li>
+
+            <li>
+              <a href="/company/privacy_policy.html" class="text-gray-500 transition hover:opacity-75">
+                Privacy Policy
+              </a>
+            </li>
+
+            <li>
+              <a href="/company/cookies.html" class="text-gray-500 transition hover:opacity-75">
+                Cookies
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-    </footer>
-    <script>
-      new Swiper(".swiper", {
-        effect: "fade",
-        loop: true,
-        autoplay: {
-          delay: 5000,
-        },
-        fadeEffect: {
-          crossFade: true,
-        },
-        navigation: {
-          prevEl: ".swiper-prev-button",
-          nextEl: ".swiper-next-button",
-        },
-      });
+    </div>
+  </footer>
+  <script>
+    new Swiper(".swiper", {
+      effect: "fade",
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      fadeEffect: {
+        crossFade: true,
+      },
+      navigation: {
+        prevEl: ".swiper-prev-button",
+        nextEl: ".swiper-next-button",
+      },
+    });
 
-      function toogleNav() {
-        //if click toggle the navigation menu again click hide the navigation menu
-        if (document.getElementById("nav-menu").style.display === "none") {
-          document.getElementById("nav-menu").style.display = "block";
-        } else {
-          document.getElementById("nav-menu").style.display = "none";
-        }
+    function toogleNav() {
+      //if click toggle the navigation menu again click hide the navigation menu
+      if (document.getElementById("nav-menu").style.display === "none") {
+        document.getElementById("nav-menu").style.display = "block";
+      } else {
+        document.getElementById("nav-menu").style.display = "none";
       }
-      function toggleSearch() {
-        //if click toggle the search bar again click hide the search bar and a div with id results
-        if (document.getElementById("search-bar").style.display === "none") {
-          document.getElementById("search-bar").style.display = "block";
-          document.getElementById("result").style.display = "block";
-          document.getElementById("result").innerHTML = "";
-        } else {
-          document.getElementById("search-bar").style.display = "none";
-          document.getElementById("result").style.display = "none";
-        }
+    }
+    function toggleSearch() {
+      //if click toggle the search bar again click hide the search bar and a div with id results
+      if (document.getElementById("search-bar").style.display === "none") {
+        document.getElementById("search-bar").style.display = "block";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML = "";
+      } else {
+        document.getElementById("search-bar").style.display = "none";
+        document.getElementById("result").style.display = "none";
       }
-  
-      function handleKeyPress(event) {
-        const inputElement = document.getElementById("searchQuery");
-        if (inputElement) {
-          let searchQuery = inputElement.value;
-          fetch(
-            `http://localhost:3000/search-products/${encodeURIComponent(
-              searchQuery
-            )}`
-          )
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response.json();
-            })
-            .then((data) => {
-              const resultDiv = document.getElementById("result");
-              resultDiv.innerHTML = "";
-  
-              if (data.message) {
-                resultDiv.innerHTML = `<p>${data.message}</p>`;
-              } else {
-                data.forEach((product) => {
-                  const words = product.product_name.split(" ");
-                  const firstSevenWords = words.slice(0, 5).join(" ");
-                  resultDiv.innerHTML += `
+    }
+
+    function handleKeyPress(event) {
+      const inputElement = document.getElementById("searchQuery");
+      if (inputElement) {
+        let searchQuery = inputElement.value;
+        fetch(
+          `http://localhost:3000/search-products/${encodeURIComponent(
+            searchQuery
+          )}`
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (data.message) {
+              resultDiv.innerHTML = `<p>${data.message}</p>`;
+            } else {
+              data.forEach((product) => {
+                const words = product.product_name.split(" ");
+                const firstSevenWords = words.slice(0, 5).join(" ");
+                resultDiv.innerHTML += `
                               <a onclick="window.location.href='us.disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
                                 <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
                     id="search">
@@ -571,262 +468,167 @@
                     </div>
                                 </a>
                                   `;
-                });
-              }
-            });
-        } else {
-          console.error("Input element not found.");
-        }
-      }
-  
-      
-
-      const currentUrl = window.location.href;
-      const urlObj = new URL(currentUrl);
-      const queryString = urlObj.search;
-      const product_id = queryString.substring(1);
-      const geteditData = async (product_id) => {
-        const token = localStorage.getItem("token");
-
-        const responce = await fetch(
-          `http://localhost:3000/admin/product/${product_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                "Network response was not ok " + response.statusText
-              );
-              return;
+              });
             }
-            return response.json();
-          })
+          });
+      } else {
+        console.error("Input element not found.");
+      }
+    }
 
-          .then((data) => {
-            const productContainer = document.getElementById("disp_product");
-            productContainer.innerHTML = "";
-            const media = data.product_media;
-            const linksArray = media.split(",");
-            const mediaLink = linksArray
-              .map((mediaLink) => {
-                return `
 
-            <div class="rounded border p-2">
-            <img class="h-26 " src="${mediaLink}">  
-            </div>
-            `;
-              })
-              .join("");
-            const div = document.createElement("div");
 
-            div.innerHTML = `
-               <section class="py-24">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2">
-              <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
-                <div class="swiper main-slide-carousel swiper-container relative mb-6">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="block">
-                        <img src=${data.product_img} class=" rounded-lg border p-4" alt="Summer Travel Bag image"
-                          class="max-lg:mx-auto rounded-2xl object-cover">
+    const currentUrl = window.location.href;
+    const urlObj = new URL(currentUrl);
+    const queryString = urlObj.search;
+    const product_id = queryString.substring(1);
+    const geteditData = async (product_id) => {
+      const token = localStorage.getItem("token");
+    
+      const response = await fetch(`http://localhost:3000/admin/product/${product_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const productContainer = document.getElementById("disp_product");
+        productContainer.innerHTML = "";
+    
+        const media = data.product_media;
+        const linksArray = media.split(",");
+        const mediaLink = linksArray.map((mediaLink) => `
+          <div class="rounded border p-2">
+            <img class="h-26" src="${mediaLink}">
+          </div>
+        `).join("");
+
+        const productsData = JSON.parse(data.products);    
+        const div = document.createElement("div");
+
+        div.innerHTML = `
+          <section class="py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
+                  <div class="swiper main-slide-carousel swiper-container relative mb-6">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <div class="block">
+                          <img src=${data.product_img} class="rounded-lg border p-4" alt="Product image">
+                        </div>
                       </div>
                     </div>
-                </div>
-                </div>
-                <div class="flex m-5 gap-4 ">
-                ${mediaLink}
-                </div>
-              </div>
-              <div class="flex justify-center items-center">
-                <div class="pro-detail w-full max-lg:max-w-[608px] lg:pl-8 xl:pl-16 max-lg:mx-auto max-lg:mt-8">
-                  <div class="flex items-center justify-between gap-6 mb-6">
-                    <div class="text">
-                      <h2 class="font-manrope font-bold text-3xl leading-10 text-gray-900 mb-2">
-                      ${data.product_name}
-                      </h2>
-                      <p class="font-normal text-base text-gray-500"><h3>Description</h3>${data.product_discription}</p>
-                    </div>
-                    <button class="group transition-all duration-500 p-0.5">
-                      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle class="fill-teal-50 transition-all duration-500 group-hover:fill-teal-100" cx="30"
-                          cy="30" r="30" fill="" />
-                        <path class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-700"
-                          d="M21.4709 31.3196L30.0282 39.7501L38.96 30.9506M30.0035 22.0789C32.4787 19.6404 36.5008 19.6404 38.976 22.0789C41.4512 24.5254 41.4512 28.4799 38.9842 30.9265M29.9956 22.0789C27.5205 19.6404 23.4983 19.6404 21.0231 22.0789C18.548 24.5174 18.548 28.4799 21.0231 30.9184M21.0231 30.9184L21.0441 30.939M21.0231 30.9184L21.4628 31.3115"
-                          stroke="" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                      </svg>
-                    </button>
                   </div>
-  
-                  <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center mb-8 gap-y-3">
-                    <div class="flex items-center">
-                      <h5 class="font-manrope font-semibold text-2xl leading-9 text-gray-900 ">₹ ${data.product_price}.00 </h5>
-                      <span class="ml-3 font-semibold text-lg text-teal-600">30% off</span>
+                  <div class="flex m-5 gap-4">
+                    ${mediaLink}
+                  </div>
+                </div>
+                <div class="flex justify-center items-center">
+                  <div class="pro-detail w-full max-lg:max-w-[608px] lg:pl-8 xl:pl-16 max-lg:mx-auto max-lg:mt-8">
+                    <div class="flex items-center justify-between gap-6 mb-6">
+                      <div class="text">
+                        <h2 class="font-manrope font-bold text-3xl leading-10 text-gray-900 mb-2">${data.product_name}</h2>
+                        <p class="font-normal text-base text-gray-500"><h3>Description</h3>${data.product_discription}</p>
+                      </div>
+                      <button class="group transition-all duration-500 p-0.5">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle class="fill-teal-50 transition-all duration-500 group-hover:fill-teal-100" cx="30" cy="30" r="30" fill="" />
+                          <path class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-700" d="M21.4709 31.3196L30.0282 39.7501L38.96 30.9506M30.0035 22.0789C32.4787 19.6404 36.5008 19.6404 38.976 22.0789C41.4512 24.5254 41.4512 28.4799 38.9842 30.9265M29.9956 22.0789C27.5205 19.6404 23.4983 19.6404 21.0231 22.0789C18.548 24.5174 18.548 28.4799 21.0231 30.9184M21.0231 30.9184L21.0441 30.939M21.0231 30.9184L21.4628 31.3115" stroke="" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
                     </div>
-                    <svg class="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36"
-                      viewBox="0 0 2 36" fill="none">
-                      <path d="M1 0V36" stroke="#E5E7EB" />
-                    </svg>
-                    <button class="flex items-center gap-1 rounded-lg bg-amber-400 py-1.5 px-2.5 w-max">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_12657_16865)">
-                          <path
-                            d="M8.10326 2.26718C8.47008 1.52393 9.52992 1.52394 9.89674 2.26718L11.4124 5.33818C11.558 5.63332 11.8396 5.83789 12.1653 5.88522L15.5543 6.37768C16.3746 6.49686 16.7021 7.50483 16.1086 8.08337L13.6562 10.4738C13.4205 10.7035 13.313 11.0345 13.3686 11.3589L13.9475 14.7343C14.0877 15.5512 13.2302 16.1742 12.4966 15.7885L9.46534 14.1948C9.17402 14.0417 8.82598 14.0417 8.53466 14.1948L5.5034 15.7885C4.76978 16.1742 3.91235 15.5512 4.05246 14.7343L4.63137 11.3589C4.68701 11.0345 4.57946 10.7035 4.34378 10.4738L1.89144 8.08337C1.29792 7.50483 1.62543 6.49686 2.44565 6.37768L5.8347 5.88522C6.16041 5.83789 6.44197 5.63332 6.58764 5.33818L8.10326 2.26718Z"
-                            fill="white" />
-                          <g clip-path="url(#clip1_12657_16865)">
-                            <path
-                              d="M8.10326 2.26718C8.47008 1.52393 9.52992 1.52394 9.89674 2.26718L11.4124 5.33818C11.558 5.63332 11.8396 5.83789 12.1653 5.88522L15.5543 6.37768C16.3746 6.49686 16.7021 7.50483 16.1086 8.08337L13.6562 10.4738C13.4205 10.7035 13.313 11.0345 13.3686 11.3589L13.9475 14.7343C14.0877 15.5512 13.2302 16.1742 12.4966 15.7885L9.46534 14.1948C9.17402 14.0417 8.82598 14.0417 8.53466 14.1948L5.5034 15.7885C4.76978 16.1742 3.91235 15.5512 4.05246 14.7343L4.63137 11.3589C4.68701 11.0345 4.57946 10.7035 4.34378 10.4738L1.89144 8.08337C1.29792 7.50483 1.62543 6.49686 2.44565 6.37768L5.8347 5.88522C6.16041 5.83789 6.44197 5.63332 6.58764 5.33818L8.10326 2.26718Z"
-                              fill="white" />
+    
+                    <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center mb-8 gap-y-3">
+                      <div class="flex items-center">
+                        <h5 id="priceElement" class="font-manrope font-semibold text-2xl leading-9 text-gray-900">₹ ${data.product_price}.00</h5>
+                        <span class="ml-3 font-semibold text-lg text-teal-600">30% off</span>
+                      </div>
+                      <svg class="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 2 36" fill="none">
+                        <path d="M1 0V36" stroke="#E5E7EB" />
+                      </svg>
+                      <button class="flex items-center gap-1 rounded-lg bg-amber-400 py-1.5 px-2.5 w-max">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_12657_16865)">
+                            <path d="M8.10326 2.26718C8.47008 1.52393 9.52992 1.52394 9.89674 2.26718L11.4124 5.33818C11.558 5.63332 11.8396 5.83789 12.1653 5.88522L15.5543 6.37768C16.3746 6.49686 16.7021 7.50483 16.1086 8.08337L13.6562 10.4738C13.4205 10.7035 13.313 11.0345 13.3686 11.3589L13.9475 14.7343C14.0877 15.5512 13.2302 16.1742 12.4966 15.7885L9.46534 14.1948C9.17402 14.0417 8.82598 14.0417 8.53466 14.1948L5.5034 15.7885C4.76978 16.1742 3.91235 15.5512 4.05246 14.7343L4.63137 11.3589C4.68701 11.0345 4.57946 10.7035 4.34378 10.4738L1.89144 8.08337C1.29792 7.50483 1.62543 6.49686 2.44565 6.37768L5.8347 5.88522C6.16041 5.83789 6.44197 5.63332 6.58764 5.33818L8.10326 2.26718Z" fill="white" />
                           </g>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_12657_16865">
-                            <rect width="18" height="18" fill="white" />
-                          </clipPath>
-                          <clipPath id="clip1_12657_16865">
-                            <rect width="18" height="18" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                      <span class="text-base font-medium text-white">4.8</span>
-                    </button>
-                  </div>
-                  
-                  <p class="font-medium text-lg text-gray-900 mb-2">Packs of</p>
-                  <div class="grid grid-cols-2 min-[400px]:grid-cols-4 gap-3 mb-3 min-[400px]:mb-8">
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 2
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 4
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 6
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 8
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 10
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 12
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 14
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 16
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 18
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 20
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 22
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 24
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 26
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 28
-                    </button>
-                    <button
-                      class="border border-gray-200 whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                      Pack of 30
-                    </button>
-                  </div>
-                  <div class="flex items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
-                    <div class=" flex items-center justify-center border border-gray-400 rounded-full">
-                      <button
-                        class="group py-[14px] px-3 w-full border-r border-gray-400 rounded-l-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                        <svg class="stroke-black group-hover:stroke-black" width="22" height="22" viewBox="0 0 22 22"
-                          fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
-                          <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
-                            stroke-linecap="round" />
-                          <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
-                            stroke-linecap="round" />
+                          <defs>
+                            <clipPath id="clip0_12657_16865">
+                              <rect width="18" height="18" fill="white" />
+                            </clipPath>
+                          </defs>
                         </svg>
-                      </button>
-                      <input type="text"
-                        class="font-semibold text-gray-900 text-lg py-3 px-2 w-full min-[400px]:min-w-[75px] h-full bg-transparent placeholder:text-gray-900 text-center hover:text-teal-600 outline-0 hover:placeholder:text-teal-600"
-                        placeholder="1">
-                      <button
-                        class="group py-[14px] px-3 w-full border-l border-gray-400 rounded-r-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                        <svg class="stroke-black group-hover:stroke-black" width="22" height="22" viewBox="0 0 22 22"
-                          fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M11 5.5V16.5M16.5 11H5.5" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" />
-                          <path d="M11 5.5V16.5M16.5 11H5.5" stroke="black" stroke-opacity="0.2" stroke-width="1.6"
-                            stroke-linecap="round" />
-                          <path d="M11 5.5V16.5M16.5 11H5.5" stroke="black" stroke-opacity="0.2" stroke-width="1.6"
-                            stroke-linecap="round" />
-                        </svg>
+                        <span class="text-base font-medium text-white">4.8</span>
                       </button>
                     </div>
-                    <button 
-                    onclick="addtoCart()"
-                      class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
-                      <svg class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-600" width="22"
-                        height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M10.7394 17.875C10.7394 18.6344 10.1062 19.25 9.32511 19.25C8.54402 19.25 7.91083 18.6344 7.91083 17.875M16.3965 17.875C16.3965 18.6344 15.7633 19.25 14.9823 19.25C14.2012 19.25 13.568 18.6344 13.568 17.875M4.1394 5.5L5.46568 12.5908C5.73339 14.0221 5.86724 14.7377 6.37649 15.1605C6.88573 15.5833 7.61377 15.5833 9.06984 15.5833H15.2379C16.6941 15.5833 17.4222 15.5833 17.9314 15.1605C18.4407 14.7376 18.5745 14.0219 18.8421 12.5906L19.3564 9.84059C19.7324 7.82973 19.9203 6.8243 19.3705 6.16215C18.8207 5.5 17.7979 5.5 15.7522 5.5H4.1394ZM4.1394 5.5L3.66797 2.75"
-                          stroke="" stroke-width="1.6" stroke-linecap="round" />
-                      </svg>
-                      Add to cart</button>
+                    
+                    <div id="packButtons" class="grid grid-cols-2 min-[400px]:grid-cols-4 gap-3 mb-3 min-[400px]:mb-8">
+                      ${productsData.map(item => `
+                        <button class="border border-gray-200 pack-button whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300" data-price="${item.price}">
+                          Pack of ${item.quantity}
+                        </button>
+                      `).join("")}
+                    </div>
+    
+                    <div class="flex items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
+                      <button onclick="addtoCart()" class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
+                        <svg class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-600" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10.7394 17.875C10.7394 18.6344 10.1062 19.25 9.32511 19.25C8.54402 19.25 7.91083 18.6344 7.91083 17.875M16.3965 17.875C16.3965 18.6344 15.7633 19.25 14.9823 19.25C14.2012 19.25 13.568 18.6344 13.568 17.875M4.1394 5.5L5.46568 12.5908C5.73339 14.0221 5.86724 14.7377 6.37649 15.1605C6.88573 15.5833 7.61377 15.5833 9.06984 15.5833H15.2379C16.6941 15.5833 17.4222 15.5833 17.9314 15.1605C18.4407 14.7376 18.5745 14.0219 18.8421 12.5906L19.3564 9.84059C19.7324 7.82973 19.9203 6.8243 19.3705 6.16215C18.8207 5.5 17.7979 5.5 15.7522 5.5H4.1394ZM4.1394 5.5L3.66797 2.75" stroke="" stroke-width="1.6" stroke-linecap="round" />
+                        </svg>
+                        Add to cart
+                      </button>
+                    </div>
+                    <button class="text-center w-full px-5 py-4 rounded-[100px] bg-teal-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm shadow-transparent transition-all duration-500 hover:bg-teal-700 hover:shadow-teal-300">
+                      Buy Now
+                    </button>
                   </div>
-                  <button
-                    class="text-center w-full px-5 py-4 rounded-[100px] bg-teal-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm shadow-transparent transition-all duration-500 hover:bg-teal-700 hover:shadow-teal-300">
-                    Buy Now
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-          
-          `;
-
-            productContainer.appendChild(div);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
+          </section>
+        `;
+    
+        productContainer.appendChild(div);
+    
+        const packButtons = document.querySelectorAll('.pack-button');
+        packButtons.forEach(button => {
+          button.addEventListener('click', (event) => {
+            packButtons.forEach(btn => {
+              btn.style.backgroundColor = ''; 
+              btn.style.color = ''; 
+              btn.style.borderColor = 'border-gray-200';
+            });
+            event.currentTarget.style.backgroundColor = '#CCFBF1'; 
+            event.currentTarget.style.color = '#0D9488';
+            event.currentTarget.style.borderColor = 'border-teal-500';
+    
+            // Update price
+            const price = event.currentTarget.getAttribute('data-price');
+            document.getElementById('priceElement').innerText = `₹ ${price}.00`;
           });
-      };
-      geteditData(product_id);
-      const getRandomProduct = async () => {
-        const responce = await fetch("http://localhost:3000/random-products");
-        const data = await responce.json();
-        const ul = document.getElementById("random-products");
-        ul.innerHTML = "";
-        data.forEach((product) => {
-          const li = document.createElement("li");
-          li.innerHTML = `
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    };
+    
+    geteditData(product_id);
+    
+    const getRandomProduct = async () => {
+      const responce = await fetch("http://localhost:3000/random-products");
+      const data = await responce.json();
+      const ul = document.getElementById("random-products");
+      ul.innerHTML = "";
+      data.forEach((product) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
           <li>
               <a onclick="window.location.href='disp_product.html?${product.product_id}'" class="group block cursor-pointer overflow-hidden">
                 <img
@@ -854,52 +656,53 @@
             </li>
 
           `;
-          ul.appendChild(li);
-        });
-
-        
-      };
-      getRandomProduct();
-  
-
-      var swiper_thumbs = new Swiper(".nav-for-slider", {
-        loop: true,
-        spaceBetween: 30,
-        slidesPerView: 5,
+        ul.appendChild(li);
       });
-      var swiper = new Swiper(".main-slide-carousel", {
-        slidesPerView: 1,
-        thumbs: {
-          swiper: swiper_thumbs,
-        },
-      });
-    </script>
 
-    <script>
-      document.getElementById("subscribe-form").addEventListener('submit', function (event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const formObj = {};
-        formData.forEach((value, key) => {
-          formObj[key] = value;
-        })
-        fetch("http://localhost:3000/user/subscribe", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formObj),
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Success:', data);
-            alert("Email has been inserted successfully.");
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            alert("Oops! Something went wrong. Email was not added.");
-          });
+
+    };
+    getRandomProduct();
+
+
+    var swiper_thumbs = new Swiper(".nav-for-slider", {
+      loop: true,
+      spaceBetween: 30,
+      slidesPerView: 5,
+    });
+    var swiper = new Swiper(".main-slide-carousel", {
+      slidesPerView: 1,
+      thumbs: {
+        swiper: swiper_thumbs,
+      },
+    });
+  </script>
+
+  <script>
+    document.getElementById("subscribe-form").addEventListener('submit', function (event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const formObj = {};
+      formData.forEach((value, key) => {
+        formObj[key] = value;
       })
-    </script>
-  </body>
+      fetch("http://localhost:3000/user/subscribe", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formObj),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          alert("Email has been inserted successfully.");
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert("Oops! Something went wrong. Email was not added.");
+        });
+    })
+  </script>
+</body>
+
 </html>
