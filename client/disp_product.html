@@ -501,6 +501,7 @@
         const productContainer = document.getElementById("disp_product");
         productContainer.innerHTML = "";
     
+        console.log(data);
         const media = data.product_media;
         const linksArray = media.split(",");
         const mediaLink = linksArray.map((mediaLink) => `
@@ -508,10 +509,22 @@
             <img class="h-26" src="${mediaLink}">
           </div>
         `).join("");
-
-        const productsData = JSON.parse(data.products);    
+    
+        let productsHTML = "";
+        if (data.products) {  // Check if data.products is not null or undefined
+          const productsData = JSON.parse(data.products);
+          productsHTML = `
+            <div id="packButtons" class="grid grid-cols-2 min-[400px]:grid-cols-4 gap-3 mb-3 min-[400px]:mb-8">
+              ${productsData.map(item => `
+                <button class="border border-gray-200 pack-button whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300" data-price="${item.price}">
+                  Pack of ${item.quantity}
+                </button>
+              `).join("")}
+            </div>
+          `;
+        }
+    
         const div = document.createElement("div");
-
         div.innerHTML = `
           <section class="py-24">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -568,13 +581,7 @@
                       </button>
                     </div>
                     
-                    <div id="packButtons" class="grid grid-cols-2 min-[400px]:grid-cols-4 gap-3 mb-3 min-[400px]:mb-8">
-                      ${productsData.map(item => `
-                        <button class="border border-gray-200 pack-button whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300" data-price="${item.price}">
-                          Pack of ${item.quantity}
-                        </button>
-                      `).join("")}
-                    </div>
+                    ${productsHTML}
     
                     <div class="flex items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
                       <button onclick="addtoCart()" class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
@@ -620,6 +627,7 @@
     };
     
     geteditData(product_id);
+    
     
     const getRandomProduct = async () => {
       const responce = await fetch("http://localhost:3000/random-products");
