@@ -28,10 +28,9 @@ router.get("/", function (req, res) {
 });
 
 const razorpay = new Razorpay({
-  key_id: process.env.key_id,
-  key_secret: process.env.key_secret,
+  key_id: process.env.key_id, 
+  key_secret: process.env.key_secret, 
 });
-
 
 let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
 let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
@@ -206,6 +205,7 @@ router.post("/sign-in", (req, res) => {
     if (results.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
+
 
     const user = results[0]; // Correctly define user
 
@@ -423,27 +423,41 @@ router.post("/buy-products", authenticateToken, async (req, res) => {
     payment_method,
     product_qty,
     price,
-  }
-
-  const sql = "INSERT INTO orders SET?"
+  };
+  const getQty = "SELECT product_qty FROM product_data WHERE product_id = ?";
+  const updateProduct = `
+     UPDATE product_data 
+  SET product_qty = ?, 
+      product_sales = product_sales + 1 
+  WHERE product_id = ?
+     `;
+  const sql = "INSERT INTO orders SET?";
   db.query(sql, order, (err, result) => {
     if (err) {
       console.error("Failed to insert order:", err);
       return res.status(500).json({ error: "Failed to insert order" });
     }
-    res.json({
-      message: "Order inserted successfully",
-      id: result.insertId,
-    })
-  })
-})
+    db.query(getQty, [product_id], (err, result) => {
+      if (err) return res.status(500).json({ message: "Server error" });
+      const remaining_qty = result[0].product_qty - product_qty;
+      db.query(updateProduct, [remaining_qty, product_id], (err, result) => {
+        if (err)
+          return res
+            .status(500)
+            .json({ error: "Failed to update product quantity" });
+        res.json({
+          message: "Order inserted successfully",
+          id: result.insertId,
+        });
+      });
+    });
+  });
+});
 
-//show orders
 router.get("/orders/:email", (req, res) => {
   const { email } = req.params;
-  const sql = 'SELECT * FROM `orders`  WHERE email =? ORDER BY `orders`.`order_added` DESC;'
-
-
+  const sql =
+    "SELECT * FROM `orders`  WHERE email =? ORDER BY `orders`.`order_added` DESC;";
 
   db.query(sql, [email], (err, result) => {
     if (err) return res.status(500).json({ message: "Server error" });
@@ -513,7 +527,5 @@ router.post("/payment/verify", (req, res) => {
     res.status(400).json({ error: "Payment verification failed" });
   }
 });
-
-
 
 module.exports = router;

@@ -3,7 +3,7 @@ const db = require("../config/db");
 const router = express.Router();
 
 router.get("/get-products", (req, res) => {
-  const sql = "SELECT * FROM product_data";
+  const sql = "SELECT * FROM product_data WHERE `product_qty` > 1";
   db.query(sql, (err, rows) => {
     if (err) throw err;
     if (rows.length === 0) {
@@ -16,7 +16,7 @@ router.get("/get-products", (req, res) => {
 
 //trending products
 router.get("/trending-products", (req, res) => {
-  const sql = "SELECT * FROM product_data ORDER BY product_sales DESC LIMIT 3";
+  const sql = "SELECT * FROM product_data WHERE `product_qty` > 1 ORDER BY product_sales DESC LIMIT 3 ";
   db.query(sql, (err, rows) => {
     if (err) throw err;
     if (rows.length === 0) {
@@ -43,7 +43,7 @@ router.get("/search-products/:query", (req, res) => {
 
 // latest product by date
 router.get("/latest-product", (req, res) => {
-  const sql = "SELECT * FROM product_data ORDER BY date_added DESC LIMIT 2";
+  const sql = "SELECT * FROM product_data WHERE `product_qty` > 1 ORDER BY date_added DESC LIMIT 2";
   db.query(sql, (err, rows) => {
     if (err) throw err;
     if (rows.length === 0) {
@@ -56,7 +56,7 @@ router.get("/latest-product", (req, res) => {
 
 //random products display
 router.get("/random-products", (req, res) => {
-  const sql = "SELECT * FROM product_data ORDER BY RAND() LIMIT 4";
+  const sql = "SELECT * FROM product_data WHERE `product_qty` > 1 ORDER BY RAND() LIMIT 4";
   db.query(sql, (err, rows) => {
     if (err) throw err;
     if (rows.length === 0) {

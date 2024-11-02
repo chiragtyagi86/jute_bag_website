@@ -236,7 +236,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="border rounded-lg lg:col-span-4">
+                    <div class="border rounded-lg lg:col-span-2">
                         <div class="m-5">
                             <header>
                                 <h2 class="text-xl">
@@ -257,6 +257,38 @@
                                 </span>
                             </div>
                         </div>
+                    </div>
+                    <div class="border rounded-lg lg:col-span-2">
+                        <div class="m-5">
+
+                            <header>
+                                <h2 class="text-xl">
+                                    Add custom product quantity/price
+                                </h2>
+                            </header>
+                            <div class="">
+                                <div class=" mt-4 flex items-center justify-center gap-4">
+                                   <div>
+                                    <label for="custom_product_qty">Product Quantity</label>
+                                    <input type="number" id="custom_product_qty" name="custom_product_qty"
+                                        class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        placeholder="Enter quantity" />
+                                   </div>
+                                   <div>
+                                    <label for="custom_product_price">Product Price</label>
+                                    <input type="number" id="custom_product_price" name="custom_product_price"
+                                        class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        placeholder="Enter price" />
+                                   </div>
+                                </div>
+                                <div id="custom_more"></div>
+                                <div class="flex items-center justify-center mt-4" onclick="addMore()">
+                                    <button type="button"  class="bg-teal-600 cursor-pointer text-white px-4 py-2 mx-auto rounded-md"
+                                        id="add_custom_product_btn">Add More Custom Product</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
@@ -407,6 +439,36 @@
         </div>
     </main>
     <script>
+       let counter = 1; 
+
+function addMore() {
+    const container = document.getElementById("custom_more");
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <div class="mt-4 flex items-center justify-center gap-4">
+        <div>
+          <label for="custom_product_qty_${counter}">Product Quantity</label>
+          <input type="number" id="custom_product_qty_${counter}" name="custom_product_qty_${counter}"
+              class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Enter quantity" />
+        </div>
+        <div>
+          <label for="custom_product_price_${counter}">Product Price</label>
+          <input type="number" id="custom_product_price_${counter}" name="custom_product_price_${counter}"
+              class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Enter price" />
+        </div>
+      </div>
+    `;
+    
+    // Append the new div to the container
+    container.appendChild(div);
+    
+    // Increment the counter for the next set of fields
+    counter++;
+}
+
+
         const productMediaInput = document.getElementById('product_media');
         const imageDisplay2 = document.getElementById('product_media_display');
 
@@ -519,7 +581,7 @@
                 }
             });
     </script>
-    <script>
+    <!-- <script>
         document.getElementById("add-product").addEventListener("submit", async function (event) {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -557,8 +619,61 @@
 
         });
 
-    </script>
+    </script> -->
 
+
+    <script>
+        document.getElementById("add-product").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const token = localStorage.getItem("token");
+    
+
+            const products = [];
+            const totalFields = document.querySelectorAll("[id^='custom_product_qty_']").length;
+    
+            for (let i = 1; i <= totalFields; i++) {
+                const quantity = document.getElementById(`custom_product_qty_${i}`).value;
+                const price = document.getElementById(`custom_product_price_${i}`).value;
+    
+                // Add to products array as an object
+                if (quantity && price) {
+                    products.push({
+                        quantity: quantity,
+                        price: price
+                    });
+                }
+            }
+    
+
+            formData.append("products", JSON.stringify(products));
+            console.log(formData);
+            
+    
+            try {
+                const response = await fetch('http://localhost:3000/admin/add-product', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+    
+                if (response.ok) {
+                    alert("Product added successfully");
+                    window.location.href = "/admin/admin.products.html";
+                } else {
+                    alert("Error adding product");
+                    console.log("Error:", await response.text());
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while adding product");
+            }
+     
+        });
+    </script>
+    
 
 </body>
 

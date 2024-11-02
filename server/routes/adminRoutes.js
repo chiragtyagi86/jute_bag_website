@@ -125,10 +125,10 @@ router.post(
       product_discount,
       product_tax_class,
       product_status,
+      products,
       product_tax_amount,
     } = req.body;
 
-    // Validate inputs
     if (
       !product_name ||
       !product_description ||
@@ -137,7 +137,8 @@ router.post(
       !product_discount ||
       !product_tax_class ||
       !product_status ||
-      !product_tax_amount
+      !product_tax_amount ||
+      !products
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -155,6 +156,7 @@ router.post(
       : [];
     const productMediaString = productMediaUrls.join(",");
 
+
     const productId = await getProductId();
     const product_data = {
       product_id: productId,
@@ -167,6 +169,7 @@ router.post(
       product_status,
       product_tax_amount,
       product_img: productImgUrl,
+      products,
       product_media: productMediaString,
     };
     const sql = "INSERT INTO product_data SET?";
@@ -194,23 +197,34 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     product_discount,
     product_tax_class,
     product_status,
+    products,
     product_tax_amount,
   } = req.body;
 
-  console.log(product_name);
+  JSON.stringify(products)
+
+ const products2 =  products.forEach((product) => {
+  console.log(product);
+  
+  });
+  
   if (
-    !product_id ||
-    !product_name ||
-    !product_description ||
-    !product_price ||
-    !product_qty ||
-    !product_discount ||
-    !product_tax_class ||
-    !product_status ||
-    !product_tax_amount
+    !product_id ||  
+   !product_name ||
+   !product_description ||
+   !product_price ||
+   !product_qty ||
+   !product_discount ||
+   !product_tax_class ||
+   !product_status ||
+   !product_tax_amount||
+   !products
   ) {
     return res.status(400).json({ error: "All fields are required" });
   }
+
+  
+  
   const product_data = {
     product_name,
     product_discription: product_description,
@@ -219,19 +233,20 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     product_discount,
     product_tax_class,
     product_status,
+    products: products2,
     product_tax_amount,
   }
-
+  
 
   const sql = "UPDATE product_data SET ? WHERE product_id = ?";
-  db.query(sql, [product_data, product_id], (err, result) => {
-    if (err) {
-      console.error("Failed to update product:", err);
-      return res.status(500).json({ error: "Failed to update product" });
-    }
+  // db.query(sql, [product_data, product_id], (err, result) => {
+  //   if (err) {
+  //     console.error("Failed to update product:", err);
+  //     return res.status(500).json({ error: "Failed to update product" });
+  //   }
 
-    res.status(200).json({ message: "Product updated successfully" });
-  });
+  //   res.status(200).json({ message: "Product updated successfully" });
+  // });
 });
 
 
@@ -338,6 +353,39 @@ router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
         products: productResults,
       });
     });
+  });
+});
+
+router.post("/update-order", verifyAdmin, authenticateToken, (req, res) => {
+
+  const {order_id, tracking_id, order_status } = req.body;
+
+//tracing id is required when it is provided if not provided then proceed further
+  if (!order_id ||!order_status) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  const sql = "UPDATE orders SET order_status =? WHERE order_id =?";
+  db.query(sql, [order_status, order_id], (err, result) => {
+    if (err) {
+      console.error("Failed to update order:", err);
+      return res.status(500).json({ error: "Failed to update order" });
+    }
+
+    res.status(200).json({ message: "Order updated successfully" });
+  });
+})
+//delete prododuct
+router.delete("/delete-product", verifyAdmin, authenticateToken, (req, res) => {
+  const { product_id } = req.body;
+
+  const sql = "DELETE FROM product_data WHERE product_id =?";
+  db.query(sql, [product_id], (err, result) => {
+    if (err) {
+      console.error("Failed to delete product:", err);
+      return res.status(500).json({ error: "Failed to delete product" });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully" });
   });
 });
 
