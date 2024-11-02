@@ -628,7 +628,7 @@ function addMore() {
             const formData = new FormData(event.target);
             const token = localStorage.getItem("token");
     
-            // Collecting dynamic fields in an array
+
             const products = [];
             const totalFields = document.querySelectorAll("[id^='custom_product_qty_']").length;
     
@@ -645,7 +645,7 @@ function addMore() {
                 }
             }
     
-            // Convert products array to JSON and append to FormData
+
             formData.append("products", JSON.stringify(products));
             console.log(formData);
             

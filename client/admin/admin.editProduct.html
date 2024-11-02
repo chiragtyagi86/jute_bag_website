@@ -169,6 +169,11 @@
                 </a>
             </div>
             <form id="add-product" class="m-5">
+                <header>
+                    <h2 class="text-xl m-5">
+                        Edit Product
+                    </h2>
+                </header>
                 <!-- <div class="grid grid-cols-1 gap-4 lg:grid-cols-[310px_1fr] lg:gap-8"> -->
                 <div class="grid  grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
                     <div class="rounded-lg lg:col-span-1  border">
@@ -223,6 +228,7 @@
                     <div class="rounded-lg  lg:col-span-1">
                         <div>
                             <div class="border rounded-lg p-5">
+                                <div>
                                 <div class="flex items-center justify-between m-4">
                                     <label for="product_status" class="block text-m font-medium text-gray-900"> Product
                                         Status
@@ -240,6 +246,7 @@
 
                                 </select>
                             </div>
+                            </div>
                             <div class="border rounded-lg p-5 mt-5">
                                 <div class="relative">
                                     <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Product
@@ -253,24 +260,50 @@
                                         0.</span>
                                 </div>
                             </div>
+                            <div class="border mt-4  rounded-lg lg:col-span-2">
+                                <div class="m-5">
+        
+                                    <header>
+                                        <h2 class="text-xl">
+                                            Add custom product quantity/price
+                                        </h2>
+                                    </header>
+                                    <div class="">
+                                  
+                                        <div id="custom_more"></div>
+                                        <div class="flex items-center justify-center mt-4" onclick="addMore()">
+                                            <button type="button"  class="bg-teal-600 cursor-pointer text-white px-4 py-2 mx-auto rounded-md"
+                                                id="add_custom_product_btn">Add More Custom Product</button>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div>
                         </div>
+                    
                     </div>
+                    
                     <div class=" border rounded-lg  lg:col-span-3">
                         <div class="m-5">
                             <header>
                                 <h2 class="text-xl">Pricing</h2>
                             </header>
-                            <div class="relative">
-                                <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Product
-                                    Price
-                                    <sup class="text-red-600">*</sup>
-                                </label>
-                                <input type="number"
+                            <div>
+
+                                <div class="relative">
+                                    <label for="UserEmail" class="block text-m mt-4 font-medium text-gray-700"> Product
+                                        Price
+                                        <sup class="text-red-600">*</sup>
+                                    </label>
+                                    <input type="number"
                                     class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Product price" id="product_price" name="product_price" required />
-                                <span class="text-xs ml-5 text-gray-400">Set the product price.</span>
+                                    <span class="text-xs ml-5 text-gray-400">Set the product price.</span>
+                                    
+                                </div>
+                               
                             </div>
-                            <div>
+                                <div>
                                 <label for="" class="block text-m mt-4 font-medium text-gray-700">Discount Type</label>
                                 <div class="grid lg:grid-cols-3 gap-4">
                                     <div>
@@ -354,11 +387,13 @@
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
+                   
                 </div>
                 <div class="flex items-center justify-end m-5 gap-4">
                     <button class="px-4 py-2 bg-gray-400 text-white rounded-md" type="reset">Cancel</button>
-                    <button class="px-4 py-2 bg-teal-600 text-white rounded-md" type="submit">Add Product</button>
+                    <button class="px-4 py-2 bg-teal-600 text-white rounded-md" type="submit">Edit Product</button>
                 </div>
             </form>
         </div>
@@ -431,22 +466,102 @@
             });
     </script>
     <script>
+
+let counter = 1; 
+
+// Function to create and append product fields
+function addProductFields(product) {
+    const container = document.getElementById("custom_more");
+    const div = document.createElement("div");
+
+    // Set default values for quantity and price to avoid "undefined"
+    const quantity = product.quantity || ''; // Default to empty string if undefined
+    const price = product.price || ''; // Default to empty string if undefined
+    
+    div.innerHTML = `
+      <div class="mt-4 flex items-center justify-center gap-4">
+        <div>
+          <label for="custom_product_qty_${counter}">Product Quantity</label>
+          <input type="number" id="custom_product_qty_${counter}" name="custom_product_qty_${counter}"
+              class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Enter quantity" value="${quantity}" />
+        </div>
+        <div>
+          <label for="custom_product_price_${counter}">Product Price</label>
+          <input type="number" id="custom_product_price_${counter}" name="custom_product_price_${counter}"
+              class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Enter price" value="${price}" />
+        </div>
+      </div>
+    `;
+    
+    container.appendChild(div);  // Append the new div to the container
+    counter++;  // Increment the counter for the next set of fields
+}
+
+
+
+
+function addMore() {
+    const container = document.getElementById("custom_more");
+    const div = document.createElement("div");
+    
+    div.innerHTML = `
+      <div class="mt-4 flex items-center justify-center gap-4">
+        <div>
+          <label for="custom_product_qty_${counter}">Product Quantity</label>
+          <input type="number" id="custom_product_qty_${counter}" name="custom_product_qty_${counter}"
+              class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Enter quantity" />
+        </div>
+        <div>
+          <label for="custom_product_price_${counter}">Product Price</label>
+          <input type="number" id="custom_product_price_${counter}" name="custom_product_price_${counter}"
+              class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Enter price" />
+        </div>
+      </div>
+    `;
+    
+    container.appendChild(div);  // Append the new div to the container
+    counter++;  // Increment the counter for the next set of fields
+}
+
         
         document.getElementById("add-product").addEventListener("submit", async function (event) {
-            event.preventDefault();
-            const currentUrl = window.location.href;
+    event.preventDefault();
+    const token = localStorage.getItem("token");
+    const currentUrl = window.location.href;
             const urlObj = new URL(currentUrl);
             const queryString = urlObj.search;
-            const product_id = queryString.substring(1);
-            const formData = new FormData(event.target);
-            const token = localStorage.getItem("token");
-            const formObj = {}
-            formData.forEach((value, key) => {
-                formObj[key] = value;
+            const product_id = queryString.substring(1); 
+    
+    const formData = new FormData(event.target);
+    const formObj = {};
+    formData.forEach((value, key) => {
+        formObj[key] = value;
+    });
+    const products = [];
+    const quantityFields = document.querySelectorAll("[id^='custom_product_qty_']");
+    const priceFields = document.querySelectorAll("[id^='custom_product_price_']");
+
+    quantityFields.forEach((quantityField, index) => {
+        const quantity = quantityField.value;
+        const price = priceFields[index]?.value;
+
+
+        if (quantity && price) {
+            products.push({
+                quantity: quantity,
+                price: price
             });
-            formObj.product_id = product_id;
-            console.log(formObj);
-        //send the data to edit-product route
+        }
+    });
+    formObj.products = products;
+    formObj.product_id = product_id;
+    console.log(formObj);
+
+
         fetch("http://localhost:3000/admin/edit-product", {
             method: "POST",
             headers: {
@@ -471,6 +586,7 @@
             });
         });
     </script>
+ 
     <script>
         const currentUrl = window.location.href;
         const urlObj = new URL(currentUrl);
@@ -496,6 +612,7 @@
                     return response.json();
                 })
                 .then(data => {
+
                     ;
                     document.getElementById("imageDisplay").setAttribute("src", data.product_img)
                     document.getElementById("product_name").value = data.product_name;
@@ -503,6 +620,18 @@
                     document.getElementById("product_description").textContent = data.product_discription;
                     document.getElementById("product_qty").value = data.product_qty;
 
+                    const data2 = JSON.parse(data.products);
+                    //create a array into json
+                    console.log(data2);
+                    data2.forEach((item, i) => {
+                        addProductFields(item);
+                        
+                    });
+                    
+
+                    
+                    
+                
                 })
                 .catch(error => {
                     console.error("Error:", error);

@@ -113,7 +113,6 @@ router.post(
       product_tax_amount,
     } = req.body;
 
-    // Validate inputs
     if (
       !product_name ||
       !product_description ||
@@ -140,6 +139,7 @@ router.post(
         )
       : [];
     const productMediaString = productMediaUrls.join(",");
+
 
     const productId = getProductId();
     const product_data = {
@@ -181,10 +181,17 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     product_discount,
     product_tax_class,
     product_status,
+    products,
     product_tax_amount,
   } = req.body;
 
-  console.log(product_name);
+  JSON.stringify(products)
+
+ const products2 =  products.forEach((product) => {
+  console.log(product);
+  
+  });
+  
   if (
     !product_id ||  
    !product_name ||
@@ -194,10 +201,14 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
    !product_discount ||
    !product_tax_class ||
    !product_status ||
-   !product_tax_amount
+   !product_tax_amount||
+   !products
   ) {
     return res.status(400).json({ error: "All fields are required" });
   }
+
+  
+  
   const product_data = {
     product_name,
     product_discription: product_description,
@@ -206,19 +217,22 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     product_discount,
     product_tax_class,
     product_status,
+    products: products2,
     product_tax_amount,
   }
+  console.log(product_data);
+  
   
 
   const sql = "UPDATE product_data SET ? WHERE product_id = ?";
-  db.query(sql, [product_data, product_id], (err, result) => {
-    if (err) {
-      console.error("Failed to update product:", err);
-      return res.status(500).json({ error: "Failed to update product" });
-    }
+  // db.query(sql, [product_data, product_id], (err, result) => {
+  //   if (err) {
+  //     console.error("Failed to update product:", err);
+  //     return res.status(500).json({ error: "Failed to update product" });
+  //   }
 
-    res.status(200).json({ message: "Product updated successfully" });
-  });
+  //   res.status(200).json({ message: "Product updated successfully" });
+  // });
 });
 
 
