@@ -75,9 +75,25 @@ router.post("/sign-up", (req, res) => {
   });
 });
 
-function getProductId() {
-  return "Product" + Math.floor(100000 + Math.random() * 900000);
+async function getProductId() {
+  let uniqueID;
+  let isUnique = false;
+  while (!isUnique) {
+    uniqueID = "Product" + Math.floor(100000 + Math.random() * 900000);
+    const sql = "SELECT COUNT(*) AS count FROM product_data WHERE product_id = ?";
+    const result = await new Promise((resolve, reject) => {
+      db.query(sql, [uniqueID], (err, results) => {
+        if (err) return reject(err);
+        resolve(results[0].count);
+      });
+    });
+    if (result === 0) {
+      isUnique = true;
+    }
+  }
+  return uniqueID;
 }
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -100,7 +116,7 @@ router.post(
     { name: "product_img", maxCount: 1 },
     { name: "product_media", maxCount: 5 },
   ]),
-  (req, res) => {
+  async (req, res) => {
     const {
       product_name,
       product_description,
@@ -135,13 +151,13 @@ router.post(
     const productImgUrl = `http://localhost:3000/uploads/${req.files.product_img[0].filename}`;
     const productMediaUrls = req.files.product_media
       ? req.files.product_media.map(
-          (file) => `http://localhost:3000/uploads/${file.filename}`
-        )
+        (file) => `http://localhost:3000/uploads/${file.filename}`
+      )
       : [];
     const productMediaString = productMediaUrls.join(",");
 
 
-    const productId = getProductId();
+    const productId = await getProductId();
     const product_data = {
       product_id: productId,
       product_name,
@@ -220,8 +236,6 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     products: products2,
     product_tax_amount,
   }
-  console.log(product_data);
-  
   
 
   const sql = "UPDATE product_data SET ? WHERE product_id = ?";
