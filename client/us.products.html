@@ -182,214 +182,14 @@
       <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <header>
           <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
-
-          <p class="mt-4 max-w-md text-gray-500">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure
-            dicta incidunt est ipsam, officia dolor fugit natus?
-          </p>
         </header>
 
-        <div class="mt-8 block lg:hidden">
-          <button
-            class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
-            <span class="text-sm font-medium"> Filters & Sorting </span>
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="size-4 rtl:rotate-180">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-        </div>
 
         <div class="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
-          <div class="hidden  space-y-4 lg:block">
-            <div>
-              <label for="SortBy" class="block text-xs font-medium text-gray-700"> Sort By </label>
 
-              <select id="SortBy" class="mt-1 rounded border-gray-300 text-sm">
-                <option>Sort By</option>
-                <option value="Title, DESC">Title, DESC</option>
-                <option value="Title, ASC">Title, ASC</option>
-                <option value="Price, DESC">Price, DESC</option>
-                <option value="Price, ASC">Price, ASC</option>
-              </select>
-            </div>
 
-            <div>
-              <p class="block text-xs font-medium text-gray-700">Filters</p>
-
-              <div class="mt-1  space-y-2">
-                <details
-                  class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-                  <summary class="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
-                    <span class="text-sm font-medium"> Availability </span>
-
-                    <span class="transition group-open:-rotate-180">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                      </svg>
-                    </span>
-                  </summary>
-
-                  <div class="border-t border-gray-200 bg-white">
-                    <header class="flex items-center justify-between p-4">
-                      <span class="text-sm text-gray-700"> 0 Selected </span>
-
-                      <button type="button" class="text-sm text-gray-900 underline underline-offset-4">
-                        Reset
-                      </button>
-                    </header>
-
-                    <ul class="space-y-1 border-t border-gray-200 p-4">
-                      <li>
-                        <label for="FilterInStock" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterInStock" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> In Stock (5+) </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterPreOrder" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterPreOrder" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Pre Order (3+) </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterOutOfStock" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterOutOfStock" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Out of Stock (10+) </span>
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details
-                  class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-                  <summary class="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
-                    <span class="text-sm font-medium"> Price </span>
-
-                    <span class="transition group-open:-rotate-180">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                      </svg>
-                    </span>
-                  </summary>
-
-                  <div class="border-t border-gray-200 bg-white">
-                    <header class="flex items-center justify-between p-4">
-                      <span class="text-sm text-gray-700"> The highest price is $600 </span>
-
-                      <button type="button" class="text-sm text-gray-900 underline underline-offset-4">
-                        Reset
-                      </button>
-                    </header>
-
-                    <div class="border-t border-gray-200 p-4">
-                      <div class="flex justify-between gap-4">
-                        <label for="FilterPriceFrom" class="flex items-center gap-2">
-                          <span class="text-sm text-gray-600">$</span>
-
-                          <input type="number" id="FilterPriceFrom" placeholder="From"
-                            class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm" />
-                        </label>
-
-                        <label for="FilterPriceTo" class="flex items-center gap-2">
-                          <span class="text-sm text-gray-600">$</span>
-
-                          <input type="number" id="FilterPriceTo" placeholder="To"
-                            class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm" />
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <details
-                  class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-                  <summary class="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
-                    <span class="text-sm font-medium"> Colors </span>
-
-                    <span class="transition group-open:-rotate-180">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                      </svg>
-                    </span>
-                  </summary>
-
-                  <div class="border-t border-gray-200 bg-white">
-                    <header class="flex items-center justify-between p-4">
-                      <span class="text-sm text-gray-700"> 0 Selected </span>
-
-                      <button type="button" class="text-sm text-gray-900 underline underline-offset-4">
-                        Reset
-                      </button>
-                    </header>
-
-                    <ul class="space-y-1 border-t border-gray-200 p-4">
-                      <li>
-                        <label for="FilterRed" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterRed" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Red </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterBlue" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterBlue" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Blue </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterGreen" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterGreen" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Green </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterOrange" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterOrange" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Orange </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterPurple" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterPurple" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Purple </span>
-                        </label>
-                      </li>
-
-                      <li>
-                        <label for="FilterTeal" class="inline-flex items-center gap-2">
-                          <input type="checkbox" id="FilterTeal" class="size-5 rounded border-gray-300" />
-
-                          <span class="text-sm font-medium text-gray-700"> Teal </span>
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
-                </details>
-              </div>
-            </div>
-          </div>
-
-          <div class=" overflow-scroll h-[60vh] lg:col-span-3">
-            <ul id="list_products" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class=" overflow-scroll h-[60vh] lg:col-span-4">
+            <ul id="list_products" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
 
             </ul>
@@ -587,6 +387,189 @@
 
 
   <script>
+    new Swiper('.swiper', {
+      effect: 'fade',
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      fadeEffect: {
+        crossFade: true,
+      },
+      navigation: {
+        prevEl: '.swiper-prev-button',
+        nextEl: '.swiper-next-button',
+      },
+    })
+    function toogleNav() {
+      //if click toggle the navigation menu again click hide the navigation menu
+      if (document.getElementById("nav-menu").style.display === "none") {
+        document.getElementById("nav-menu").style.display = "block";
+      } else {
+        document.getElementById("nav-menu").style.display = "none";
+      }
+    }
+    function toggleSearch() {
+      //if click toggle the search bar again click hide the search bar and a div with id results
+      if (document.getElementById("search-bar").style.display === "none") {
+        document.getElementById("search-bar").style.display = "block";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML = "";
+      } else {
+        document.getElementById("search-bar").style.display = "none";
+        document.getElementById("result").style.display = "none";
+      }
+    }
+    function handleKeyPress(event) {
+      const inputElement = document.getElementById("searchQuery");
+      if (inputElement) {
+        let searchQuery = inputElement.value;
+        fetch(
+          `http://localhost:3000/search-products/${encodeURIComponent(
+            searchQuery
+          )}`
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+            if (data.message) {
+              resultDiv.innerHTML = `<p>${data.message}</p>`;
+            } else {
+              data.forEach((product) => {
+                const words = product.product_name.split(" ");
+                const firstSevenWords = words.slice(0, 5).join(" ");
+                resultDiv.innerHTML += `
+                            <a onclick="window.location.href='us.disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
+                              <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
+                  id="search">
+                  <path
+                    d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
+                  </path>
+                </svg>
+                <div class='flex items-center justify-center'>
+                  <img src=${product.product_img} width=30>
+                  <h3 class="line-clamps-3">${firstSevenWords}</h3>
+                  </div>
+                              </a>
+                                `;
+              });
+            }
+          });
+      } else {
+        console.error("Input element not found.");
+      }
+    }
+    
+    const ul = document.getElementById("list_products");
+    ul.innerHTML = '';
+    fetch('http://localhost:3000/get-products')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(product => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+             <li>
+                <a onclick="window.location.href = '/us.disp_product.html?${product.product_id}'" class="group block overflow-hidden">
+                  <img
+                    src=${product.product_img}
+                  alt=""
+                    class="h-full object-fill  w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                  />
+    
+                  <div class="relative bg-white pt-3">
+                    <h3
+                      class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
+                    >
+                    
+                      ${product.product_name}
+                      
+                    </h3>
+    
+                    <p class="mt-2">
+                      <span class="sr-only"> Regular Price </span>
+    
+                      <span class="tracking-wider text-gray-900"> <sup>₹</sup>${product.product_price} </span>
+                    </p>
+                  </div>
+                </a>
+              <button 
+              onclick="addtocart('${product.product_id}',this)"
+              class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-xs w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
+              Add to cart</button>
+              </li>
+            `;
+          ul.appendChild(li);
+
+
+        })
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    function logout() {
+      if (!localStorage.getItem("token")) {
+        alert("You are not allowed to log out");
+        return;
+      }
+      localStorage.removeItem("token");
+      alert("You have been logged out successfully");
+      window.location.href = "/sign-in.html";
+    }
+    async function addtocart(product_id, button) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/sign-in.html";
+        return;
+      }
+      try {
+        const response = await fetch("http://localhost:3000/user/dashboard", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 401 || response.status === 403) {
+          window.location.href = "/sign-in.html";
+        } else if (!response.ok) {
+          console.error("Error:", await response.text());
+          window.location.href = "/sign-in.html";
+        } else {
+          const data = await response.json();
+          const userid = data.userDetails.userid;
+          const quantity = 1;
+          console.log("in add to cart funciton");
+          console.log(userid);
+          console.log(product_id);
+          const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ userid, product_id, quantity }),
+          });
+          if (addToCartResponse.ok) {
+            console.log("Product added to cart successfully!");
+            button.textContent = 'Added to Cart';
+            button.disabled = true;
+          } else {
+            console.error("Failed to add product to cart:", await addToCartResponse.text());
+          }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        window.location.href = "/sign-in.html";
+      }
+    }
+  </script>
+
+  <script>
     document.getElementById("subscribe-form").addEventListener('submit', function (event) {
       event.preventDefault();
       const formData = new FormData(event.target);
@@ -611,7 +594,8 @@
           alert("Oops! Something went wrong. Email was not added.");
         });
     })
-  </script>
+  </script> 
+
 
 </body>
 
