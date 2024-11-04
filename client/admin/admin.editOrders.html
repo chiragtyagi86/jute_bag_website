@@ -16,7 +16,7 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/admin/dashboard", {
+        const response = await fetch("https://amulya.server.ijebr.com/admin/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -224,7 +224,7 @@
   
           try {
             const response = await fetch(
-              "http://localhost:3000/admin/dashboard",
+              "https://amulya.server.ijebr.com/admin/dashboard",
               {
                 method: "GET",
                 headers: {
@@ -273,7 +273,7 @@ document.getElementById("order-update").addEventListener("submit", function(even
             console.log(formObj);
         
             try{
-            const responce = fetch(`http://localhost:3000/admin/update-order`,{
+            const responce = fetch(`https://amulya.server.ijebr.com/admin/update-order`,{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -313,7 +313,7 @@ document.getElementById("order-update").addEventListener("submit", function(even
             }
   
             try {
-              const response = await fetch("http://localhost:3000/admin/logout", {
+              const response = await fetch("https://amulya.server.ijebr.com/admin/logout", {
                 method: "POST",
                 headers: {
                   Authorization: `Bearer ${token}`,

@@ -539,7 +539,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://amulya.server.ijebr.com/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -611,7 +611,7 @@
       if (inputElement) {
         let searchQuery = inputElement.value;
         fetch(
-          `http://localhost:3000/search-products/${encodeURIComponent(
+          `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
             searchQuery
           )}`
         )
@@ -656,10 +656,10 @@
     }
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:3000/get-products");
-        const response2 = await fetch("http://localhost:3000/latest-product");
+        const response = await fetch("https://amulya.server.ijebr.com/get-products");
+        const response2 = await fetch("https://amulya.server.ijebr.com/latest-product");
         const response3 = await fetch(
-          "http://localhost:3000/trending-products"
+          "https://amulya.server.ijebr.com/trending-products"
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

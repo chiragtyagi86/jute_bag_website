@@ -644,10 +644,11 @@
       document.getElementById("subscribe-form").addEventListener('submit', function (event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const formObj = {};
+        const formObj = {}
+
         formData.forEach((value, key) => {
           formObj[key] = value;
-        })
+        })https://amulya.server.ijebr.com
         fetch("http://localhost:3000/user/subscribe", {
           method: 'POST',
           headers: {
@@ -673,7 +674,7 @@
       const product_id = queryString.substring(1);
       function geteditData(product_id) {
         const token = localStorage.getItem("token");
-
+https://amulya.server.ijebr.com
         fetch(`http://localhost:3000/admin/product/${product_id}`, {
           method: "GET",
           headers: {
@@ -757,7 +758,7 @@
 
 
             function updatePrice() {
-              const quantity =  document.getElementById("product_qty").value;
+              const quantity =  document.getElementById("product_qty").value || document.getElementById("custom_product_qty").innerText
               const totalPrice =  document.getElementById("custom_product_qty").value  || productPrice * quantity;
               document.getElementById("final_price").innerText = `₹${
             parseInt(totalPrice) + 25 - 20
@@ -813,7 +814,7 @@
           return;
         }
 
-        try {
+        try {https://amulya.server.ijebr.com
           const response = await fetch("http://localhost:3000/user/dashboard", {
             method: "GET",
             headers: {
@@ -868,7 +869,7 @@
 
       //     const product_toBuy = formObj;
       //     console.log(product_toBuy);
-
+https://amulya.server.ijebr.com
       //     fetch("http://localhost:3000/user/buy-products", {
       //       method: "POST",
       //       headers: {
@@ -900,7 +901,7 @@
       //     const option ={
       //       itemId: 1,
       //       price: price,
-      //     }
+      //     }https://amulya.server.ijebr.com
       //     const responce = await fetch("http://localhost:3000/payment", option,{
       //       method: "POST",
       //       headers: {
@@ -938,7 +939,7 @@ document
     formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);
 
     // 1. Create Razorpay order and get order ID
-    try {
+    try {https://amulya.server.ijebr.com
       const response = await fetch("http://localhost:3000/user/payment", {
         method: "POST",
         headers: {
@@ -966,7 +967,7 @@ document
             payment_id: response.razorpay_payment_id, // Payment ID from Razorpay
             order_id: paymentData.id,
           };
-
+https://amulya.server.ijebr.com
           const orderResponse = await fetch("http://localhost:3000/user/buy-products", {
             method: "POST",
             headers: {
@@ -1023,15 +1024,14 @@ document
           formData.forEach((value, key) => {
             formObj[key] = value;
           });
-
-
+          console.log(formObj);
           formObj.product_id = product_id;
           const priceString = document.getElementById("final_price").innerText;
           formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);
 
           // Create Razorpay Order
           const response = await fetch(
-            "http://localhost:3000/user/create-order",
+            "https://amulya.server.ijebr.com/user/create-order",
             {
               method: "POST",
               headers: {
@@ -1071,7 +1071,7 @@ document
 
               // You can send this to your backend for verification
               const paymentVerificationResponse = await fetch(
-                "http://localhost:3000/user/payment/verify",
+                "https://amulya.server.ijebr.com/user/payment/verify",
                 {
                   method: "POST",
                   headers: {
@@ -1083,7 +1083,7 @@ document
 
               if (paymentVerificationResponse.ok) {
                 alert("Payment successful!");
-                fetch("http://localhost:3000/user/buy-products", {
+                fetch("https://amulya.server.ijebr.com/user/buy-products", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

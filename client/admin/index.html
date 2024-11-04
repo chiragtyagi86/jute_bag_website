@@ -85,7 +85,7 @@
 
   <!-- end login form -->
 
-  <div class="fixed inset-x-0 bottom-0">
+  <!-- <div class="fixed inset-x-0 bottom-0">
     <div class="bg-teal-600 px-4 py-3 text-white">
       <p class="text-center text-sm font-medium">
         Design and Developed by
@@ -93,7 +93,7 @@
         </a>
       </p>
     </div>
-  </div>
+  </div> -->
 
   <script>
     document
@@ -106,7 +106,7 @@
           formobj[key] = value;
         });
         try {
-          const response = await fetch("http://localhost:3000/admin/signin", {
+          const response = await fetch("https://amulya.server.ijebr.com/admin/signin", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

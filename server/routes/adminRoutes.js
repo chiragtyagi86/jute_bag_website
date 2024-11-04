@@ -148,10 +148,10 @@ router.post(
       return res.status(400).json({ error: "Product image is required" });
     }
 
-    const productImgUrl = `http://localhost:3000/uploads/${req.files.product_img[0].filename}`;
+    const productImgUrl = `https://amulya.server.ijebr.com/uploads/${req.files.product_img[0].filename}`;
     const productMediaUrls = req.files.product_media
       ? req.files.product_media.map(
-        (file) => `http://localhost:3000/uploads/${file.filename}`
+        (file) => `https://amulya.server.ijebr.com/uploads/${file.filename}`
       )
       : [];
     const productMediaString = productMediaUrls.join(",");

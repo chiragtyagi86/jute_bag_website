@@ -444,7 +444,7 @@
         return;
       }
       try {
-        const response = await fetch("http://localhost:3000/user/dashboard", {
+        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -459,7 +459,7 @@
         const ul = document.getElementById("list_cart");
         ul.innerHTML = '';
 
-        const cartResponse = await fetch('http://localhost:3000/cart/view', {
+        const cartResponse = await fetch('https://amulya.server.ijebr.com/cart/view', {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -604,7 +604,7 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/user/dashboard", {
+        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -621,7 +621,7 @@
         const userid = data.userDetails.userid;
 
         // Remove item from cart
-        const removeResponse = await fetch('http://localhost:3000/cart/remove', {
+        const removeResponse = await fetch('https://amulya.server.ijebr.com/cart/remove', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -654,7 +654,7 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/user/dashboard", {
+        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -671,7 +671,7 @@
         const userid = data.userDetails.userid;
 
         // Remove item from cart
-        const updateResponse = await fetch('http://localhost:3000/cart/update', {
+        const updateResponse = await fetch('https://amulya.server.ijebr.com/cart/update', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -757,7 +757,7 @@
     if (inputElement) {
       let searchQuery = inputElement.value;
       fetch(
-        `http://localhost:3000/search-products/${encodeURIComponent(
+        `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
           searchQuery
         )}`
       )
@@ -810,7 +810,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://amulya.server.ijebr.com/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

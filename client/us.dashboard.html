@@ -704,7 +704,7 @@
       const inputElement = document.getElementById("searchQuery");
       if (inputElement) {
         let searchQuery = inputElement.value;
-        fetch(`http://localhost:3000/search-products/${encodeURIComponent(searchQuery)}`)
+        fetch(`https://amulya.server.ijebr.com/search-products/${encodeURIComponent(searchQuery)}`)
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -772,9 +772,9 @@
 
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/get-products');
-        const response2 = await fetch('http://localhost:3000/latest-product');
-        const response3 = await fetch('http://localhost:3000/trending-products');
+        const response = await fetch('https://amulya.server.ijebr.com/get-products');
+        const response2 = await fetch('https://amulya.server.ijebr.com/latest-product');
+        const response3 = await fetch('https://amulya.server.ijebr.com/trending-products');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -940,7 +940,7 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/user/dashboard", {
+        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -986,7 +986,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://amulya.server.ijebr.com/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

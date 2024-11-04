@@ -411,9 +411,10 @@ async function getOrderId() {
   return uniqueOrderID;
 }
 router.post("/buy-products", authenticateToken, async (req, res) => {
-  const { product_id, email, payment_method, price, product_qty } = req.body;
+  const { product_id, email, payment_method, price, product_qty, custom_product_qty } = req.body;
+  const quantity = product_qty || custom_product_qty; 
 
-  if (!product_id || !email || !payment_method || !product_qty || !price) {
+  if (!product_id || !email || !payment_method || !quantity || !price) {
     return res.status(400).json({ error: "All fields are required" });
   }
   const order = {
@@ -421,7 +422,7 @@ router.post("/buy-products", authenticateToken, async (req, res) => {
     email,
     product_id,
     payment_method,
-    product_qty,
+    product_qty : quantity || product_qty,
     price,
   };
   const getQty = "SELECT product_qty FROM product_data WHERE product_id = ?";
@@ -439,7 +440,7 @@ router.post("/buy-products", authenticateToken, async (req, res) => {
     }
     db.query(getQty, [product_id], (err, result) => {
       if (err) return res.status(500).json({ message: "Server error" });
-      const remaining_qty = result[0].product_qty - product_qty;
+      const remaining_qty = result[0].product_qty - product_qty ? product_qty : "0";
       db.query(updateProduct, [remaining_qty, product_id], (err, result) => {
         if (err)
           return res

@@ -39,7 +39,7 @@
     if (inputElement) {
       let searchQuery = inputElement.value;
       fetch(
-        `http://localhost:3000/search-products/${encodeURIComponent(
+        `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
           searchQuery
         )}`
       )
@@ -531,7 +531,7 @@
         });
         console.log(formObj);
         try {
-          const response = await fetch("http://localhost:3000/user/sign-in", {
+          const response = await fetch("https://amulya.server.ijebr.com/user/sign-in", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -564,7 +564,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://amulya.server.ijebr.com/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -425,7 +425,7 @@
       if (inputElement) {
         let searchQuery = inputElement.value;
         fetch(
-          `http://localhost:3000/search-products/${encodeURIComponent(
+          `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
             searchQuery
           )}`
         )
@@ -468,7 +468,7 @@
     
     const ul = document.getElementById("list_products");
     ul.innerHTML = '';
-    fetch('http://localhost:3000/get-products')
+    fetch('https://amulya.server.ijebr.com/get-products')
       .then(response => response.json())
       .then(data => {
         data.forEach(product => {
@@ -528,7 +528,7 @@
         return;
       }
       try {
-        const response = await fetch("http://localhost:3000/user/dashboard", {
+        const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -546,7 +546,7 @@
           console.log("in add to cart funciton");
           console.log(userid);
           console.log(product_id);
-          const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
+          const addToCartResponse = await fetch("https://amulya.server.ijebr.com/cart/add", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -577,7 +577,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://amulya.server.ijebr.com/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
