@@ -674,6 +674,7 @@
       const product_id = queryString.substring(1);
       function geteditData(product_id) {
         const token = localStorage.getItem("token");
+
         fetch(`https://amulya.server.ijebr.com/admin/product/${product_id}`, {
           method: "GET",
           headers: {
@@ -691,6 +692,8 @@
           })
 
           .then((data) => {
+            console.log(data);
+            
             const productContainer = document.getElementById("disp_product");
             productContainer.innerHTML = "";
             const media = data.product_media;
@@ -724,10 +727,12 @@
             productContainer.appendChild(div);
 
             const productPrice = data.product_price;
-            // const customQty = JSON.parse(data.products);
+            const customQty = JSON.parse(data.products);
 
             const container = document.getElementById("custom_product_qty");
             customQty.forEach(custom => {
+              console.log(custom);
+              
             const option = document.createElement("option");
             option.value = custom.price;
             option.innerText = custom.quantity;
@@ -900,7 +905,7 @@
       //     const option ={
       //       itemId: 1,
       //       price: price,
-      //     }https://amulya.server.ijebr.com
+      //     }
       //     const responce = await fetch("https://amulya.server.ijebr.com/payment", option,{
       //       method: "POST",
       //       headers: {
@@ -938,7 +943,7 @@ document
     formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);
 
     // 1. Create Razorpay order and get order ID
-    try {https://amulya.server.ijebr.com
+    try {
       const response = await fetch("https://amulya.server.ijebr.com/user/payment", {
         method: "POST",
         headers: {
@@ -966,6 +971,7 @@ document
             payment_id: response.razorpay_payment_id, // Payment ID from Razorpay
             order_id: paymentData.id,
           };
+
           const orderResponse = await fetch("https://amulya.server.ijebr.com/user/buy-products", {
             method: "POST",
             headers: {
