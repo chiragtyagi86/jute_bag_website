@@ -550,12 +550,6 @@
                         <h2 class="font-manrope font-bold text-3xl leading-10 text-gray-900 mb-2">${data.product_name}</h2>
                         <p class="font-normal text-base text-gray-500"><h3>Description</h3>${data.product_discription}</p>
                       </div>
-                      <button class="group transition-all duration-500 p-0.5">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle class="fill-teal-50 transition-all duration-500 group-hover:fill-teal-100" cx="30" cy="30" r="30" fill="" />
-                          <path class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-700" d="M21.4709 31.3196L30.0282 39.7501L38.96 30.9506M30.0035 22.0789C32.4787 19.6404 36.5008 19.6404 38.976 22.0789C41.4512 24.5254 41.4512 28.4799 38.9842 30.9265M29.9956 22.0789C27.5205 19.6404 23.4983 19.6404 21.0231 22.0789C18.548 24.5174 18.548 28.4799 21.0231 30.9184M21.0231 30.9184L21.0441 30.939M21.0231 30.9184L21.4628 31.3115" stroke="" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </button>
                     </div>
     
                     <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center mb-8 gap-y-3">
@@ -584,14 +578,14 @@
                     ${productsHTML}
     
                     <div class="flex items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
-                      <button onclick="addtoCart()" class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
+                      <button onclick="window.location.href='/sign-in.html'" class="group py-3 px-5 rounded-full bg-teal-50 text-teal-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-teal-300 hover:bg-teal-100">
                         <svg class="stroke-teal-600 transition-all duration-500 group-hover:stroke-teal-600" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M10.7394 17.875C10.7394 18.6344 10.1062 19.25 9.32511 19.25C8.54402 19.25 7.91083 18.6344 7.91083 17.875M16.3965 17.875C16.3965 18.6344 15.7633 19.25 14.9823 19.25C14.2012 19.25 13.568 18.6344 13.568 17.875M4.1394 5.5L5.46568 12.5908C5.73339 14.0221 5.86724 14.7377 6.37649 15.1605C6.88573 15.5833 7.61377 15.5833 9.06984 15.5833H15.2379C16.6941 15.5833 17.4222 15.5833 17.9314 15.1605C18.4407 14.7376 18.5745 14.0219 18.8421 12.5906L19.3564 9.84059C19.7324 7.82973 19.9203 6.8243 19.3705 6.16215C18.8207 5.5 17.7979 5.5 15.7522 5.5H4.1394ZM4.1394 5.5L3.66797 2.75" stroke="" stroke-width="1.6" stroke-linecap="round" />
                         </svg>
                         Add to cart
                       </button>
                     </div>
-                    <button class="text-center w-full px-5 py-4 rounded-[100px] bg-teal-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm shadow-transparent transition-all duration-500 hover:bg-teal-700 hover:shadow-teal-300">
+                    <button onclick="window.location.href='/sign-in.html'" class="text-center w-full px-5 py-4 rounded-[100px] bg-teal-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm shadow-transparent transition-all duration-500 hover:bg-teal-700 hover:shadow-teal-300">
                       Buy Now
                     </button>
                   </div>
