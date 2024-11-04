@@ -493,11 +493,17 @@ router.post("/payment", authenticateToken, (req, res) => {
 });
 
 router.post("/create-order", authenticateToken, (req, res) => {
-  const { product_id, email, payment_method, price, product_qty } = req.body;
+  const { product_id, email, payment_method, price, product_qty, custom_product_qty } = req.body;
+  console.log(req.body);
 
-  if (!product_id || !email || !payment_method || !product_qty || !price) {
+  // Assign the selected quantity to a variable
+  const quantity = product_qty || custom_product_qty; // This will take product_qty if it's truthy, otherwise it will take custom_product_qty
+
+  // Check if required fields are provided
+  if (!product_id || !email || !payment_method || !price || !quantity) {
     return res.status(400).json({ error: "All fields are required" });
   }
+  
   const options = {
     amount: price * 100, // amount in paise
     currency: "INR",
@@ -511,6 +517,7 @@ router.post("/create-order", authenticateToken, (req, res) => {
     res.json(order);
   });
 });
+
 router.post("/payment/verify", (req, res) => {
   const { razorpay_payment_id, order_id, signature } = req.body;
 

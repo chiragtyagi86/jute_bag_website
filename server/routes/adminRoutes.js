@@ -200,14 +200,6 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     products,
     product_tax_amount,
   } = req.body;
-
-  JSON.stringify(products)
-
- const products2 =  products.forEach((product) => {
-  console.log(product);
-  
-  });
-  
   if (
     !product_id ||  
    !product_name ||
@@ -233,9 +225,12 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
     product_discount,
     product_tax_class,
     product_status,
-    products: products2,
+    products: JSON.stringify(products),
     product_tax_amount,
   }
+  
+
+
   
 
   const sql = "UPDATE product_data SET ? WHERE product_id = ?";

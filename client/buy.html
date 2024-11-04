@@ -337,18 +337,34 @@
                     />
                   </div>
                 </div>
-                <div class="col-span-2">
-                  <label for="name" class="">Product Qyantity</label>
-
-                  <div class="relative">
-                    <input
-                      type="number"
-                      name="product_qty"
-                      id="product_qty"
-                      class="w-full border capitalize rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                      value="1"
-                      required
-                    />
+                <div>
+                  <header>
+                    <h2 class="mt-3">
+                      Choose Varibale <b>OR</b> Custom Quantity for discount
+                      <span class="text-red-700">*</span>
+                    </h2>
+                  </header>
+                  <div class="flex gap-3 items-center justify-between">
+                    <div class="col-span-2">
+                      <label for="name" class="">Product Qyantity</label>
+    
+                      <div class="relative">
+                        <input
+                          type="number"
+                          name="product_qty"
+                          id="product_qty"
+                          class="w-full border capitalize rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                          value="1"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div id="customQty border">
+                      <label for="custom_product_qty">Custom Quantity</label>
+                      <select class="w-full border rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="custom_product_qty" id="custom_product_qty">
+                        <option value="">Select Value</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -708,12 +724,43 @@
             productContainer.appendChild(div);
 
             const productPrice = data.product_price;
+            const customQty = JSON.parse(data.products);
+
+            const container = document.getElementById("custom_product_qty");
+            customQty.forEach(custom => {
+            const option = document.createElement("option");
+            option.value = custom.price;
+            option.innerText = custom.quantity;
+            container.appendChild(option);
+            console.log(custom);
+            
+            })
+            
+
+            const productQtyInput = document.getElementById("product_qty");
+    const customQtySelect = document.getElementById("custom_product_qty");
+    const paymentForm = document.getElementById("paymentForm");
+
+    // Handle toggling between input and select
+    productQtyInput.addEventListener("focus", () => {
+      customQtySelect.value = ""; // Clear the select element
+      productQtyInput.disabled = false; // Ensure input is enabled
+    });
+
+    customQtySelect.addEventListener("change", () => {
+      if (customQtySelect.value) {
+        productQtyInput.disabled = true; // Disable input if custom select has a value
+      } else {
+        productQtyInput.disabled = false; // Enable input if custom select is cleared
+      }
+    });
+
 
             function updatePrice() {
-              const quantity = document.getElementById("product_qty").value;
-              const totalPrice = productPrice * quantity;
+              const quantity =  document.getElementById("product_qty").value;
+              const totalPrice =  document.getElementById("custom_product_qty").value  || productPrice * quantity;
               document.getElementById("final_price").innerText = `₹${
-                totalPrice + 25 - 20
+            parseInt(totalPrice) + 25 - 20
               }`;
               document.getElementById(
                 "product_price_s"
@@ -721,16 +768,14 @@
             }
 
             updatePrice();
-
-            document
-              .getElementById("product_qty")
-              .addEventListener("input", updatePrice);
+            document.getElementById("product_qty").addEventListener("input", updatePrice);
+            document.getElementById("custom_product_qty").addEventListener("change", updatePrice);
           })
 
           .catch((error) => {
             console.error("Error:", error);
           });
-      }
+      } 
 
       geteditData(product_id);
       var swiper = new Swiper(".default-carousel", {
@@ -967,13 +1012,18 @@ document
         .getElementById("buy-product")
         .addEventListener("submit", async function (event) {
           event.preventDefault();
+          const inut = document.getElementById("product_qty").value;
+          if(inut === 0 || inut < 1){
+            alert("Please enter a valid quantity");
+            window.location.reload();
+            return;
+          }
           const formData = new FormData(event.target);
           const formObj = {};
           formData.forEach((value, key) => {
             formObj[key] = value;
           });
 
-          console.log(formObj);
 
           formObj.product_id = product_id;
           const priceString = document.getElementById("final_price").innerText;
