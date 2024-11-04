@@ -533,7 +533,7 @@
             })
             .join("");
 
-          const productsData = JSON.parse(data.products);
+          const productsData = data.products ? JSON.parse(data.products) : [];
           const div = document.createElement("div");
 
           div.innerHTML = `
@@ -610,11 +610,11 @@
                     </button>
                   </div>
                   <div id="packButtons" class="grid grid-cols-2 min-[400px]:grid-cols-4 gap-3 mb-3 min-[400px]:mb-8">
-                    ${productsData.map(item => `
+                    ${productsData?  productsData.map(item => `
                       <button class="border border-gray-200 pack-button whitespace-nowrap text-gray-900 text-sm leading-6 py-2.5 rounded-full px-5 text-center w-full font-semibold shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300" data-price="${item.price}">
                         Pack of ${item.quantity}
                       </button>
-                    `).join("")}
+                    `).join("") : ''}
                   </div>
 
                   <div class="flex items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">

@@ -239,14 +239,14 @@ router.post("/edit-product", authenticateToken, verifyAdmin, (req, res) => {
   
 
   const sql = "UPDATE product_data SET ? WHERE product_id = ?";
-  // db.query(sql, [product_data, product_id], (err, result) => {
-  //   if (err) {
-  //     console.error("Failed to update product:", err);
-  //     return res.status(500).json({ error: "Failed to update product" });
-  //   }
+  db.query(sql, [product_data, product_id], (err, result) => {
+    if (err) {
+      console.error("Failed to update product:", err);
+      return res.status(500).json({ error: "Failed to update product" });
+    }
 
-  //   res.status(200).json({ message: "Product updated successfully" });
-  // });
+    res.status(200).json({ message: "Product updated successfully" });
+  });
 });
 
 
