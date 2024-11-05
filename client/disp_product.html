@@ -506,7 +506,7 @@
         const linksArray = media.split(",");
         const mediaLink = linksArray.map((mediaLink) => `
           <div class="rounded border p-2">
-            <img class="h-26" src="${mediaLink}">
+            <img class="h-26" onclick='replaceMainImage("${mediaLink}")' src="${mediaLink}">
           </div>
         `).join("");
     
@@ -622,6 +622,12 @@
     
     geteditData(product_id);
     
+    function replaceMainImage(imageSrc) {
+  const mainImage = document.querySelector('.swiper-slide img');
+  if (mainImage) {
+    mainImage.src = imageSrc;
+  }
+}
     
     const getRandomProduct = async () => {
       const responce = await fetch("https://amulya.server.ijebr.com/random-products");
