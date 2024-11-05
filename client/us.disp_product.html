@@ -527,7 +527,7 @@
               return `
 
             <div class="rounded border p-2">
-            <img class="h-26 " onclick='replaceMainImage("${mediaLink}") src="${mediaLink}">  
+            <img class="h-26 " onclick='replaceMainImage("${mediaLink}")' src="${mediaLink}">  
             </div>
             `;
             })
@@ -685,13 +685,14 @@
         });
     }
     geteditData(product_id);
-
+    
     function replaceMainImage(imageSrc) {
   const mainImage = document.querySelector('.swiper-slide img');
   if (mainImage) {
-    mainImage.src = imageSrc; // Update the src attribute to the clicked image
+    mainImage.src = imageSrc;
   }
 }
+
 
     var swiper_thumbs = new Swiper(".nav-for-slider", {
       loop: true,
