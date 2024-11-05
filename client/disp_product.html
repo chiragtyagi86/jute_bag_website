@@ -502,6 +502,7 @@
         productContainer.innerHTML = "";
     
         console.log(data);
+
         const media = data.product_media;
         const linksArray = media.split(",");
         const mediaLink = linksArray.map((mediaLink) => `
@@ -523,6 +524,7 @@
             </div>
           `;
         }
+
     
         const div = document.createElement("div");
         div.innerHTML = `
