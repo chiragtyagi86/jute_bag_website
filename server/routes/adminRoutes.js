@@ -6,12 +6,13 @@ const jwt = require("jsonwebtoken");
 const authenticateToken = require("../middleware/authenticateToken");
 const verifyAdmin = require("../middleware/verifyAdmin");
 const bcrypt = require("bcrypt");
-const { log } = require("console");
 
 const router = express.Router();
 
 let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
 let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
+
+
 
 router.post("/sign-up", (req, res) => {
   const { full_name, email, password } = req.body;
@@ -383,6 +384,10 @@ router.delete("/delete-product", verifyAdmin, authenticateToken, (req, res) => {
     res.status(200).json({ message: "Product deleted successfully" });
   });
 });
+
+
+
+
 
 router.use("/", verifyAdmin);
 

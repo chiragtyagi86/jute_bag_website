@@ -238,14 +238,127 @@
     </header>
 
     <main class="m-5 lg:m-2">
-        <section class="relative flex flex-wrap lg:h-auto lg:items-center">
-            <div class="w-full">
-                <div class="mx-auto max-w-lg text-center">
-                    <h1 class="text-2xl font-bold sm:text-3xl">Shipping Information</h1>
-    
+        <div class="m-5">
+          <section class="bg-gray-100">
+            <header>
+              <h2 class="text-center text-4xl font-bold text-teal-600 py-12">
+                Shipping Information
+              </h2>
+            </header>
+          
+            <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+              <div class="space-y-8">
+                <!-- Shipping Policy Section -->
+                <div>
+                  <h3 class="text-2xl font-semibold text-teal-600">Shipping Policy</h3>
+                  <p class="mt-4 text-lg text-gray-700">
+                    We aim to provide a smooth and reliable shipping experience for our customers. Below you will find all the information you need about shipping, including timelines and costs.
+                  </p>
+          
+                  <p class="mt-4 text-lg text-gray-700">
+                    We process and ship all orders within 1-2 business days. Please note that shipping times may vary depending on your location, as well as availability of items.
+                  </p>
+          
+                  <p class="mt-4 text-lg text-gray-700">
+                    <strong>Domestic Shipping (within the country):</strong> All domestic orders are shipped via standard shipping services, and you can expect your order to arrive within 3-7 business days.
+                  </p>
+          
+                  <p class="mt-4 text-lg text-gray-700">
+                    <strong>International Shipping:</strong> We offer international shipping to select countries. International shipping times vary by location and can take anywhere from 7-21 business days.
+                  </p>
                 </div>
+          
+                <!-- Shipping Charges Section -->
+                <div>
+                  <h3 class="text-2xl font-semibold text-teal-600">Shipping Charges</h3>
+                  <p class="mt-4 text-lg text-gray-700">
+                    Shipping costs are calculated at checkout based on your location and the weight of the items in your order. Here are some general guidelines for shipping costs:
+                  </p>
+          
+                  <ul class="mt-4 list-inside list-disc text-lg text-gray-700">
+                    <li><strong>Domestic Standard Shipping:</strong> Free for orders over $50, otherwise $5.99.</li>
+                    <li><strong>International Shipping:</strong> Shipping rates are calculated at checkout based on your location.</li>
+                  </ul>
+          
+                  <p class="mt-4 text-lg text-gray-700">
+                    Please note that any customs fees or import duties that may be applied by your country are the responsibility of the customer.
+                  </p>
+                </div>
+          
+                <!-- Order Tracking Section -->
+                <div>
+                  <h3 class="text-2xl font-semibold text-teal-600">Order Tracking</h3>
+                  <p class="mt-4 text-lg text-gray-700">
+                    After your order has been shipped, you will receive a shipping confirmation email with a tracking number. You can track your order through the shipping carrier's website.
+                  </p>
+          
+                  <p class="mt-4 text-lg text-gray-700">
+                    If you have trouble tracking your order or if it hasn't arrived within the expected timeframe, please contact our support team.
+                  </p>
+                </div>
+          
+                <!-- Shipping FAQ Section -->
+                <div>
+                  <h3 class="text-2xl font-semibold text-teal-600">Frequently Asked Questions</h3>
+          
+                  <div class="divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white mt-6">
+                    <details class="group p-6 [&_summary::-webkit-details-marker]:hidden">
+                      <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                        <h4 class="text-lg font-medium">How long will it take for my order to arrive?</h4>
+                        <span class="relative size-5 shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-5 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-5 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </span>
+                      </summary>
+                      <p class="mt-4 leading-relaxed text-gray-700">
+                        Domestic orders typically take 3-7 business days, while international orders can take anywhere from 7-21 business days depending on the destination.
+                      </p>
+                    </details>
+          
+                    <details class="group p-6 [&_summary::-webkit-details-marker]:hidden">
+                      <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                        <h4 class="text-lg font-medium">Do you offer free shipping?</h4>
+                        <span class="relative size-5 shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-5 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-5 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </span>
+                      </summary>
+                      <p class="mt-4 leading-relaxed text-gray-700">
+                        Yes! We offer free domestic shipping on orders over $50. International shipping rates will vary based on your location.
+                      </p>
+                    </details>
+          
+                    <details class="group p-6 [&_summary::-webkit-details-marker]:hidden">
+                      <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                        <h4 class="text-lg font-medium">Can I change my shipping address after placing an order?</h4>
+                        <span class="relative size-5 shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-5 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-5 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </span>
+                      </summary>
+                      <p class="mt-4 leading-relaxed text-gray-700">
+                        Once your order is processed, we are unable to change the shipping address. However, if your order has not been shipped yet, please contact our support team immediately.
+                      </p>
+                    </details>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
+          </section>
+          
+        </div>
     </main>
     
     <footer class="bg-white">

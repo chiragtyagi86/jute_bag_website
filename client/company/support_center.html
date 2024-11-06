@@ -238,14 +238,91 @@
     </header>
 
     <main class="m-5 lg:m-2">
-        <section class="relative flex flex-wrap lg:h-auto lg:items-center">
-            <div class="w-full">
-                <div class="mx-auto max-w-lg text-center">
-                    <h1 class="text-2xl font-bold sm:text-3xl">Support Center</h1>
-    
+       <div class="m-5">
+        <section >
+          <header>
+            <h2 class="text-center text-4xl font-bold text-teal-600 py-12">
+              Support Center
+            </h2>
+          </header>
+        
+          <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-2">
+              <!-- Support Info -->
+              <div class="lg:col-span-1 lg:py-12">
+                <h3 class="text-2xl font-semibold text-teal-600">How Can We Assist You?</h3>
+                <p class="mt-4 text-lg text-gray-700">
+                  If you have any questions or need assistance, feel free to reach out to our support team. We're here to help!
+                </p>
+        
+                <div class="mt-8">
+                  <p class="font-semibold text-lg text-teal-600">Contact Details:</p>
+                  <div class="mt-4">
+                    <a href="tel:+1234567890" class="text-xl text-teal-600">+91 8686232070</a>
+                    <p class="mt-2 text-lg text-gray-700">Email us at: <a href="mailto:support@example.com" class="text-teal-600">support@example.com</a></p>
+                  </div>
+        
+                  <p class="mt-8 text-lg text-gray-700">Or visit us at our office:</p>
+
+                    <address class="mt-2 not-italic">8-2-269/19/646/A, Anumala Aruna Residency, Indiranagar, Cyber Hights, Banjara Hills, Hyderabad-500034, Telangana, India</address>
+
                 </div>
+        
+                <p class="mt-8 text-lg text-gray-700">
+                  For any urgent inquiries, feel free to contact us during business hours: Monday to Friday, 9 AM - 6 PM.
+                </p>
+              </div>
+        
+              <!-- Contact Form -->
+              <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-1 lg:p-12">
+                <h3 class="text-2xl font-semibold text-teal-600">Send Us a Message</h3>
+                <form class="mt-6 space-y-6" id="support-form">
+                  <div>
+                    <label class="sr-only" for="name">Name</label>
+                    <input
+                      class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+                      placeholder="Your Name"
+                      type="text"
+                      id="name"
+                      name="name"
+                    />
+                  </div>
+        
+                  <div>
+                    <label class="sr-only" for="email">Email</label>
+                    <input
+                      class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+                      placeholder="Your Email"
+                      type="email"
+                      id="email"
+                      name="email"
+                    />
+                  </div>
+        
+                  <div>
+                    <label class="sr-only" for="message">Message</label>
+                    <textarea
+                      class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+                      placeholder="Your Message"
+                      id="message"
+                      name="message"
+                      rows="6"
+                    ></textarea>
+                  </div>
+        
+                  <button
+                    type="submit"
+                    class="w-full rounded-lg bg-teal-600 px-5 py-3 font-medium text-white sm:w-auto"
+                  >
+                    Send Message
+                  </button>
+                </form>
+              </div>
             </div>
+          </div>
         </section>
+        
+       </div>
     </main>
     
     <footer class="bg-white">

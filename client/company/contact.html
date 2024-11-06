@@ -236,14 +236,91 @@
     </header>
 
     <main class="m-5 lg:m-2">
-        <section class="relative flex flex-wrap lg:h-auto lg:items-center">
-            <div class="w-full">
-                <div class="mx-auto max-w-lg text-center">
-                    <h1 class="text-2xl font-bold sm:text-3xl">Contact Us</h1>
-    
-                </div>
+<div class="max-w-4xl mx-auto p-6 bg-white  rounded-lg my-8">
+<section class="bg-gray-100">
+  <header>
+    <h2 class="text-center text-4xl">
+      Contact Us
+    </h2>
+  </header>
+  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+      <div class="lg:col-span-2 lg:py-12">
+        <p class="max-w-xl text-lg">
+          At the same time, the fact that we are wholly owned and totally independent from
+          manufacturer and other group control gives you confidence that we will only recommend what
+          is right for you.
+        </p>
+
+        <div class="mt-8">
+          <a href="#" class="text-2xl font-bold text-teal-600"> 8686232070 </a>
+
+          <address class="mt-2 not-italic">8-2-269/19/646/A, Anumala Aruna Residency, Indiranagar, Cyber Hights, Banjara Hills, Hyderabad-500034, Telangana, India</address>
+        </div>
+      </div>
+
+      <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label class="sr-only" for="name">Name</label>
+            <input
+              class="w-full rounded-lg border  border-gray-200 p-3 text-sm"
+              placeholder="Name"
+              type="text"
+              name="full-name"
+              id="name"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="sr-only" for="email">Email</label>
+              <input
+                class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+                placeholder="Email address"
+                type="email"
+                name="email"
+                id="email"
+              />
             </div>
-        </section>
+
+            <div>
+              <label class="sr-only" for="phone">Phone</label>
+              <input
+                class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+                placeholder="Phone Number"
+                type="tel"
+                id="phone"
+                name="phone-number"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="sr-only" for="message">Message</label>
+
+            <textarea
+              class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+              placeholder="Message"
+              rows="8"
+              id="message"
+              name="message"
+            ></textarea>
+          </div>
+
+          <div class="mt-4">
+            <button
+              type="submit"
+              class="inline-block w-full rounded-lg bg-teal-600 px-5 py-3 font-medium text-white sm:w-auto"
+            >
+              Send Enquiry
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
     </main>
     
     <footer class="bg-white">
@@ -474,6 +551,16 @@
               console.error('Error:', error);
               alert("Oops! Something went wrong. Email was not added.");
             });
+        })
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          const formObj = {};
+          formData.forEach((value, key) => {
+            formObj[key] = value;
+          })
+          console.log(formObj);
+          
         })
     </script>
 </body>

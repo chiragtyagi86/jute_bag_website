@@ -41,6 +41,7 @@
           console.error("Error:", error);
         }
       }
+      checkAdminAccess();
     </script>
   </head>
 
@@ -935,10 +936,10 @@
           );
 
           if (response.status === 401 || response.status === 403) {
-            // window.location.href = "/index.html";
+            window.location.href = "/index.html";
           } else if (!response.ok) {
             console.error("Error:", await response.text());
-            // window.location.href = "/index.html";
+            window.location.href = "/index.html";
           } else {
             const data = await response.json();
             document.getElementById("user").textContent = data.message;
@@ -1078,63 +1079,6 @@
             alert("An error occurred during logout");
           }
         });
-
-      // async function fetchData() {
-      //     const token = localStorage.getItem("token");
-      //     const tableBody = document
-      //         .getElementById("customerTable")
-      //         .getElementsByTagName("tbody")[0];
-
-      //     try {
-      //         const response = await fetch("https://amulya.server.ijebr.com/admin/data", {
-      //             method: "GET",
-      //             headers: {
-      //                 Authorization: `Bearer ${token}`,
-      //             },
-      //         });
-
-      //         if (response.ok) {
-      //             const data = await response.json();
-      //             const customerTableBody = document.querySelector('#customerTable tbody');
-      //             data.user.forEach(customer => {
-      //                 const row = document.createElement('tr');
-      //                 row.innerHTML = `
-      //                 <td class="text-gray-700 p-3">${customer.id}</td>
-      //                 <td class="text-gray-700 p-3">${customer.first_name} ${customer.last_name} </td>
-
-      //                 <td class="text-gray-700 p-3">${customer.email}</td>
-      //                 <td class="text-gray-700 p-3">${customer.username}</td>
-
-      //             `;
-      //                 customerTableBody.appendChild(row);
-      //             });
-
-      //             const contactTableBody = document.querySelector('#contactTable tbody');
-      //             data.user_form.forEach(contact => {
-      //                 const row = document.createElement('tr');
-      //                 row.innerHTML = `
-      //                 <td class="text-gray-700 p-3">${contact.id}</td>
-      //                 <td class="text-gray-700 p-3">${contact.first_name} ${contact.last_name}</td>
-
-      //                 <td class="text-gray-700 p-3">${contact.email}</td>
-      //                 <td class="text-gray-700 p-3">${contact.message}</td>
-      //             `;
-      //                 contactTableBody.appendChild(row);
-      //             });
-
-      //             document.getElementById("totalUser").innerHTML = data.user.length;
-      //             document.getElementById("totalCon").innerHTML = data.user_form.length;
-
-      //         } else {
-      //             console.error("Failed to fetch data:", response.statusText);
-      //             window.location.href = '/admin';
-      //         }
-      //     } catch (error) {
-      //         console.log("Fetch error:", error);
-      //         window.location.href = '/admin';
-      //     }
-      // }
-      // fetchData();
     </script>
     <script>
       const ctx = document.getElementById("myChart").getContext("2d");
