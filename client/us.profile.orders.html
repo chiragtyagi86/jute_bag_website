@@ -382,7 +382,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://server.server-anumala.co.in/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -425,7 +425,7 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/user/dashboard", {
+        const response = await fetch("https://server.server-anumala.co.in/user/dashboard", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -447,7 +447,7 @@
 
           async function getOrders(email) {
             const response = await fetch(
-              `http://localhost:3000/user/orders/${email}`,
+              `https://server.server-anumala.co.in/user/orders/${email}`,
               {
                 method: "GET",
                 headers: {
@@ -538,7 +538,7 @@
               // Fetch product details for each order
               const product_id = order.product_id; // Use the product ID from the order
               const response2 = await fetch(
-                `http://localhost:3000/admin/product/${product_id}`
+                `https://server.server-anumala.co.in/admin/product/${product_id}`
               );
               if (!response2.ok) {
                 throw new Error("Network response was not ok");
@@ -557,7 +557,7 @@
           </div>
           <div>
             <header>
-              <h2>${data2.product_name}</h2>
+              <h2>${data2.product_name.slice(0,50) + "..."}</h2>
             </header>
             <button onclick="window.location.href='us.disp_product.html?${data2.product_id}'" class="hover:bg-gray-100 px-2 py-1 m-2 text-sm border border-gray-200 rounded-lg">View Product</button>
           </div>
@@ -597,7 +597,7 @@
       if (inputElement) {
         let searchQuery = inputElement.value;
         fetch(
-          `http://localhost:3000/search-products/${encodeURIComponent(
+          `https://server.server-anumala.co.in/search-products/${encodeURIComponent(
             searchQuery
           )}`
         )

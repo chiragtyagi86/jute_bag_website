@@ -39,7 +39,7 @@
     if (inputElement) {
       let searchQuery = inputElement.value;
       fetch(
-        `http://localhost:3000/search-products/${encodeURIComponent(
+        `https://server.server-anumala.co.in/search-products/${encodeURIComponent(
           searchQuery
         )}`
       )
@@ -589,7 +589,7 @@
         return;
       }
 
-      fetch("http://localhost:3000/user/sign-up", {
+      fetch("https://server.server-anumala.co.in/user/sign-up", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -615,7 +615,7 @@
       const phone_Number = document.getElementById('phone_Number').value;
       const password = document.getElementById('password').value;
 
-      fetch("http://localhost:3000/user/verify-otp", {
+      fetch("https://server.server-anumala.co.in/user/verify-otp", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -649,7 +649,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("http://localhost:3000/user/subscribe", {
+      fetch("https://server.server-anumala.co.in/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

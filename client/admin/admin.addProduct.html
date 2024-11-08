@@ -36,7 +36,7 @@
 
         try {
             const response = await fetch(
-                "http://localhost:3000/admin/dashboard",
+                "https://server.server-anumala.co.in/admin/dashboard",
                 {
                     method: "GET",
                     headers: {
@@ -551,7 +551,7 @@ function addMore() {
 
             try {
                 const response = await fetch(
-                    "http://localhost:3000/admin/dashboard",
+                    "https://server.server-anumala.co.in/admin/dashboard",
                     {
                         method: "GET",
                         headers: {
@@ -587,7 +587,7 @@ function addMore() {
                 }
 
                 try {
-                    const response = await fetch("http://localhost:3000/admin/logout", {
+                    const response = await fetch("https://server.server-anumala.co.in/admin/logout", {
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -619,7 +619,7 @@ function addMore() {
 
 
             try {
-                const response = await fetch('http://localhost:3000/admin/add-product', {
+                const response = await fetch('https://server.server-anumala.co.in/admin/add-product', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -676,7 +676,7 @@ function addMore() {
             
     
             try {
-                const response = await fetch('http://localhost:3000/admin/add-product', {
+                const response = await fetch('https://server.server-anumala.co.in/admin/add-product', {
                     method: 'POST',
                     body: formData,
                     headers: {

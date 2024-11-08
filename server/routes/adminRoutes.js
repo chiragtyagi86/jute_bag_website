@@ -149,10 +149,10 @@ router.post(
       return res.status(400).json({ error: "Product image is required" });
     }
 
-    const productImgUrl = `https://amulya.server.ijebr.com/uploads/${req.files.product_img[0].filename}`;
+    const productImgUrl = `https://server.server-anumala.co.in/uploads/${req.files.product_img[0].filename}`;
     const productMediaUrls = req.files.product_media
       ? req.files.product_media.map(
-        (file) => `https://amulya.server.ijebr.com/uploads/${file.filename}`
+        (file) => `https://server.server-anumala.co.in/uploads/${file.filename}`
       )
       : [];
     const productMediaString = productMediaUrls.join(",");
@@ -312,6 +312,24 @@ router.post("/signin", (req, res) => {
   });
 });
 
+router.get("/forms", verifyAdmin, authenticateToken,  (req, res) => {
+  const sql = "SELECT * FROM `contact-us`";
+  const sql2 = "SELECT * FROM support_center";
+  db.query(sql, (err, results1) => {
+    if (err) {
+      console.error("Failed to select contact-us:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    db.query(sql2, (err2, results2) => {
+      if (err2) {
+        console.error("Failed to select support_center:", err2);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+      res.json({ contact_us: results1, support_center: results2 });
+    });
+  });
+
+})
 router.post("/update-refund", verifyAdmin, authenticateToken, (req, res)=> {
   const {refund_id, refund_status} = req.body;
   if (!refund_id ||!refund_status) {
@@ -342,7 +360,7 @@ router.get("/get-products", authenticateToken, (req, res) => {
 router.post("/logout", (req, res) => {
   res.json({ message: "Logout successful" });
 });
-router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
+router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {  
   const sqlOrders =
     "SELECT * FROM `orders`  ORDER BY `orders`.`order_added` DESC";
   const sqlProducts = "SELECT * FROM product_data";
@@ -410,6 +428,65 @@ router.delete("/delete-product", verifyAdmin, authenticateToken, (req, res) => {
 });
 
 
+//
+
+router.post("/verify-password", verifyAdmin, authenticateToken, (req, res) => {
+  const { currentPassword,  } = req.body;
+  const email= req.user.email;
+  if (!currentPassword) {
+    return res.status(400).json({ error: "Current password is required" });
+  }
+  const sql = "SELECT password FROM admin WHERE email = ?";
+  db.query(sql, [email], (err, results) => {
+    if (err) {
+      console.error("Failed to retrieve admin:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const user = results[0];
+    bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+      if (err) {
+        console.error("Failed to compare passwords:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      if (!isMatch) {
+        return res.status(401).json({ error: "Current password is incorrect" });
+      }
+      res.json({ message: "Current password verified" });
+    });
+  });
+});
+
+router.post("/change-password", verifyAdmin, authenticateToken, (req, res) => {
+  const { newPassword } = req.body;
+  const email = req.user.email;
+  if (!newPassword) {
+    return res.status(400).json({ error: "New password is required" });
+  }
+
+  if (!passwordRegex.test(newPassword)) {
+    return res.status(400).json({
+      error:
+        "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+    });
+  };
+
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+  const sql = "UPDATE admin SET password = ? WHERE email = ?";
+  db.query(sql, [hashedPassword, email], (err, results) => {
+    if (err) {
+      console.error("Failed to update password:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    res.json({ message: "Password changed successfully" });
+  });
+});
+
+//
 
 
 

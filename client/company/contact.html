@@ -37,7 +37,7 @@
         if (inputElement) {
             let searchQuery = inputElement.value;
             fetch(
-                `http://localhost:3000/search-products/${encodeURIComponent(
+                `https://server.server-anumala.co.in/search-products/${encodeURIComponent(
                     searchQuery
                 )}`
             )
@@ -536,7 +536,7 @@
           };
       
           // Send the data using fetch API
-          fetch('http://localhost:3000/user/contact-us', {
+          fetch('https://server.server-anumala.co.in/user/contact-us', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -600,7 +600,7 @@
           formData.forEach((value, key) => {
             formObj[key] = value;
           })
-          fetch("http://localhost:3000/user/subscribe", {
+          fetch("https://server.server-anumala.co.in/user/subscribe", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -616,16 +616,6 @@
               console.error('Error:', error);
               alert("Oops! Something went wrong. Email was not added.");
             });
-        })
-        document.getElementById("contact-form").addEventListener("submit", function(event) {
-          event.preventDefault();
-          const formData = new FormData(event.target);
-          const formObj = {};
-          formData.forEach((value, key) => {
-            formObj[key] = value;
-          })
-          console.log(formObj);
-          
         })
     </script>
 </body>
