@@ -311,6 +311,25 @@ router.post("/signin", (req, res) => {
     });
   });
 });
+
+router.post("/update-refund", verifyAdmin, authenticateToken, (req, res)=> {
+  const {refund_id, refund_status} = req.body;
+  console.log(req.body);
+  
+  if (!refund_id ||!refund_status) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  const sql = "UPDATE refund SET refund_status =? WHERE refund_id =?";
+  db.query(sql, [refund_status, refund_id], (err, result) => {
+    if (err) {
+      console.error("Failed to update refund:", err);
+      return res.status(500).json({ error: "Failed to update refund" });
+    }
+
+    res.status(200).json({ message: "Refund status updated successfully" });
+  })
+})
+
 router.get("/get-products", authenticateToken, (req, res) => {
   const sql = "SELECT * FROM product_data";
   db.query(sql, (err, results) => {
@@ -329,6 +348,7 @@ router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
   const sqlOrders =
     "SELECT * FROM `orders`  ORDER BY `orders`.`order_added` DESC";
   const sqlProducts = "SELECT * FROM product_data";
+  const refundSql = "SELECT * FROM `refund` ORDER BY `date_added` DESC";
 
   db.query(sqlProducts, (err, productResults) => {
     if (err) {
@@ -341,13 +361,19 @@ router.get("/dashboard", verifyAdmin, authenticateToken, (req, res) => {
         console.error("Failed to select orders:", err);
         return res.status(500).json({ error: "Internal server error" });
       }
+      db.query(refundSql, (err, refundResults) => {
+        if (err) {
+          console.error("Failed to select refunds:", err);
+          return res.status(500).json({ error: "Internal server error" });
+        }
 
-      // Send response only after both queries are done
       res.json({
         message: "admin",
         orders: orderResults,
         products: productResults,
+        refund: refundResults,
       });
+    });
     });
   });
 });

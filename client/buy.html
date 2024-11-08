@@ -649,7 +649,7 @@
         formData.forEach((value, key) => {
           formObj[key] = value;
         })
-        fetch("http://localhost:3000/user/subscribe", {
+        fetch("https://amulya.server.ijebr.com/user/subscribe", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -675,7 +675,7 @@
       function geteditData(product_id) {
         const token = localStorage.getItem("token");
 
-        fetch(`http://localhost:3000/admin/product/${product_id}`, {
+        fetch(`https://amulya.server.ijebr.com/admin/product/${product_id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -819,7 +819,7 @@
         }
 
         try {
-          const response = await fetch("http://localhost:3000/user/dashboard", {
+          const response = await fetch("https://amulya.server.ijebr.com/user/dashboard", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -882,7 +882,7 @@
         if (inputElement) {
           let searchQuery = inputElement.value;
           fetch(
-            `http://localhost:3000/search-products/${encodeURIComponent(
+            `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
               searchQuery
             )}`
           )
@@ -943,7 +943,7 @@
       //     const product_toBuy = formObj;
       //     console.log(product_toBuy);
 
-      //     fetch("http://localhost:3000/user/buy-products", {
+      //     fetch("https://amulya.server.ijebr.com/user/buy-products", {
       //       method: "POST",
       //       headers: {
       //         "Content-Type": "application/json",
@@ -975,7 +975,7 @@
       //       itemId: 1,
       //       price: price,
       //     }
-      //     const responce = await fetch("http://localhost:3000/payment", option,{
+      //     const responce = await fetch("https://amulya.server.ijebr.com/payment", option,{
       //       method: "POST",
       //       headers: {
       //         "Content-Type": "application/json",
@@ -1013,7 +1013,7 @@ document
 
     // 1. Create Razorpay order and get order ID
     try {
-      const response = await fetch("http://localhost:3000/user/payment", {
+      const response = await fetch("https://amulya.server.ijebr.com/user/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1041,7 +1041,7 @@ document
             order_id: paymentData.id,
           };
 
-          const orderResponse = await fetch("http://localhost:3000/user/buy-products", {
+          const orderResponse = await fetch("https://amulya.server.ijebr.com/user/buy-products", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -1104,7 +1104,7 @@ document
 
           // Create Razorpay Order
           const response = await fetch(
-            "http://localhost:3000/user/create-order",
+            "https://amulya.server.ijebr.com/user/create-order",
             {
               method: "POST",
               headers: {
@@ -1144,7 +1144,7 @@ document
 
               // You can send this to your backend for verification
               const paymentVerificationResponse = await fetch(
-                "http://localhost:3000/user/payment/verify",
+                "https://amulya.server.ijebr.com/user/payment/verify",
                 {
                   method: "POST",
                   headers: {
@@ -1156,7 +1156,7 @@ document
 
               if (paymentVerificationResponse.ok) {
                 alert("Payment successful!");
-                fetch("http://localhost:3000/user/buy-products", {
+                fetch("https://amulya.server.ijebr.com/user/buy-products", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

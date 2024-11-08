@@ -35,7 +35,6 @@
             alert("Error accessing admin dashboard");
           } else {
             const data = await response.json();
-            console.log("Admin dashboard data:", data);
           }
         } catch (error) {
           console.error("Error:", error);
@@ -121,7 +120,7 @@
 
                 <li>
                   <a
-                    href="#"
+                    href="./admin.refund.html"
                     class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                   >
                   <svg class="size-5 opacity-75" fill="teal" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
@@ -434,14 +433,14 @@
               <h2 class=" text-2xl">Refund request:</h2>
               <span class="text-gray-500 text-sm">Accept the request to generate the refunds</span>
             </header>
-            <div class="disp_order">
-              <section class=" overflow-scroll">
+            <div class="">
+              <section class=" ">
                 <div
                   class="mx-4"
                 >
-                  <div class="mx-auto max-w-3xl">
+                  <div class="mx-auto max-w-3xl ">
                     <div class="mt-8">
-                      <ul id="recent-orders" class="space-y-4">
+                      <ul id="recent-refund" class="space-y-4 h-64 overflow-scroll ">
                       
                         <li>
                           <div class="m-5  rounded-full outline-2 bg-teal-100">
@@ -452,6 +451,7 @@
                             </header>
                           </div>
                         </li>
+                
                       </ul>
                     </div>
                   </div>
@@ -540,10 +540,10 @@
               tabindex="-1"
             >
               <h2 class="text-2xl">Product Delivery</h2>
-              <span class="text-teal-600">189+ Order delivered!</span>
+              <span class="text-teal-600"> Order delivered!</span>
 
               <div class="mt-4 space-y-6">
-                <ul class="space-y-4 overflow-scroll h-80">
+                <ul id="delivery-products" class="space-y-4 overflow-scroll h-80">
                   <li
                     class="flex rounded-lg border p-2 border-dotted items-center gap-4"
                   >
@@ -576,286 +576,8 @@
                       >
                     </div>
                   </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
-                  <li
-                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
-                  >
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="size-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    <div class="flex flex-col gap-4 lg:ml-[50px]">
-                      <button class="text-xs underline">Order Details</button>
-                      <span
-                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
-                        >Delivery Status</span
-                      >
-                    </div>
-                  </li>
+          
                 </ul>
-
-                <!-- <div class="space-y-4 text-center">
-                        <a
-                          href="#"
-                          class="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 transition hover:ring-1 hover:ring-gray-400"
-                        >
-                          View my cart (2)
-                        </a>
-                  
-                        <a
-                          href="#"
-                          class="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                        >
-                          Checkout
-                        </a>
-                  
-                        <a
-                          href="#"
-                          class="inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600"
-                        >
-                          Continue shopping
-                        </a>
-                      </div> -->
               </div>
             </div>
           </div>
@@ -917,8 +639,106 @@
           } else {
             const data = await response.json();
             document.getElementById("user").textContent = data.message;
-            console.log(data);
-            //here we will add data into front-end to table
+            //
+            const box = document.getElementById("delivery-products")
+            box.innerHTML = "";
+            const shippedorders = data.orders.filter(order => order.order_status === "shipped");
+
+console.log(shippedorders);
+
+            
+shippedorders.forEach(order => {
+    let productDataForOrder = data.products.find(product => product.product_id === order.product_id);
+
+    const img = productDataForOrder.product_img
+
+
+
+
+
+
+              
+              const li = document.createElement("li");
+              li.innerHTML = `
+              <li
+                    class="flex rounded-lg border p-2 border-dotted items-center gap-4"
+                  >
+                    <img
+                      src="${img}"
+
+                      alt=""
+                      class="size-16 rounded object-cover"
+                    />
+
+                    <div>
+                      <h3 class="text-sm font-bold  text-gray-900">${productDataForOrder.product_name}</h3>
+
+                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
+                        <div>
+                          <dt class="inline">Qty:</dt>
+                          <dd class="inline">${order.product_qty}</dd>
+                        </div>
+
+                        <div>
+                          <dt class="inline">Ship to:</dt>
+                          <dd class="inline">${order.email}</dd>
+                        </div>
+                      </dl>
+                    </div>
+                    <div class="flex flex-col gap-4 lg:ml-[50px]">
+                      <button class="text-xs underline"></button>
+                      <span
+                        class="text-red-600 rounded-full px-4 py-2 bg-red-100 text-xs"
+                        >Delivery Status</span
+                      >
+                    </div>
+                  </li>
+              `;
+              box.appendChild(li);
+
+            });
+
+            //
+            const container = document.getElementById("recent-refund");
+            data.refund ? container.innerHTML = "" : null;
+            data.refund.slice(0, 4).forEach(refund => {  
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <li class="flex rounded-lg border p-2 border-dotted items-center gap-4">
+      <div>
+        <h3 class="text-sm text-gray-900">${refund.email}</h3>
+
+        <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
+          <div>
+            <dt class="inline">Order ID:</dt>
+            <dd class="inline">${refund.order_id}</dd>
+          </div>
+
+          <div>
+            <dt class="inline">Reason:</dt>
+            <dd class="inline">${refund.refund_reason}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="flex flex-col gap-4 lg:ml-[50px]">
+        <button class="text-xs underline" onclick="window.location.href = './admin.editRefund.html?${refund.refund_id}'">View Refund Details</button>
+        <span
+          class=" text-center rounded-full px-4 py-2  text-xs ${
+            refund.refund_status === 'initiated' ? 'text-green-600 bg-green-100' :
+            refund.refund_status === 'processing' ? 'text-orange-600 bg-orange-100' :
+            refund.refund_status === 'pending' ? 'text-yellow-600 bg-yellow-100' :
+            refund.refund_status === 'canceled' ? 'text-red-600 bg-red-100' :
+            'text-gray-600 bg-gray-100'
+          }"
+          >${refund.refund_status}</span
+        >
+      </div>
+    </li>
+  `;
+  container.appendChild(li);
+});
+
             const products = document.getElementById("products-table");
             products.innerHTML = "";
             let total_stock = 0;
