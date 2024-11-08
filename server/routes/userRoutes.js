@@ -82,6 +82,46 @@ router.post("/subscribe", (req, res) => {
   });
 });
 
+router.post("/support-center", (req, res) => {
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+  const query = 'INSERT INTO support_center (name, email, message) VALUES (?, ?, ?)';
+  
+  db.query(query, [name, email, message], (err, results) => {
+    if (err) {
+      console.error('Error inserting data:', err);
+      return res.status(500).json({ error: 'Failed to send message' });
+    }
+
+    res.status(200).json({ message: 'Your message has been sent successfully!' });
+  });
+});
+
+router.post("/contact-us", (req, res) => {
+  const { name, email, phone, message } = req.body;
+  if (!name || !email || !phone || !message) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+  const query = 'INSERT INTO `contact-us` (email, phone_num, message) VALUES (?, ?, ?)';
+  
+  db.query(query, [email, phone, message], (err, results) => {
+    if (err) {
+      console.error('Error inserting data:', err);
+      return res.status(500).json({ error: 'Failed to send enquiry' });
+    }
+
+    res.status(200).json({ message: 'Your enquiry has been submitted successfully!' });
+  });
+});
+
 
 router.post("/sign-up", async (req, res) => {
   const { email } = req.body;

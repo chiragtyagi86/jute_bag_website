@@ -264,14 +264,15 @@
           <div>
             <label class="sr-only" for="name">Name</label>
             <input
-              class="w-full rounded-lg border  border-gray-200 p-3 text-sm"
+              class="w-full rounded-lg border border-gray-200 p-3 text-sm"
               placeholder="Name"
               type="text"
               name="full-name"
               id="name"
+              required
             />
           </div>
-
+        
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label class="sr-only" for="email">Email</label>
@@ -281,9 +282,10 @@
                 type="email"
                 name="email"
                 id="email"
+                required
               />
             </div>
-
+        
             <div>
               <label class="sr-only" for="phone">Phone</label>
               <input
@@ -292,21 +294,23 @@
                 type="tel"
                 id="phone"
                 name="phone-number"
+                required
               />
             </div>
           </div>
+        
           <div>
             <label class="sr-only" for="message">Message</label>
-
             <textarea
               class="w-full rounded-lg border border-gray-200 p-3 text-sm"
               placeholder="Message"
               rows="8"
               id="message"
               name="message"
+              required
             ></textarea>
           </div>
-
+        
           <div class="mt-4">
             <button
               type="submit"
@@ -315,7 +319,13 @@
               Send Enquiry
             </button>
           </div>
+        
+          <!-- Feedback Message -->
+          <div id="response-message" class="mt-4 hidden">
+            <p class="text-center text-sm font-medium" id="response-text"></p>
+          </div>
         </form>
+        
       </div>
     </div>
   </div>
@@ -507,6 +517,62 @@
           </div>
         </div>
       </footer>
+
+
+      <script>
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+          event.preventDefault(); // Prevent form from submitting the traditional way
+      
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const phone = document.getElementById('phone').value;
+          const message = document.getElementById('message').value;
+      
+          const data = {
+            name: name,
+            email: email,
+            phone: phone,
+            message: message
+          };
+      
+          // Send the data using fetch API
+          fetch('http://localhost:3000/user/contact-us', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) // Send data as a JSON string
+          })
+          .then(response => response.json())
+          .then(data => {
+            const responseMessage = document.getElementById('response-message');
+            const responseText = document.getElementById('response-text');
+      
+            if (data.message) {
+              // Success
+              responseMessage.classList.remove('hidden');
+              responseText.classList.add('text-green-500'); // Success color
+              responseText.classList.remove('text-red-500');
+              responseText.textContent = data.message;
+            } else if (data.error) {
+              // Failure
+              responseMessage.classList.remove('hidden');
+              responseText.classList.add('text-red-500'); // Error color
+              responseText.classList.remove('text-green-500');
+              responseText.textContent = data.error;
+            }
+          })
+          .catch(error => {
+            const responseMessage = document.getElementById('response-message');
+            const responseText = document.getElementById('response-text');
+      
+            responseMessage.classList.remove('hidden');
+            responseText.classList.add('text-red-500'); // Error color
+            responseText.classList.remove('text-green-500');
+            responseText.textContent = 'An error occurred while sending your message. Please try again.';
+          });
+        });
+      </script>
 
     <script>
         new Swiper(".swiper", {
