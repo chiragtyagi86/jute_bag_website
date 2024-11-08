@@ -6,9 +6,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon_io//favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon_io//favicon-16x16.png" />
   <link rel="manifest" href="./assets/favicon_io//site.webmanifest" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manage Orders</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Section</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -170,24 +170,46 @@
   </header>
   <div class="bg-teal-600 px-4 py-3 text-white">
     <p class="lg:text-right text-center text-sm font-medium">
-      Welcome to the dashboard: <span class="underline" id="user"> </span>
+      Welcome to the dashboard: <span class="underline" id="user"></span>
     </p>
   </div>
   <main>
     <section class="h-52 flex items-center justify-center text-teal-600 text-center bg-gray-100">
       <div class="">
         <header class="">
-          <h2 class="text-4xl font-bold">Manage Orders</h2>
+          <h2 class="text-4xl font-bold">Product Refund</h2>
         </header>
       </div>
     </section>
-    <section>
-      <div class="mt-4 gap-2 flex items-center justify-center">
-        <div id="disp_orders"
-          class="rounded rounded-lg lg:inline flex-wrap flex lg:m-0 m-5 w-full overflow-x-scroll lg:w-2/5"></div>
-      </div>
+    <section class="flex justify-center items-center">
+        <form id="refund-form" class="lg:w-1/2 border border-gray-200 p-3 m-5 rounded">
+            <div>
+
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="w-full rounded-lg border border-gray-200 p-3 text-sm" name="email" required readonly />
+            </div>
+            <div>
+                <label for="order-id">Order Id:</label>
+                <input type="text" id="order-id" class="w-full rounded-lg border border-gray-200 p-3 text-sm" name="order_id" required readonly />
+            </div>
+            <div>
+                <label for="refund-amount">Refund Amount:</label>
+                <input type="number" class="w-full rounded-lg border border-gray-200 p-3 text-sm" id="refund-amount" name="refund_amount" required readonly />
+            </div>
+            <div >
+                <label for="refund-reason">Refund Reason:</label>
+                <textarea name="refund_reason" rows="5" class="w-full rounded-lg border border-gray-200 p-3 text-sm" id="refund-reason"></textarea>
+            </div>
+            <div class="flex items-center justify-evenly">
+                <button onclick="window.location.href='./us.dashboard.html'" class="bg-gray-200 px-4 py-2 text-gray-600 rounded">Back</button>
+                <button type="submit" class="bg-teal-600 px-4 py-2 text-white rounded">Submit</button>
+            </div>
+        </form>
     </section>
   </main>
+  
   <footer class="bg-white">
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="lg:flex lg:items-start lg:gap-8">
@@ -400,9 +422,11 @@
         });
     })
   </script>
+
   <script>
-    new Swiper(".swiper", {
-      effect: "fade",
+
+    new Swiper('.swiper', {
+      effect: 'fade',
       loop: true,
       autoplay: {
         delay: 5000,
@@ -411,10 +435,11 @@
         crossFade: true,
       },
       navigation: {
-        prevEl: ".swiper-prev-button",
-        nextEl: ".swiper-next-button",
+        prevEl: '.swiper-prev-button',
+        nextEl: '.swiper-next-button',
       },
-    });
+    })
+
 
     async function checkAuth() {
       const token = localStorage.getItem("token");
@@ -433,7 +458,6 @@
         });
 
         if (response.status === 401 || response.status === 403) {
-          localStorage.removeItem("token");
           window.location.href = "/sign-in.html";
         } else if (!response.ok) {
           console.error("Error:", await response.text());
@@ -444,137 +468,6 @@
 
           document.getElementById("user").innerHTML = data.message;
 
-          //
-
-          async function getOrders(email) {
-            const response = await fetch(
-              `http://localhost:3000/user/orders/${email}`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-
-            const data = await response.json();
-            const container = document.getElementById("disp_orders");
-            container.innerHTML = "";
-
-            data.orders.forEach(async (order) => {
-              const orderDiv = document.createElement("div");
-              //add class to order div
-              orderDiv.classList.add("border", "mb-4");
-              const date = new Date(order.order_added);
-
-              // Convert to local time zone
-              const localDate = new Date(
-                date.getTime() - date.getTimezoneOffset() * 60000
-              );
-
-              const day = String(localDate.getDate()).padStart(2, "0");
-              const month = String(localDate.getMonth() + 1).padStart(2, "0");
-              const year = localDate.getFullYear();
-
-              const formattedDate = `${day}-${month}-${year}`;
-
-              orderDiv.innerHTML = `
-      <div class="bg-gray-100   p-2 border border-gray-200 flex items-center justify-between">
-        <div class="flex gap-4 items-center justify-between">
-          <div>
-            <header>
-              <h2>Order Placed</h2>
-            </header>
-            <p class="text-sm m-2">${formattedDate}</p>
-          </div>
-          <div>
-            <header>
-              <h2>Payment Type</h2>
-            </header>
-            <p class="text-sm m-2">${order.payment_method === "cash-on-delivery" ? "COD" : "online"
-                }</p>
-          </div>
-          <div>
-            <header>
-              <h2>Ship To</h2>
-            </header>
-            <p class="m-2 text-sm">${order.email}</p>
-          </div>
-        </div>
-        <div class="flex flex-col">
-          <div class="flex items-center justify-center gap-2">
-            <header>
-              <h2>Order Id:</h2>
-            </header>
-            <p class="m-2 text-teal-600 text-sm">${order.order_id}</p>
-          </div>
-          <div class="flex gap-4 ">
-            <span class="text-sm text-teal-600">View order details</span> <h2>|</h2> <span>Invoice</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="flex items-center justify-between border">
-          <header>
-            <h2 class="text-xl mx-2 mt-4">Order Status</h2>
-            <p class="mx-4 text-teal-600">${order.order_status}</p>
-          </header>
-          <div class="flex gap-2">
-            <header>
-              <h2 class="text-xl mx-2 mt-4">Product ID</h2>
-              <p class="mx-4 text-teal-600">${order.product_id}</p>
-            </header>
-          </div>
-        </div>
-        <div id="disp_product_${order.order_id}"></div>
-      </div>
-    `;
-
-              container.appendChild(orderDiv);
-
-              // Fetch product details for each order
-              const product_id = order.product_id; // Use the product ID from the order
-              const response2 = await fetch(
-                `http://localhost:3000/admin/product/${product_id}`
-              );
-              if (!response2.ok) {
-                throw new Error("Network response was not ok");
-              }
-
-              const data2 = await response2.json();
-              const container2 = document.getElementById(
-                `disp_product_${order.order_id}`
-              );
-
-              container2.innerHTML = `
-      <div class="flex items-center justify-between">
-        <div class="flex gap-6 items-center justify-center">
-          <div>
-            <img src="${data2.product_img}" width="480" alt="" />
-          </div>
-          <div>
-            <header>
-              <h2>${data2.product_name}</h2>
-            </header>
-            <button onclick="window.location.href='us.disp_product.html?${data2.product_id}'" class="hover:bg-gray-100 px-2 py-1 m-2 text-sm border border-gray-200 rounded-lg">View Product</button>
-          </div>
-        </div>
-        <div class="flex items-center justify-center flex-col m-5">
-          <button class="hover:bg-gray-100 px-14 py-1 m-2 text-sm border border-gray-200 rounded-lg">Track Shipment</button>
-          <button class="hover:bg-gray-100 px-14 py-1 m-2 text-sm border border-gray-200 rounded-lg" onclick="window.location.href= '/us.productRefund.html?${order.order_id}'">Ask for Refund</button>
-          <button class="hover:bg-gray-100 px-12 py-1 m-2 text-sm border border-gray-200 rounded-lg">Leave a Feedback</button>
-        </div>
-      </div>`;
-            });
-          }
-
-          getOrders(data.message.trim());
-
-          //
         }
       } catch (error) {
         console.error("Error:", error);
@@ -597,45 +490,43 @@
       const inputElement = document.getElementById("searchQuery");
       if (inputElement) {
         let searchQuery = inputElement.value;
-        fetch(
-          `http://localhost:3000/search-products/${encodeURIComponent(
-            searchQuery
-          )}`
-        )
-          .then((response) => {
+        fetch(`http://localhost:3000/search-products/${encodeURIComponent(searchQuery)}`)
+          .then(response => {
             if (!response.ok) {
-              throw new Error("Network response was not ok");
+              throw new Error('Network response was not ok');
             }
             return response.json();
           })
-          .then((data) => {
+          .then(data => {
+            ;
             const resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = "";
+            resultDiv.innerHTML = '';
 
             if (data.message) {
               resultDiv.innerHTML = `<p>${data.message}</p>`;
             } else {
-              data.forEach((product) => {
-                const words = product.product_name.split(" ");
-                const firstSevenWords = words.slice(0, 5).join(" ");
+              data.forEach(product => {
+                const words = product.product_name.split(' ');
+                const firstSevenWords = words.slice(0, 5).join(' ');
                 resultDiv.innerHTML += `
-                            <a onclick="window.location.href='us.disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
-                              <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
-                  id="search">
-                  <path
-                    d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
-                  </path>
-                </svg>
-                <div class='flex items-center justify-center'>
-                  <img src=${product.product_img} width=30>
+                          <a onclick="window.location.href='us.disp_product.html?${product.product_id}'" class="flex cursor-pointer	p-2">
+                            <svg class="h-8" fill="teal" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 101 101"
+                id="search">
+                <path
+                  d="M63.3 59.9c3.8-4.6 6.2-10.5 6.2-17 0-14.6-11.9-26.5-26.5-26.5S16.5 28.3 16.5 42.9 28.4 69.4 43 69.4c6.4 0 12.4-2.3 17-6.2l20.6 20.6c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4L63.3 59.9zm-20.4 4.7c-12 0-21.7-9.7-21.7-21.7s9.7-21.7 21.7-21.7 21.7 9.7 21.7 21.7-9.7 21.7-21.7 21.7z">
+                </path>
+              </svg>
+              <div class='flex items-center justify-center'>
+                <img src=${product.product_img} width=30>
 
-                  <h3 class="line-clamps-3">${firstSevenWords}</h3>
-                  </div>
-                              </a>
-                                `;
+                <h3 class="line-clamps-3">${firstSevenWords}</h3>
+                </div>
+                            </a>
+                              `;
               });
             }
-          });
+          })
+
       } else {
         console.error("Input element not found.");
       }
@@ -654,12 +545,75 @@
       if (document.getElementById("search-bar").style.display === "none") {
         document.getElementById("search-bar").style.display = "block";
         document.getElementById("result").style.display = "block";
-        document.getElementById("result").innerHTML = "";
+        document.getElementById("result").innerHTML = '';
       } else {
         document.getElementById("search-bar").style.display = "none";
         document.getElementById("result").style.display = "none";
       }
+
     }
+    //refund registration
+
+    const currentUrl = window.location.href;
+    const urlObj = new URL(currentUrl);
+    const queryString = urlObj.search;
+    const order_id = queryString.substring(1);
+    const token = localStorage.getItem("token");
+
+    async function getOrderDetails(order_id) {
+        const data = await fetch("http://localhost:3000/user/order-details",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                order_id: order_id
+            })
+        })
+        const response = await data.json();
+
+        console.log(response);
+        document.getElementById("email").value = response.order.email;
+        document.getElementById("order-id").value = response.order.order_id;
+
+        document.getElementById("refund-amount").value = response.order.price;
+    }
+    getOrderDetails(order_id);
+
+    // sending refund request to backend
+    document.getElementById("refund-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const token = localStorage.getItem("token");
+        const formObj = {};
+        formData.forEach((value, key) => {
+            formObj[key] = value;
+        })
+        console.log(formObj);
+        //send to backend
+        fetch("http://localhost:3000/user/refund", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+                
+            },
+            body: JSON.stringify(formObj)
+        })
+       .then(response => response.json())
+       .then(data => {
+            console.log(data);
+            alert(data.message ? data.message : data.error);
+            window.location.href = "./us.manageRefunds.html";
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Oops! Something went wrong. Refund request was not sent.");
+        });
+
+        
+    })
   </script>
 </body>
 

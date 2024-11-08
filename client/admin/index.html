@@ -106,7 +106,7 @@
           formobj[key] = value;
         });
         try {
-          const response = await fetch("https://amulya.server.ijebr.com/admin/signin", {
+          const response = await fetch("http://localhost:3000/admin/signin", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

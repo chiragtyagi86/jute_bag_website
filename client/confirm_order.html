@@ -39,7 +39,7 @@
       if (inputElement) {
         let searchQuery = inputElement.value;
         fetch(
-          `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
+          `http://localhost:3000/search-products/${encodeURIComponent(
             searchQuery
           )}`
         )
@@ -112,7 +112,7 @@
 
             <div class="swiper-slide">
               <p class="text-center text-sm font-medium text-gray-900">
-                Love Tailwind CSS?
+                Welcome to anumala.in!
                 <a href="#" class="block underline sm:inline-block">
                   Check out this new course!
                 </a>
@@ -459,7 +459,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("https://amulya.server.ijebr.com/user/subscribe", {
+      fetch("http://localhost:3000/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

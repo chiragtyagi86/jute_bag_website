@@ -39,7 +39,7 @@
     if (inputElement) {
       let searchQuery = inputElement.value;
       fetch(
-        `https://amulya.server.ijebr.com/search-products/${encodeURIComponent(
+        `http://localhost:3000/search-products/${encodeURIComponent(
           searchQuery
         )}`
       )
@@ -110,7 +110,7 @@
 
             <div class="swiper-slide">
               <p class="text-center text-sm font-medium text-gray-900">
-                Love Tailwind CSS?
+                Welcome to anumala.in!
                 <a href="#" class="block underline sm:inline-block">
                   Check out this new course!
                 </a>
@@ -589,7 +589,7 @@
         return;
       }
 
-      fetch("https://amulya.server.ijebr.com/user/sign-up", {
+      fetch("http://localhost:3000/user/sign-up", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -615,7 +615,7 @@
       const phone_Number = document.getElementById('phone_Number').value;
       const password = document.getElementById('password').value;
 
-      fetch("https://amulya.server.ijebr.com/user/verify-otp", {
+      fetch("http://localhost:3000/user/verify-otp", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -649,7 +649,7 @@
       formData.forEach((value, key) => {
         formObj[key] = value;
       })
-      fetch("https://amulya.server.ijebr.com/user/subscribe", {
+      fetch("http://localhost:3000/user/subscribe", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

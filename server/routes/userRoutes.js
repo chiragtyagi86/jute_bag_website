@@ -519,7 +519,7 @@ router.post("/create-order", authenticateToken, (req, res) => {
   });
 });
 
-router.post("/payment/verify", (req, res) => {
+router.post("/payment/verify", authenticateToken, (req, res) => {
   const { razorpay_payment_id, order_id, signature } = req.body;
 
   // You can verify the signature and payment ID here
@@ -535,5 +535,100 @@ router.post("/payment/verify", (req, res) => {
     res.status(400).json({ error: "Payment verification failed" });
   }
 });
+
+router.post("/order-details", authenticateToken, (req, res) => {
+  const { order_id } = req.body;
+
+  if (!order_id) {
+    return res.status(400).json({ error: "Order ID is required" });
+  }
+
+  const sql = "SELECT * FROM orders WHERE order_id =?";
+
+  db.query(sql, [order_id], (err, result) => {
+    if (err) return res.status(500).json({ message: "Server error" });
+    if (result.length === 0)
+      return res.status(404).json({ message: "No order found" });
+
+    res.json({
+      order: result[0],
+      message: `Order details for ${order_id}`,
+    });
+  });
+})
+
+// router.post("/refund", authenticateToken, (req, res) => {
+//   const { order_id, email, refund_reason } = req.body;
+
+//   if (!order_id || !email || !refund_reason) {
+//     return res.status(400).json({ error: "All fields are required" });
+//   }
+
+//   const checkOrderID = "SELECT * FROM refund WHERE order_id = ?";
+//   db.query(checkOrderID, [order_id], (err, result) => {
+//     if (err) {
+//       return res.status(500).json({ message: "Server error" });
+//     }
+
+//     if (result.length > 0) {
+//       return res.status(400).json({ error: "Refund request already submitted for this order" });
+//     }
+
+//     const refund_id = "Refund" + Math.floor(100000 + Math.random() * 900000);
+//     const refundData = {
+//       refund_id,
+//       order_id,
+//       email,
+//       refund_reason,
+//     };
+
+//     const sql = "INSERT INTO refund SET ?";
+//     db.query(sql, refundData, (err, result) => {
+//       if (err) {
+//         return res.status(500).json({ message: "Server error here" });
+//       }
+//       res.json({ message: "Refund request submitted successfully", refund_id });
+//     });
+//   });
+// });
+
+router.post("/refund", authenticateToken, (req, res) => {
+  const { order_id, email, refund_reason } = req.body;
+
+  if (!order_id || !email || !refund_reason) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  const checkOrderID = "SELECT * FROM refund WHERE order_id = ?";
+  db.query(checkOrderID, [order_id], (err, result) => {
+    if (err) {
+      console.error("Error in checkOrderID query:", err); // Log error details
+      return res.status(500).json({ message: "Server error" });
+    }
+
+    if (result.length > 0) {
+      return res.status(400).json({ error: "Refund request already submitted for this order" });
+    }
+
+    const refund_id = "Refund" + Math.floor(100000 + Math.random() * 900000);
+    const refundData = {
+      refund_id,
+      order_id,
+      email,
+      refund_reason,
+    };
+
+    const sql = "INSERT INTO refund SET ?";
+    db.query(sql, refundData, (err, result) => {
+      if (err) {
+        console.error("Error in INSERT query:", err); // Log error details
+        return res.status(500).json({ message: "Server error here" });
+      }
+      res.json({ message: "Refund request submitted successfully", refund_id });
+    });
+  });
+});
+
+
 
 module.exports = router;
