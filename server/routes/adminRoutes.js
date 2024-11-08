@@ -149,10 +149,10 @@ router.post(
       return res.status(400).json({ error: "Product image is required" });
     }
 
-    const productImgUrl = `https://amulya.server.ijebr.com/uploads/${req.files.product_img[0].filename}`;
+    const productImgUrl = `https://server.server-anumala.co.in/uploads/${req.files.product_img[0].filename}`;
     const productMediaUrls = req.files.product_media
       ? req.files.product_media.map(
-        (file) => `https://amulya.server.ijebr.com/uploads/${file.filename}`
+        (file) => `https://server.server-anumala.co.in/uploads/${file.filename}`
       )
       : [];
     const productMediaString = productMediaUrls.join(",");

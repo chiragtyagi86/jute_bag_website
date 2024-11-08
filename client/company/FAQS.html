@@ -55,7 +55,7 @@
       if (inputElement) {
         let searchQuery = inputElement.value;
         fetch(
-          `http://localhost:3000/search-products/${encodeURIComponent(
+          `https://server.server-anumala.co.in/search-products/${encodeURIComponent(
             searchQuery
           )}`
         )
@@ -733,7 +733,7 @@
           formData.forEach((value, key) => {
             formObj[key] = value;
           });
-          fetch("http://localhost:3000/user/subscribe", {
+          fetch("https://server.server-anumala.co.in/user/subscribe", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
