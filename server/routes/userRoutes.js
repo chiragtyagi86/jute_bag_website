@@ -629,6 +629,31 @@ router.post("/refund", authenticateToken, (req, res) => {
   });
 });
 
+router.post("/refund-data", authenticateToken, (req, res) => {
+  let {email} = req.body;
+  console.log(req.body);
+  
+
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+  email = email.trim();
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Invalid email" });
+  }
+  
+  
+  const sql = "SELECT * FROM `refund` WHERE `email` = ?";
+  db.query(sql, [email], (err, result) => {
+    if (err) {
+      console.error("Error in SELECT query:", err); // Log error details
+      if (result.length === 0)
+        return res.status(404).json({ message: "No orders found" });
+      return res.status(500).json({ message: "Server error" });
+    }
+    res.json({ refunds: result });
+  })
+})
 
 
 module.exports = router;
