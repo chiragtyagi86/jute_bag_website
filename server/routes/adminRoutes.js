@@ -314,8 +314,6 @@ router.post("/signin", (req, res) => {
 
 router.post("/update-refund", verifyAdmin, authenticateToken, (req, res)=> {
   const {refund_id, refund_status} = req.body;
-  console.log(req.body);
-  
   if (!refund_id ||!refund_status) {
     return res.status(400).json({ error: "All fields are required" });
   }

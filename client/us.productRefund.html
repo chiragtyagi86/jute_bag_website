@@ -464,7 +464,6 @@
           window.location.href = "/sign-in.html";
         } else {
           const data = await response.json();
-          console.log(data.userDetails);
 
           document.getElementById("user").innerHTML = data.message;
 
@@ -572,8 +571,6 @@
             })
         })
         const response = await data.json();
-
-        console.log(response);
         document.getElementById("email").value = response.order.email;
         document.getElementById("order-id").value = response.order.order_id;
 
@@ -590,7 +587,6 @@
         formData.forEach((value, key) => {
             formObj[key] = value;
         })
-        console.log(formObj);
         //send to backend
         fetch("http://localhost:3000/user/refund", {
             method: "POST",
@@ -603,7 +599,6 @@
         })
        .then(response => response.json())
        .then(data => {
-            console.log(data);
             alert(data.message ? data.message : data.error);
             window.location.href = "./us.manageRefunds.html";
         })

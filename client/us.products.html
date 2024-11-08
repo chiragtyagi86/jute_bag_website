@@ -543,9 +543,6 @@
           const data = await response.json();
           const userid = data.userDetails.userid;
           const quantity = 1;
-          console.log("in add to cart funciton");
-          console.log(userid);
-          console.log(product_id);
           const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
             method: "POST",
             headers: {
@@ -555,7 +552,6 @@
             body: JSON.stringify({ userid, product_id, quantity }),
           });
           if (addToCartResponse.ok) {
-            console.log("Product added to cart successfully!");
             button.textContent = 'Added to Cart';
             button.disabled = true;
           } else {

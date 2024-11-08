@@ -494,7 +494,7 @@
     const queryString = urlObj.search;
     const product_id = queryString.substring(1);
 
-    console.log(product_id);
+
 
     function geteditData(product_id) {
       const token = localStorage.getItem("token");
@@ -728,9 +728,6 @@
           const data = await response.json();
           const userid = data.userDetails.userid;
           const quantity = 1;
-          console.log("in add to cart funciton");
-          console.log(userid);
-          console.log(product_id);
           const addToCartResponse = await fetch("http://localhost:3000/cart/add", {
             method: "POST",
             headers: {

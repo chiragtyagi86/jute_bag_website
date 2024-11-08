@@ -857,7 +857,7 @@
         });
 
         data3.forEach(trending => {
-          console.log(trending);
+
 
           const li3 = document.createElement('li');
           if (data3.indexOf(trending) >= 3) {
@@ -954,7 +954,7 @@
           window.location.href = "/sign-in.html";
         } else {
           const data = await response.json();
-          console.log(data.userDetails);
+
 
           document.getElementById("user").innerHTML = data.message;
 

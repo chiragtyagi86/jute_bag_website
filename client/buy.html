@@ -692,7 +692,7 @@
           })
 
           .then((data) => {
-            console.log(data);
+
             
             const productContainer = document.getElementById("disp_product");
             productContainer.innerHTML = "";
@@ -731,13 +731,13 @@
 
             const container = document.getElementById("custom_product_qty");
             customQty.forEach(custom => {
-              console.log(custom);
+
               
             const option = document.createElement("option");
             option.value = custom.price;
             option.innerText = custom.quantity;
             container.appendChild(option);
-            console.log(custom);
+
             
             })
             
@@ -833,7 +833,7 @@
             window.location.href = "/sign-in.html";
           } else {
             const data = await response.json();
-            console.log(data.userDetails);
+
 
             //    document.getElementById("user").innerHTML = data.message;
             document.getElementById("email").value = data.userDetails.email;
@@ -1097,7 +1097,6 @@ document
           formData.forEach((value, key) => {
             formObj[key] = value;
           });
-          console.log(formObj);
           formObj.product_id = product_id;
           const priceString = document.getElementById("final_price").innerText;
           formObj.price = parseInt(priceString.replace(/₹/g, "").trim(), 10);

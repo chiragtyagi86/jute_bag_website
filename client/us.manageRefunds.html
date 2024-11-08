@@ -439,7 +439,6 @@
           window.location.href = "/sign-in.html";
         } else {
           const data = await response.json();
-          console.log(data.userDetails);
           
           document.getElementById("user").innerHTML = data.message;
           const email = data.message;
@@ -544,7 +543,7 @@
        .then(data => {
         const refund = data.refunds;
         refund.forEach(refund => {
-          console.log(refund);
+
           
         })
         

@@ -529,7 +529,7 @@
         formData.forEach((value, key) => {
           formObj[key] = value;
         });
-        console.log(formObj);
+
         try {
           const response = await fetch("http://localhost:3000/user/sign-in", {
             method: "POST",

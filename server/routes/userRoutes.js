@@ -258,7 +258,7 @@ router.post("/profile", authenticateToken, (req, res) => {
   if (!first_name || !last_name || !address || !phone_Number) {
     return res.status(400).json({ error: "All fields are required" });
   }
-  console.log(first_name, last_name, address, phone_Number, userid);
+
   const updateQuery = 'UPDATE users SET first_name = ?, last_name = ?, address = ?, phone_Number = ? WHERE userid = ?';
   db.query(updateQuery, [first_name, last_name, address, phone_Number, userid], (err, result) => {
     if (err) {
@@ -272,7 +272,7 @@ router.post("/profile", authenticateToken, (req, res) => {
 
 router.post("/verify-password", authenticateToken, (req, res) => {
   const { currentPassword, userid } = req.body;
-  console.log(currentPassword, userid);
+
   if (!currentPassword) {
     return res.status(400).json({ error: "Current password is required" });
   }
@@ -488,14 +488,14 @@ router.post("/payment", authenticateToken, (req, res) => {
       return res.status(500).json({ error: "Failed to create payment order" });
     }
     res.json(order);
-    console.log(order);
+
     // Send order details back to client
   });
 });
 
 router.post("/create-order", authenticateToken, (req, res) => {
   const { product_id, email, payment_method, price, product_qty, custom_product_qty } = req.body;
-  console.log(req.body);
+
 
   // Assign the selected quantity to a variable
   const quantity = product_qty || custom_product_qty; // This will take product_qty if it's truthy, otherwise it will take custom_product_qty
@@ -631,9 +631,6 @@ router.post("/refund", authenticateToken, (req, res) => {
 
 router.post("/refund-data", authenticateToken, (req, res) => {
   let {email} = req.body;
-  console.log(req.body);
-  
-
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
