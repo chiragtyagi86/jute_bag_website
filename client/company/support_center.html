@@ -285,9 +285,10 @@
                       type="text"
                       id="name"
                       name="name"
+                      required
                     />
                   </div>
-        
+              
                   <div>
                     <label class="sr-only" for="email">Email</label>
                     <input
@@ -296,9 +297,10 @@
                       type="email"
                       id="email"
                       name="email"
+                      required
                     />
                   </div>
-        
+              
                   <div>
                     <label class="sr-only" for="message">Message</label>
                     <textarea
@@ -307,15 +309,21 @@
                       id="message"
                       name="message"
                       rows="6"
+                      required
                     ></textarea>
                   </div>
-        
+              
                   <button
                     type="submit"
                     class="w-full rounded-lg bg-teal-600 px-5 py-3 font-medium text-white sm:w-auto"
                   >
                     Send Message
                   </button>
+              
+                  <!-- Feedback Message -->
+                  <div id="response-message" class="mt-4 hidden">
+                    <p class="text-center text-sm font-medium" id="response-text"></p>
+                  </div>
                 </form>
               </div>
             </div>
@@ -510,6 +518,59 @@
           </div>
         </div>
       </footer>
+
+
+    <script>
+      document.getElementById('support-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        const data = {
+          name: name,
+          email: email,
+          message: message
+        };
+
+        fetch('http://localhost:3000/user/support-center', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data) 
+        })
+        .then(response => response.json())
+        .then(data => {
+          const responseMessage = document.getElementById('response-message');
+          const responseText = document.getElementById('response-text');
+
+          if (data.message) {
+            // Success
+            responseMessage.classList.remove('hidden');
+            responseText.classList.add('text-green-500');
+            responseText.classList.remove('text-red-500');
+            responseText.textContent = data.message;
+          } else if (data.error) {
+            // Failure
+            responseMessage.classList.remove('hidden');
+            responseText.classList.add('text-red-500'); 
+            responseText.classList.remove('text-green-500');
+            responseText.textContent = data.error;
+          }
+        })
+        .catch(error => {
+          const responseMessage = document.getElementById('response-message');
+          const responseText = document.getElementById('response-text');
+
+          responseMessage.classList.remove('hidden');
+          responseText.classList.add('text-red-500');
+          responseText.classList.remove('text-green-500');
+          responseText.textContent = 'An error occurred while sending your message. Please try again.';
+        });
+      });
+    </script>
 
     <script>
         new Swiper(".swiper", {
