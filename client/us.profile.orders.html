@@ -557,7 +557,7 @@
           </div>
           <div>
             <header>
-              <h2>${data2.product_name}</h2>
+              <h2>${data2.product_name.slice(0,50) + "..."}</h2>
             </header>
             <button onclick="window.location.href='us.disp_product.html?${data2.product_id}'" class="hover:bg-gray-100 px-2 py-1 m-2 text-sm border border-gray-200 rounded-lg">View Product</button>
           </div>

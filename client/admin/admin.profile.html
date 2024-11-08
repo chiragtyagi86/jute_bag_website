@@ -234,7 +234,7 @@
                   <input type="password" id="confirmPassword" disabled required
                     class="mt-1 block w-full rounded-lg border border-gray-200 p-4 text-sm shadow-sm focus:ring focus:ring-indigo-200">
                 </div>
-                <button type="submit" disabled
+                <button type="submit" 
                   class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-200">
                   Change Password
                 </button>
@@ -307,9 +307,101 @@
               alert("An error occurred during logout");
             }
           });
+          document.getElementById('verifyPasswordButton').addEventListener('click', async function () {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const token = localStorage.getItem("token");
+        if (!token) {
+            window.location.href = "/sign-in.html";
+            return;
+        }
+      try {
+        const userResponse = await fetch("https://server.server-anumala.co.in/user/dashboard", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!userResponse.ok) {
+          console.error("Error fetching user dashboard:", userResponse.status);
+          window.location.href = "/sign-in.html";
+          return;
+        }
+        const data = await userResponse.json();
+        const response = await fetch("https://server.server-anumala.co.in/admin/verify-password", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ currentPassword }),
+            });
+        
+            if (response.ok) {
+            document.getElementById('newPassword').disabled = false;
+            document.getElementById('confirmPassword').disabled = false;
+            document.querySelector('button[type="submit"]').disabled = false;
+            alert("Current password verified. Please enter a new password.");
+            } else {
+            const data = await response.json();
+            alert(data.error);
+            }
+        }
+     catch (error) {
+        console.error("Error:", error);
+        // window.location.href = "/sign-in.html";
+    }}
+    );
 
-
-
+    
+    document.getElementById('passwordChangeForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const token = localStorage.getItem("token");
+        if (newPassword !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+        if (!token) {
+            window.location.href = "/sign-in.html";
+            return;
+        }
+      try {
+        const userResponse = await fetch("https://server.server-anumala.co.in/admin/dashboard", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!userResponse.ok) {
+          console.error("Error fetching user dashboard:", userResponse.status);
+          window.location.href = "/sign-in.html";
+          return;
+        }
+        const data = await userResponse.json();
+        const response = await fetch("https://server.server-anumala.co.in/admin/change-password", {
+            method: "POST",
+            headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ newPassword }),
+        });
+    
+        if (response.ok) {
+            alert("Password changed successfully!");
+            // Optionally, redirect or clear the form
+            // window.location.href = "/us.profile.html";
+        } else {
+            const data = await response.json();
+            alert(data.error);
+        }
+        }
+     catch (error) {
+        console.error("Error:", error);
+        window.location.href = "/sign-in.html";
+    }}
+    );
 
 
       </script>
